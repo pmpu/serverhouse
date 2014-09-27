@@ -16,11 +16,18 @@ public class mainScript : MonoBehaviour {
 	float rotationY = 0F;
 
 	// Use this for initialization
-	void Start () {
-	
+	IEnumerator Start () {
+		string url = "https://www.google.ru/images/srpr/logo11w.png";
+		WWW www = new WWW(url);
+		yield return www;
+		//Debug.Log (www.text);
+		//renderer.material.mainTexture = www.texture;
+		GameObject quad =  GameObject.Find ("quad");
+		quad.renderer.material.mainTexture = www.texture;
+		quad.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+
+
 	}
-
-
 	
 	// Update is called once per frame
 	void Update () {
