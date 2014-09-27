@@ -17,16 +17,15 @@ public class mainScript : MonoBehaviour {
 
 	// Use this for initialization
 	IEnumerator Start () {
+		// Load Google logo as texture to quad primitive
 		string url = "https://www.google.ru/images/srpr/logo11w.png";
 		WWW www = new WWW(url);
 		yield return www;
-		//Debug.Log (www.text);
-		//renderer.material.mainTexture = www.texture;
 		GameObject quad =  GameObject.Find ("quad");
+		// attach texture to gameObject
 		quad.renderer.material.mainTexture = www.texture;
+		// set shader for transparent background (not black)
 		quad.renderer.material.shader = Shader.Find("Transparent/Diffuse");
-
-
 	}
 	
 	// Update is called once per frame
