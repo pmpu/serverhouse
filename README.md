@@ -10,7 +10,7 @@
   3_chat<br>
   4_2dmap
 
-<b>Desgin:</b><br>
+<b>Design:</b><br>
   6_hardDrive<br>
   7_texturedCabinet<br>
   8_animatedArrow<br>
