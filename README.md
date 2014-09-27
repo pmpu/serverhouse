@@ -1,7 +1,7 @@
 
 <h1 align="right">serverhouse</h1>
 
-## test projects
+## test tasks
 <img align="right" width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/roles.jpg">
 
 <b>Code:</b><br>
