@@ -2,7 +2,7 @@
 <h1 align="right">serverhouse</h1>
 
 ## test projects
-<img align="right" width="300"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/roles.jpg">
+<img align="right" width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/roles.jpg">
 
 <b>Code:</b><br>
   1_3dcubes<br>
