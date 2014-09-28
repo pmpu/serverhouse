@@ -17,4 +17,10 @@
 
 <br><br>
 ## screens
-<img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/screenshots/menu27092014.png">
+<img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/screenshots/chat29092014.jpg"><br>
+<i>(chat project)</i>
+
+<img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/screenshots/menu27092014.png"><br>
+<i>(menu project)</i>
+
+
