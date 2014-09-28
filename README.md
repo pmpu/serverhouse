@@ -1,6 +1,5 @@
-
 <h1 align="right">serverhouse</h1>
-
+<a align="left" href="https://github.com/pmpu/serverhouse/wiki/FAQ">FAQ и полезная информация</a>
 ## test tasks
 <img align="right" width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/roles.jpg">
 
