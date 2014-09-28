@@ -6,7 +6,7 @@
 <b>Code:</b><br>
   1_3dcubes<br>
   2_menu - <b>done</b><br>
-  3_chat<br>
+  3_chat<br> - <b>done</b><br>
   4_2dmap
 
 <b>Design:</b><br>
