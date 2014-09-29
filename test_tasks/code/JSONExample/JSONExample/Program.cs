@@ -3,6 +3,9 @@
 using SimpleJson;
 using System.Collections.Generic;
 using System.Net;
+using System.Drawing;
+using System.IO;
+
 
 namespace JSONExample
 {
@@ -55,6 +58,16 @@ namespace JSONExample
 
 			Console.WriteLine (first.y);
 
+			// image draw example
+			Bitmap image = new Bitmap (200, 200);
+			Graphics gr = Graphics.FromImage (image);
+			gr.FillRectangle (Brushes.Orange, new RectangleF(0, 0, 50, 50));
+			string path = System.IO.Path.Combine (
+				Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+				"Example.png"
+			);
+
+			image.Save (path);
 		}
 
 		private static Dictionary<string, string> parsePost (string postString) {
