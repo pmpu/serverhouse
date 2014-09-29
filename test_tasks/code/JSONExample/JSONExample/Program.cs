@@ -1,6 +1,8 @@
 ﻿using System;
 
 using SimpleJson;
+using System.Collections.Generic;
+using System.Net;
 
 namespace JSONExample
 {
@@ -31,8 +33,30 @@ namespace JSONExample
 
 			string jsonString = jsonObject.ToString();
 
-			Console.WriteLine (jsonString);
+			JsonObject obj = (JsonObject)SimpleJson.SimpleJson.DeserializeObject (jsonString);
 
+			jsonString = "foo=45&data=" + jsonString;
+
+			jsonString = parsePost (jsonString)["data"];
+
+
+			Console.WriteLine (jsonString);
+			Console.WriteLine (obj["name"]);
+
+		}
+
+		private static Dictionary<string, string> parsePost (string postString) {
+			Dictionary<string, string> postParams = new Dictionary<string, string>();
+			string[] rawParams = postString.Split('&');
+			foreach (string param in rawParams)
+			{
+				string[] kvPair = param.Split('=');
+				string key = kvPair[0];
+				string value = WebUtility.UrlDecode(kvPair[1]);
+				postParams.Add(key, value);
+			}
+
+			return postParams;
 		}
 	}
 }
