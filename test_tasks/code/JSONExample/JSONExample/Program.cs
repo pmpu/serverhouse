@@ -4,6 +4,13 @@ using SimpleJson;
 using System.Collections.Generic;
 using System.Net;
 
+struct XY
+{
+	public int x;
+	public int y;
+}
+
+
 namespace JSONExample
 {
 	class MainClass
@@ -42,6 +49,11 @@ namespace JSONExample
 
 			Console.WriteLine (jsonString);
 			Console.WriteLine (obj["name"]);
+
+			XY first = new XY();
+			first.y = 21;
+
+			Console.WriteLine (first.y);
 
 		}
 
