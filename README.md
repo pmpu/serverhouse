@@ -10,9 +10,9 @@
   4_2dmap
 
 <b>Design:</b><br>
-  6_hardDrive<br>
+  6_hardDrive - <b>done</b><<br>
   7_texturedCabinet<br>
-  8_animatedArrow<br>
+  8_animatedArrow - <b>done</b><br>
   9_unityProject (with designed models and animations)<br>
 
 <br><br>
