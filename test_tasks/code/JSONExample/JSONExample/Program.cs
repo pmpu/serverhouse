@@ -6,6 +6,13 @@ using System.Net;
 
 namespace JSONExample
 {
+
+	struct XY
+	{
+		public int x;
+		public int y;
+	}
+
 	class MainClass
 	{
 		public static void Main (string[] args)
@@ -42,6 +49,11 @@ namespace JSONExample
 
 			Console.WriteLine (jsonString);
 			Console.WriteLine (obj["name"]);
+
+			XY first = new XY();
+			first.y = 21;
+
+			Console.WriteLine (first.y);
 
 		}
 
