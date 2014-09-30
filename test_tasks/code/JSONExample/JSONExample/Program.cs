@@ -3,8 +3,7 @@
 using SimpleJson;
 using System.Collections.Generic;
 using System.Net;
-using System.Drawing;
-using System.IO;
+
 
 
 namespace JSONExample
@@ -58,16 +57,11 @@ namespace JSONExample
 
 			Console.WriteLine (first.y);
 
-			// image draw example
-			Bitmap image = new Bitmap (200, 200);
-			Graphics gr = Graphics.FromImage (image);
-			gr.FillRectangle (Brushes.Orange, new RectangleF(0, 0, 50, 50));
-			string path = System.IO.Path.Combine (
-				Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-				"Example.png"
-			);
 
-			image.Save (path);
+			jsonString = "{\"x\": 34.54, \"y\": 65.65 }";
+			obj = (JsonObject)SimpleJson.SimpleJson.DeserializeObject (jsonString);
+			double x = double.Parse(obj ["x"].ToString());
+			Console.Write (x);
 		}
 
 		private static Dictionary<string, string> parsePost (string postString) {
