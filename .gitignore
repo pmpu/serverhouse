@@ -13,7 +13,6 @@ Library/
 ExportedObj/
 *.svd
 *.userprefs
-*.csproj
 *.pidb
 *.suo
 *.user
