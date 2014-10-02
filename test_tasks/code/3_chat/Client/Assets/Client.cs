@@ -28,7 +28,7 @@ class Client
     public void SendMessage(string message)
     {
         message.Trim();
-        byte[] Buffer = Encoding.ASCII.GetBytes((message).ToCharArray());
+        byte[] Buffer = Encoding.Default.GetBytes((message).ToCharArray());/*was ASCII, stay Default*/
         client.GetStream().Write(Buffer, 0, Buffer.Length);
         Chat.message.Add(message);
     }
@@ -48,7 +48,7 @@ class Client
                 }
             }
             if (Buffer.Count > 0)
-                Chat.message.Add(Encoding.ASCII.GetString(Buffer.ToArray()));
+                Chat.message.Add(Encoding.Default.GetString(Buffer.ToArray()));/*was ASCII, stay Default*/
         }
     }
     public void Destruct()
