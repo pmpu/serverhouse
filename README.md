@@ -7,7 +7,7 @@
   1_3dcubes<br>
   2_menu - <b>done</b><br>
   3_chat - <b>done</b><br>
-  4_2dmap
+  4_2dmap - <b>done</b><br>
 
 <b>Design:</b><br>
   6_hardDrive - <b>done</b><br>
@@ -17,6 +17,11 @@
 
 <br><br>
 ## screens
+
+
+<img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/screenshots/2dmap03102014.png"><br>
+<i>(2D Map project)</i>
+
 <img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/screenshots/hard29092014.jpg"><br>
 <i>(HardDrive project)</i>
 
