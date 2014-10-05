@@ -1,8 +1,8 @@
 <h1 align="right">serverhouse</h1>
 <a align="left" href="https://github.com/pmpu/serverhouse/wiki/FAQ">FAQ и полезная информация</a>
 
-## новые задачи
-<a align="right" href="https://docs.google.com/document/d/1x4Olp60GagKTgpSLRdgsnVOH-qS7F-PeaJQaMJFIeVc/edit?usp=sharing">исходник</a><br>
+## новые задачи (<a align="right" href="https://docs.google.com/document/d/1x4Olp60GagKTgpSLRdgsnVOH-qS7F-PeaJQaMJFIeVc/edit?usp=sharing">исходник</a>)
+
 <b>Задачи мастера моделирования (art6)</b><br>
 Улучшить первый жесткий диск – более детальная модель передней, обратной стороны.
 Отдельная модель с <a href="http://comp-security.net/wp-content/uploads/harddisk.jpg">внутренностями</a><br>
