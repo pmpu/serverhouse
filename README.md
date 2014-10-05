@@ -57,7 +57,6 @@
 
 ## test tasks
 <img align="right" width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/roles.jpg">
-
 <b>Code:</b><br>
   1_3dcubes<br>
   2_menu - <b>done</b><br>
