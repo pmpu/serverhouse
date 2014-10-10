@@ -12,11 +12,11 @@ Temp/
 # ===================================== #
 ExportedObj/
 *.svd
-*.userprefs
+#*.userprefs
 *.pidb
 *.suo
-*.user
-*.booproj
+#*.user
+#*.booproj
  
 # ============ #
 # OS generated #
@@ -37,7 +37,7 @@ x64/
 *_i.c
 *_p.c
 *.ilk
-*.meta
+#*.meta
 *.obj
 *.pch
 *.pdb
