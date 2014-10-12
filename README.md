@@ -12,6 +12,12 @@
 
 <hr>
 
+## New tasks
+<img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/02d5c744028fc1aed2b6fc3c3b8d17598dc2adec/other/images/screenshots/hddinside.jpg"><br>
+<i>(New HardDrive)</i>
+
+<hr>
+
 ### Задачи мастера моделирования и аниматора (art6 и art8)
 Улучшить первый жесткий диск – более детальная модель передней, обратной стороны.
 Отдельная модель с <a href="http://comp-security.net/wp-content/uploads/harddisk.jpg">внутренностями</a><br>
