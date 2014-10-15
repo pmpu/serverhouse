@@ -3,7 +3,7 @@
 
 ## новые задачи
 
- - hdd с внутренностями + грубая текстура 
+ - hdd с внутренностями + грубая текстура + анимация разборки hdd на части
  - unity-проект с hdd
  - усовершенствованное меню
  - титры на клиенте
@@ -12,9 +12,9 @@
 
 <hr>
 
-## New tasks
+## new tasks - new screens
 <img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/02d5c744028fc1aed2b6fc3c3b8d17598dc2adec/other/images/screenshots/hddinside.jpg"><br>
-<i>(New HardDrive)</i>
+<i>(brand new HardDrive)</i>
 
 <hr>
 
