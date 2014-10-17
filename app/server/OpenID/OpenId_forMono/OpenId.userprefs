@@ -1,0 +1,12 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="FirefoxHTML" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="OpenId\App_Start\AuthConfig.cs">
+    <Files>
+      <File FileName="OpenId\App_Start\AuthConfig.cs" Line="56" Column="56" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
