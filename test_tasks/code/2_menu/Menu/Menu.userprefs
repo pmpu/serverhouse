@@ -1,6 +1,15 @@
 ﻿<Properties>
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench />
+=======
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../SimpleHttpServerExample/SimpleHttpServer.cs">
+    <Files>
+      <File FileName="../../SimpleHttpServerExample/SimpleHttpServer.cs" Line="24" Column="32" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+>>>>>>> FETCH_HEAD
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

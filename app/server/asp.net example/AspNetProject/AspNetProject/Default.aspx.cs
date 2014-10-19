@@ -45,6 +45,10 @@ namespace AspNetProject
 		{
 			button1.Text = "You clicked me!";
 		}
+
+		public void textChanged (object sender, EventArgs args){
+			myTextBox.Text = "Hooray!";
+		}
 	}
 }
 
