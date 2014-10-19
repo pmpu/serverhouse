@@ -1,0 +1,7 @@
+<sbspresets formatversion="1" count="1">
+ <sbspreset pkgurl="pkg://New_Graph" label="preset">
+  <presetinput identifier="$pixelsize" uid="4294967295" type="1" value="1,1"/>
+  <presetinput identifier="$outputsize" uid="4294967295" type="8" value="9,9"/>
+  <presetinput identifier="$randomseed" uid="4294967295" type="4" value="0"/>
+ </sbspreset>
+</sbspresets>
