@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OpenXNet</name>
+    </assembly>
+    <members>
+        <member name="P:OpenXNet.Banner.Weight">
+            <summary>
+            priority weight of the banner
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.Block">
+            <summary>
+            Frequency capping: reset period, in seconds.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.Capping">
+            <summary>
+            Frequency capping: total views per user.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.SessionCapping">
+            <summary>
+            Frequency capping: total views per period.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.CampaignId">
+            <summary>
+            ID of the campaign to associate with the banner
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.BackupImages">
+            <summary>
+            Backup image name and binary data in case the primary image is a swf file
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.AdServer">
+            <summary>
+            A text field for HTML banners to indicate which adserver this ad is from
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.Alt">
+            <summary>
+            Provides the alt value for SQL/Web/External banners.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.ImageUrl">
+            <summary>
+            This field provides the URL for the image file for an external banner.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.Status">
+            <summary>
+            Indicate if the banner is active
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.Target">
+            <summary>
+            HTML target of the banner (e.g. _blank, _self)
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.StorageType">
+            <summary>
+            Storage type for the banner, which is one of 'sql','web','url','html','txt'.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.Transparent">
+            <summary>
+            Transparency information for SWF banners
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Banner.Url">
+            <summary>
+            Destination URL of the banner.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.BannerTargeting.Logical">
+            <summary>
+            Logical operator: 'and' or 'or'
+            </summary>
+        </member>
+        <member name="P:OpenXNet.BannerTargeting.Type">
+            <summary>
+            Which targeting plugin this rule uses.
+            e.g. 'Site:Pageurl'
+            </summary>
+        </member>
+        <member name="P:OpenXNet.BannerTargeting.Comparison">
+            <summary>
+            Which operation to apply to the data in order to determine if a rule passes or fails.
+            e.g. '==', '!='
+            </summary>
+        </member>
+        <member name="P:OpenXNet.BannerTargeting.Data">
+            <summary>
+            Actual data to be targeted. Since this is specific to the individual plugin it is fairly free-form.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Campaign.Block">
+            <summary>
+            Frequency capping: reset period, in seconds.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Campaign.Capping">
+            <summary>
+            Frequency capping: total views per user.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Campaign.Clicks">
+            <summary>
+            Number of clicks booked for the campaign.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Campaign.Impressions">
+            <summary>
+            Number of impressions booked for the campaign.
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Campaign.Priority">
+            <summary>
+            Priority level for the campaign
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Campaign.RevenueType">
+            <summary>
+            Revenue type (CPM, CPA, etc)
+            <see cref="P:OpenXNet.Campaign.RevenueType"/>
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Campaign.SessionCapping">
+            <summary>
+            Frequency capping: total views per period
+            (defined in seconds by "block").
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Campaign.Weight">
+            <summary>
+            Priority weight of this campaign
+            </summary>
+        </member>
+        <member name="M:OpenXNet.IOpenXProxy.GetBannerTargeting(System.String,System.Int32)">
+            <summary>
+            Gets banner targeting information.
+            See https://developer.openx.org/wiki/display/API/OpenX+API+Targeting
+            </summary>
+            <param name="sessionId"></param>
+            <param name="bannerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenXNet.IOpenXProxy.SetBannerTargeting(System.String,System.Int32,OpenXNet.BannerTargeting[])">
+            <summary>
+            Sets banner targeting information
+            See https://developer.openx.org/wiki/display/API/OpenX+API+Targeting
+            </summary>
+            <param name="sessionId"></param>
+            <param name="bannerId"></param>
+            <param name="targeting"></param>
+        </member>
+        <member name="M:OpenXNet.ISession.GetBannerTargeting(System.Int32)">
+            <summary>
+            Gets banner targeting information.
+            See https://developer.openx.org/wiki/display/API/OpenX+API+Targeting
+            </summary>
+            <param name="sessionId"></param>
+            <param name="bannerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenXNet.ISession.SetBannerTargeting(System.Int32,OpenXNet.BannerTargeting[])">
+            <summary>
+            Sets banner targeting information
+            See https://developer.openx.org/wiki/display/API/OpenX+API+Targeting
+            </summary>
+            <param name="sessionId"></param>
+            <param name="bannerId"></param>
+            <param name="targeting"></param>
+        </member>
+        <member name="F:OpenXNet.RevenueType.CPM">
+            <summary>
+            Cost per thousand impressions
+            </summary>
+        </member>
+        <member name="F:OpenXNet.RevenueType.CPC">
+            <summary>
+            Cost per click
+            </summary>
+        </member>
+        <member name="F:OpenXNet.RevenueType.CPA">
+            <summary>
+            Cost per action
+            </summary>
+        </member>
+        <member name="F:OpenXNet.RevenueType.MT">
+            <summary>
+            Monthly tennancy
+            </summary>
+        </member>
+        <member name="P:OpenXNet.Zone.Type">
+            <summary>
+            <see cref="T:OpenXNet.ZoneType"/>
+            </summary>
+        </member>
+    </members>
+</doc>

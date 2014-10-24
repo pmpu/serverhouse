@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="FirefoxHTML" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="OpenId\App_Start\AuthConfig.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../../../Library/Frameworks/Mono.framework/Versions/3.10.0/lib/mono/4.5/Microsoft.Common.targets">
     <Files>
-      <File FileName="OpenId\App_Start\AuthConfig.cs" Line="56" Column="56" />
+      <File FileName="OpenId/App_Start/AuthConfig.cs" Line="7" Column="7" />
+      <File FileName="OpenId/Code/VKontakteAuthenticationClient.cs" Line="1" Column="1" />
+      <File FileName="../../../../../../../Library/Frameworks/Mono.framework/Versions/3.10.0/lib/mono/4.5/Microsoft.Common.targets" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
