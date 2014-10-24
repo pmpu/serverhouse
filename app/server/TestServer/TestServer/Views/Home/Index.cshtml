@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Вход</title>
+</head>
+<body>
+    <div>
+        <a href="Home/Show/1">Страница входа</a>
+        @{
+            var Req = "https://oauth.vk.com/authorize?" +
+            "client_id=4588730&scope=email&redirect_uri=http://localhost:54043/&response_type=code&v=5.25";
+          
+            
+        }
+        <a href="@Req"> Vk </a>
+           </div>
+</body>
+</html>
