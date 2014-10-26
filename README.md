@@ -13,6 +13,7 @@
 <hr>
 
 ## new tasks - new screens
+[![tarantino shit](http://img.youtube.com/vi/TzM7fh1nt-E/0.jpg)](http://www.youtube.com/watch?v=TzM7fh1nt-E)
 <img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/02d5c744028fc1aed2b6fc3c3b8d17598dc2adec/other/images/screenshots/hddinside.jpg"><br>
 <i>(brand new HardDrive)</i>
 
