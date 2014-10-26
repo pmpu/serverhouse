@@ -10,29 +10,38 @@
     <member name="M:System.Web.Helpers.AntiForgery.GetHtml">
       <summary>Добавляет маркер проверки подлинности в форму для защиты от фальсификации запросов.</summary>
       <returns>Возвращает строку, содержащую значение зашифрованного маркера в скрытом поле HTML.</returns>
-      <exception cref="T:System.ArgumentException">Текущий объект <see cref="T:System.Web.HttpContext" /> равен null.</exception>
+      <exception cref="T:System.ArgumentException">Текущий объект <see cref="T:System.Web.HttpContext" /> равен NULL.</exception>
     </member>
     <member name="M:System.Web.Helpers.AntiForgery.GetHtml(System.Web.HttpContextBase,System.String,System.String,System.String)">
       <summary>Добавляет маркер проверки подлинности в форму для защиты от фальсификации запросов и позволяет задать параметры проверки подлинности.</summary>
       <returns>Возвращает значение зашифрованного маркера в скрытом HTML-поле.</returns>
       <param name="httpContext">Данные о контексте HTTP для запроса.</param>
-      <param name="salt">Необязательная строка случайных символов (например, Z*7g1&amp;p4), используемая для усложнения шифрования и усиления защиты. Значение по умолчанию - null.</param>
+      <param name="salt">Необязательная строка случайных символов (например, Z*7g1&amp;p4), используемая для усложнения шифрования и усиления защиты.Значение по умолчанию — NULL.</param>
       <param name="domain">Домен веб-приложения, откуда отправляется запрос.</param>
       <param name="path">Виртуальный корневой путь веб-приложения, откуда отправляется запрос.</param>
-      <exception cref="T:System.ArgumentNullException">Параметр <paramref name="httpContext" /> равен null.</exception>
+      <exception cref="T:System.ArgumentNullException">Параметр <paramref name="httpContext" /> равен NULL.</exception>
     </member>
-    <member name="M:System.Web.Helpers.AntiForgery.GetTokens(System.String,System.String@,System.String@)"></member>
+    <member name="M:System.Web.Helpers.AntiForgery.GetTokens(System.String,System.String@,System.String@)">
+      <summary>Получает маркеры поиска.</summary>
+      <param name="oldCookieToken">Предыдущий маркер cookie.</param>
+      <param name="newCookieToken">Новый маркер cookie.</param>
+      <param name="formToken">Форма маркера.</param>
+    </member>
     <member name="M:System.Web.Helpers.AntiForgery.Validate">
       <summary>Проверяет, что входные данные из поля формы HTML переданы пользователем, который отправил эти данные.</summary>
-      <exception cref="T:System.ArgumentException">Текущее значение <see cref="T:System.Web.HttpContext" /> равен null.</exception>
+      <exception cref="T:System.ArgumentException">Текущее значение <see cref="T:System.Web.HttpContext" /> равно NULL.</exception>
       <exception cref="T:System.Web.Helpers.HttpAntiForgeryException">Отсутствует маркер HTTP-cookie, который должен сопровождать допустимый запрос– или –Отсутствует маркер формы.– или –Значение маркера формы не соответствует маркеру cookie.– или –Значение маркера формы не соответствует маркеру cookie.</exception>
     </member>
-    <member name="M:System.Web.Helpers.AntiForgery.Validate(System.String,System.String)"></member>
+    <member name="M:System.Web.Helpers.AntiForgery.Validate(System.String,System.String)">
+      <summary>Проверяет, что входные данные из поля формы HTML переданы пользователем, который отправил эти данные.</summary>
+      <param name="cookieToken">Значение маркера cookie.</param>
+      <param name="formToken">Форма маркера.</param>
+    </member>
     <member name="M:System.Web.Helpers.AntiForgery.Validate(System.Web.HttpContextBase,System.String)">
       <summary>Проверяет, что входные данные из поля HTML-формы переданы пользователем, который отправил эти данные, и позволяет задать дополнительные данные для проверки.</summary>
       <param name="httpContext">Данные о контексте HTTP для запроса.</param>
-      <param name="salt">Необязательная строка случайных символов (например, Z*7g1&amp;p4), используемая для расшифровки маркера проверки подлинности, созданного классом <see cref="T:System.Web.Helpers.AntiForgery" />. Значение по умолчанию - null.</param>
-      <exception cref="T:System.ArgumentException">Текущее значение <see cref="T:System.Web.HttpContext" /> равен null.</exception>
+      <param name="salt">Необязательная строка случайных символов (например, Z*7g1&amp;p4), используемая для расшифровки маркера проверки подлинности, созданного классом <see cref="T:System.Web.Helpers.AntiForgery" />.Значение по умолчанию — NULL.</param>
+      <exception cref="T:System.ArgumentException">Текущее значение <see cref="T:System.Web.HttpContext" /> равно NULL.</exception>
       <exception cref="T:System.Web.Helpers.HttpAntiForgeryException">Отсутствует маркер HTTP-cookie, который должен сопровождать допустимый запрос.– или –Отсутствует маркер формы.– или –Значение маркера формы не соответствует маркеру cookie.– или –Значение маркера формы не соответствует маркеру cookie.– или –Указанное значение <paramref name="salt" /> не соответствует значению <paramref name="salt" />, использованному для создания маркера формы.</exception>
     </member>
     <member name="T:System.Web.Helpers.AntiForgeryConfig">
@@ -54,6 +63,9 @@
       <summary>Получает или задает значение, указывающее, должна ли система пропускать проверку условий, способных указывать на неправильное использование системы.</summary>
       <returns>Значение true, если такая проверка не нужна; в противном случае —  false .</returns>
     </member>
+    <member name="P:System.Web.Helpers.AntiForgeryConfig.SuppressXFrameOptionsHeader">
+      <summary>Указывает, следует ли подавлять поколение заголовка X-Frame-Options, который используется для предотвращения ClickJacking.По умолчанию заголовок X-Frame-Options создается со значением SAMEORIGIN.Если значение этого параметра — "true", заголовок X-Frame-Options для ответа не будет создан.</summary>
+    </member>
     <member name="P:System.Web.Helpers.AntiForgeryConfig.UniqueClaimTypeIdentifier">
       <summary>Если используется проверка подлинности на основе утверждений, получает или задает тип утверждения, которое используется для идентификации пользователя.</summary>
       <returns>Тип утверждения.</returns>
@@ -73,23 +85,22 @@
       <param name="additionalData">Дополнительные данные, внедренные в маркер.</param>
     </member>
     <member name="T:System.Web.Helpers.UnvalidatedRequestValues">
-      <summary>Обеспечивает доступ к непроверяемым значениям форм в <see cref="T:System.Web.HttpRequest" />.</summary>
+      <summary>Обеспечивает доступ к непроверяемым значениям форм в объекте <see cref="T:System.Web.HttpRequest" />.</summary>
     </member>
     <member name="P:System.Web.Helpers.UnvalidatedRequestValues.Form">
       <summary>Получает коллекцию непроверенных значений формы, которые были отправлены из браузера.</summary>
       <returns>Коллекция непроверенных значений формы.</returns>
     </member>
     <member name="P:System.Web.Helpers.UnvalidatedRequestValues.Item(System.String)">
-      <summary>Возвращает указанный непроверенный объект из коллекции отправленных значений в <see cref="T:System.Web.HttpRequest" />.</summary>
-      <returns>Указанный члена или null, если указанный элемент не найден.</returns>
-      <param name="key">Имя получаемого члена коллекции.</param>
+      <summary>Получает указанный непроверенный объект из коллекции отправленных значений в объекте <see cref="T:System.Web.HttpRequest" />.</summary>
+      <returns>Указанный член или NULL, если указанный элемент не найден.</returns>
     </member>
     <member name="P:System.Web.Helpers.UnvalidatedRequestValues.QueryString">
       <summary>Получает коллекцию непроверенных значений строки запроса.</summary>
       <returns>Коллекция непроверенных значений строки запроса.</returns>
     </member>
     <member name="T:System.Web.Helpers.Validation">
-      <summary>Исключает поля объекта Request из проверки на потенциально опасную HTML-разметку и клиентские сценарии.</summary>
+      <summary>Исключает поля объекта Request из проверки на наличие потенциально опасной разметки HTML и клиентских сценариев.</summary>
     </member>
     <member name="M:System.Web.Helpers.Validation.Unvalidated(System.Web.HttpRequest)">
       <summary>Возвращает версию значений формы, файлов cookie и переменных строк запроса без предварительной проверки на наличие HTML-разметки и клиентских сценариев.</summary>
@@ -100,30 +111,31 @@
       <summary>Возвращает значение из указанного поля формы, файла cookie или переменной строки запроса без предварительной проверки на наличие HTML-разметки и клиентских сценариев.</summary>
       <returns>Строка с непроверенным текстом из указанного поля, файла cookie или значения строки запроса.</returns>
       <param name="request">Объект <see cref="T:System.Web.HttpRequest" />, который содержит значения для исключения из проверки.</param>
-      <param name="key">Имя поля, которое необходимо исключить из проверки. <paramref name="key" /> может ссылаться на поле формы, файл cookie или переменную строки запроса.</param>
+      <param name="key">Имя поля, которое необходимо исключить из проверки.<paramref name="key" /> может ссылаться на поле формы, файл cookie или переменную строки запроса.</param>
     </member>
     <member name="M:System.Web.Helpers.Validation.Unvalidated(System.Web.HttpRequestBase)">
-      <summary>Возвращает все значения из объекта Request (включая поля формы, файлы cookie и строку запроса) без предварительной проверки на наличие HTML-разметки и клиентских сценариев.</summary>
+      <summary>Возвращает все значения из объекта Request (включая поля формы, файлы cookie и строку запроса) без предварительной проверки на наличие разметки HTML и клиентских сценариев.</summary>
       <returns>Объект, который содержит непроверенные версии значений формы, файлов cookie и строк запроса.</returns>
       <param name="request">Объект <see cref="T:System.Web.HttpRequest" />, который содержит значения для исключения из проверки.</param>
     </member>
     <member name="M:System.Web.Helpers.Validation.Unvalidated(System.Web.HttpRequestBase,System.String)">
-      <summary>Возвращает заданное значение из объекта Request, не проверяя его на наличие HTML-разметки и клиентских сценариев.</summary>
+      <summary>Возвращает заданное значение из объекта Request, не проверяя его на наличие разметки HTML и клиентских сценариев.</summary>
       <returns>Строка с непроверенным текстом из указанного поля, файла cookie или значения строки запроса.</returns>
       <param name="request">Объект <see cref="T:System.Web.HttpRequestBase" />, который содержит значения для исключения из проверки.</param>
-      <param name="key">Имя поля, которое необходимо исключить из проверки. <paramref name="key" /> может ссылаться на поле формы, файл cookie или переменную строки запроса.</param>
+      <param name="key">Имя поля, которое необходимо исключить из проверки.<paramref name="key" /> может ссылаться на поле формы, файл cookie или переменную строки запроса.</param>
     </member>
     <member name="T:System.Web.Mvc.HttpAntiForgeryException">
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
     </member>
     <member name="M:System.Web.Mvc.HttpAntiForgeryException.#ctor">
-      <summary>Этот элемент поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот элемент поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Инициализирует новый экземпляр класса <see cref="T:System.Web.Mvc.HttpAntiForgeryException" />.</summary>
     </member>
     <member name="M:System.Web.Mvc.HttpAntiForgeryException.#ctor(System.String)">
-      <summary>Этот элемент поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот элемент поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода. Инициализирует новый экземпляр класса <see cref="T:System.Web.Mvc.HttpAntiForgeryException" />.</summary>
+      <param name="message">Содержащее его сообщение.</param>
     </member>
     <member name="M:System.Web.Mvc.HttpAntiForgeryException.#ctor(System.String,System.Exception)">
-      <summary>Этот элемент поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот элемент поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода. Инициализирует новый экземпляр класса <see cref="T:System.Web.Mvc.HttpAntiForgeryException" />.</summary>
       <param name="message">Сообщение.</param>
       <param name="innerException">Внутреннее исключение.</param>
     </member>
@@ -135,6 +147,10 @@
       <param name="errorMessage">Сообщение об ошибке.</param>
       <param name="other">Другое.</param>
     </member>
+    <member name="T:System.Web.Mvc.ModelClientValidationMaxLengthRule"></member>
+    <member name="M:System.Web.Mvc.ModelClientValidationMaxLengthRule.#ctor(System.String,System.Int32)"></member>
+    <member name="T:System.Web.Mvc.ModelClientValidationMinLengthRule"></member>
+    <member name="M:System.Web.Mvc.ModelClientValidationMinLengthRule.#ctor(System.String,System.Int32)"></member>
     <member name="T:System.Web.Mvc.ModelClientValidationRangeRule">
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
     </member>
@@ -148,19 +164,26 @@
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
     </member>
     <member name="M:System.Web.Mvc.ModelClientValidationRegexRule.#ctor(System.String,System.String)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода. Инициализирует новый экземпляр класса <see cref="T:System.Web.Mvc.ModelClientValidationRegexRule" />.</summary>
+      <param name="errorMessage">Сообщение для исключения.</param>
+      <param name="pattern">Шаблон.</param>
     </member>
     <member name="T:System.Web.Mvc.ModelClientValidationRemoteRule">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Представляет удаленное правило для проверки клиентов моделей.</summary>
     </member>
     <member name="M:System.Web.Mvc.ModelClientValidationRemoteRule.#ctor(System.String,System.String,System.String,System.String)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.Web.Mvc.ModelClientValidationRemoteRule" />.</summary>
+      <param name="errorMessage">Сообщение об ошибке.</param>
+      <param name="url">URL-адрес правила.</param>
+      <param name="httpMethod">HTTP-метод.</param>
+      <param name="additionalFields">Использованные дополнительные поля.</param>
     </member>
     <member name="T:System.Web.Mvc.ModelClientValidationRequiredRule">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Представляет обязательное правило для проверки клиентов моделей.</summary>
     </member>
     <member name="M:System.Web.Mvc.ModelClientValidationRequiredRule.#ctor(System.String)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.Web.Mvc.ModelClientValidationRequiredRule" />.</summary>
+      <param name="errorMessage">Сообщение об ошибке. </param>
     </member>
     <member name="T:System.Web.Mvc.ModelClientValidationRule">
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
@@ -178,18 +201,21 @@
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
     </member>
     <member name="T:System.Web.Mvc.ModelClientValidationStringLengthRule">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Представляет длину правила проверки клиентов моделей.</summary>
     </member>
     <member name="M:System.Web.Mvc.ModelClientValidationStringLengthRule.#ctor(System.String,System.Int32,System.Int32)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Инициализирует новый экземпляр класса <see cref="T:System.Web.Mvc.ModelClientValidationStringLengthRule" />.</summary>
+      <param name="errorMessage">Сообщение об ошибке.</param>
+      <param name="minimumLength">Минимальная длина правила проверки.</param>
+      <param name="maximumLength">Максимальная длина правила проверки.</param>
     </member>
     <member name="T:System.Web.Mvc.TagBuilder">
-      <summary>Содержит классы и свойства для создания HTML-элементов. Этот класс используется для записи вспомогательных классов, например тех, что можно найти в пространстве имен <see cref="N:System.Web.Helpers" />.</summary>
+      <summary>Содержит классы и свойства для создания HTML-элементов.Этот класс используется для записи вспомогательных приложений, например тех, что можно найти в пространстве имен <see cref="N:System.Web.Helpers" />.</summary>
     </member>
     <member name="M:System.Web.Mvc.TagBuilder.#ctor(System.String)">
       <summary>Создает новый тег с указанным именем.</summary>
-      <param name="tagName">Имя тега без "&lt;", "/" или "&gt;".</param>
-      <exception cref="T:System.ArgumentException">Объект <paramref name="tagName" /> равен null или пуст.</exception>
+      <param name="tagName">Имя тега без разделителей «&lt;», «/» или «&gt;».</param>
+      <exception cref="T:System.ArgumentException">Значение <paramref name="tagName" /> равно NULL или пустое.</exception>
     </member>
     <member name="M:System.Web.Mvc.TagBuilder.AddCssClass(System.String)">
       <summary>Добавляет класс CSS в список классов CSS в теге.</summary>
@@ -201,19 +227,19 @@
     </member>
     <member name="M:System.Web.Mvc.TagBuilder.CreateSanitizedId(System.String)">
       <summary>Заменяет каждый недопустимый символ в ИД тега на допустимый символ HTML.</summary>
-      <returns>Обработанный ИД тега или null, если значение <paramref name="originalId" /> равно null или пусто, либо же если <paramref name="originalId" /> не начинается с буквы.</returns>
+      <returns>Исключенный идентификатор тега или NULL, если значение <paramref name="originalId" /> равно NULL или пусто, либо же если <paramref name="originalId" /> не начинается с буквы.</returns>
       <param name="originalId">ИД, который может содержать символы для замены.</param>
     </member>
     <member name="M:System.Web.Mvc.TagBuilder.CreateSanitizedId(System.String,System.String)">
       <summary>Заменяет каждый недопустимый символ в ИД тега на указанную строку.</summary>
-      <returns>Обработанный ИД тега или null, если значение <paramref name="originalId" /> равно null или пусто, либо же если <paramref name="originalId" /> не начинается с буквы.</returns>
+      <returns>Исключенный идентификатор тега или NULL, если значение <paramref name="originalId" /> равно NULL или пусто, либо же если <paramref name="originalId" /> не начинается с буквы.</returns>
       <param name="originalId">ИД, который может содержать символы для замены.</param>
       <param name="invalidCharReplacement">Строка для замены.</param>
-      <exception cref="T:System.ArgumentNullException">Параметр <paramref name="invalidCharReplacement" /> равен null.</exception>
+      <exception cref="T:System.ArgumentNullException">Параметр <paramref name="invalidCharReplacement" /> равен NULL.</exception>
     </member>
     <member name="M:System.Web.Mvc.TagBuilder.GenerateId(System.String)">
-      <summary>Создает обработанный атрибут ID для тега, используя заданное имя.</summary>
-      <param name="name">Имя для использования при создании атрибута ID.</param>
+      <summary>Создает исключенный атрибут ID для тега, используя заданное имя.</summary>
+      <param name="name">Имя, используемое при создании атрибута ID.</param>
     </member>
     <member name="P:System.Web.Mvc.TagBuilder.IdAttributeDotReplacement">
       <summary>Возвращает или задает строку, которая может использоваться для замены недопустимых в HTML символов.</summary>
@@ -232,7 +258,7 @@
       <summary>Добавляет новый атрибут или заменяет существующий атрибут в открывающем теге.</summary>
       <param name="key">Ключ атрибута.</param>
       <param name="value">Значение атрибута.</param>
-      <param name="replaceExisting">Значение true, чтобы заменить существующий атрибут, если существует атрибут с указанным значением <paramref name="key" />, или false, чтобы сохранить исходный атрибут без изменений.</param>
+      <param name="replaceExisting">Значение true, чтобы заменить существующий атрибут, если существует атрибут с указанным значением <paramref name="key" />, или значение false, чтобы сохранить исходный атрибут без изменений.</param>
     </member>
     <member name="M:System.Web.Mvc.TagBuilder.MergeAttributes``2(System.Collections.Generic.IDictionary{``0,``1})">
       <summary>Добавляет новые атрибуты к тегу.</summary>
@@ -243,12 +269,12 @@
     <member name="M:System.Web.Mvc.TagBuilder.MergeAttributes``2(System.Collections.Generic.IDictionary{``0,``1},System.Boolean)">
       <summary>Добавляет новые атрибуты или заменяет существующие атрибуты в теге.</summary>
       <param name="attributes">Коллекция добавляемых или заменяемых атрибутов.</param>
-      <param name="replaceExisting">Для каждого атрибута в <paramref name="attributes" />: значение true для замены атрибута, если он уже существует с тем же ключом, или false, чтобы сохранить исходный атрибут без изменений.</param>
+      <param name="replaceExisting">Для каждого атрибута в <paramref name="attributes" />: значение true для замены атрибута, если он уже существует с тем же ключом, или значение false, чтобы сохранить исходный атрибут без изменений.</param>
       <typeparam name="TKey">Тип объекта ключа.</typeparam>
       <typeparam name="TValue">Тип объекта значения.</typeparam>
     </member>
     <member name="M:System.Web.Mvc.TagBuilder.SetInnerText(System.String)">
-      <summary>Задает свойство <see cref="P:System.Web.Mvc.TagBuilder.InnerHtml" /> элемента равным указанной строке в HTML-кодировке.</summary>
+      <summary>Задает свойство <see cref="P:System.Web.Mvc.TagBuilder.InnerHtml" /> элемента равным указанной строке в кодировке HTML.</summary>
       <param name="innerText">Кодируемая в HTML строка.</param>
     </member>
     <member name="P:System.Web.Mvc.TagBuilder.TagName">
@@ -256,7 +282,7 @@
       <returns>Имя.</returns>
     </member>
     <member name="M:System.Web.Mvc.TagBuilder.ToString">
-      <summary>Отображает элемент как элемент <see cref="F:System.Web.Mvc.TagRenderMode.Normal" />.</summary>
+      <summary>Отображает элемент как <see cref="F:System.Web.Mvc.TagRenderMode.Normal" />.</summary>
     </member>
     <member name="M:System.Web.Mvc.TagBuilder.ToString(System.Web.Mvc.TagRenderMode)">
       <summary>Отображает HTML-тег с помощью указанного режима отображения.</summary>
@@ -266,23 +292,26 @@
     <member name="T:System.Web.Mvc.TagRenderMode">
       <summary>Перечисляет режимы, доступные для визуализации тегов HTML.</summary>
     </member>
-    <member name="F:System.Web.Mvc.TagRenderMode.Normal">
-      <summary>Представляет режим для отображения обычного текста.</summary>
-    </member>
-    <member name="F:System.Web.Mvc.TagRenderMode.StartTag">
-      <summary>Представляет режим для отображения открывающего тега (например, &lt;tag&gt;).</summary>
-    </member>
     <member name="F:System.Web.Mvc.TagRenderMode.EndTag">
       <summary>Представляет режим для отображения закрывающего тега (например, &lt;/tag&gt;).</summary>
     </member>
+    <member name="F:System.Web.Mvc.TagRenderMode.Normal">
+      <summary>Представляет режим для отображения обычного текста.</summary>
+    </member>
     <member name="F:System.Web.Mvc.TagRenderMode.SelfClosing">
       <summary>Представляет режим для отображения самостоятельно закрывающегося тега (например, &lt;tag /&gt;).</summary>
+    </member>
+    <member name="F:System.Web.Mvc.TagRenderMode.StartTag">
+      <summary>Представляет режим для отображения открывающего тега (например, &lt;tag&gt;).</summary>
     </member>
     <member name="T:System.Web.Mvc.UnobtrusiveValidationAttributesGenerator">
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
     </member>
     <member name="M:System.Web.Mvc.UnobtrusiveValidationAttributesGenerator.GetValidationAttributes(System.Collections.Generic.IEnumerable{System.Web.Mvc.ModelClientValidationRule},System.Collections.Generic.IDictionary{System.String,System.Object})">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает или задает атрибуты проверки из структуры или содержимого <see cref="T:System.Web.Mvc.UnobtrusiveValidationAttributesGenerator" />.</summary>
+      <param name="clientRules">
+        <see cref="T:System.Web.Mvc.ModelClientValidationRule" /> для реализации.</param>
+      <param name="results">Результат проверки.</param>
     </member>
     <member name="T:System.Web.WebPages.ApplicationPart">
       <summary>Содержит методы для регистрации сборок как частей приложения.</summary>
@@ -291,7 +320,7 @@
       <summary>Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.ApplicationPart" />, используя указанный корневой виртуальный путь и сборку.</summary>
       <param name="assembly">Сборка.</param>
       <param name="rootVirtualPath">Корень виртуального пути.</param>
-      <exception cref="T:System.ArgumentException">Объект <paramref name="rootVirtualPath" /> равен null или пуст.</exception>
+      <exception cref="T:System.ArgumentException">Значение <paramref name="rootVirtualPath" /> равно NULL или пустое.</exception>
     </member>
     <member name="M:System.Web.WebPages.ApplicationPart.ProcessVirtualPath(System.Reflection.Assembly,System.String,System.String)">
       <summary>Разрешает путь к указанной сборку или ресурсу в сборке с помощью заданного базового виртуального пути и указанного виртуального пути.</summary>
@@ -322,7 +351,7 @@
       <summary>Префикс, который применяется ко всем ключам, добавляемым в кэш начальной страницей приложения.</summary>
     </member>
     <member name="P:System.Web.WebPages.ApplicationStartPage.Context">
-      <summary>Получает объект, который <see cref="T:System.Web.HttpContextBase" /> представляет данные контекста, связанного с этой страницей.</summary>
+      <summary>Получает объект <see cref="T:System.Web.HttpContextBase" />, который представляет данные контекста, связанного с этой страницей.</summary>
       <returns>Данные текущего контекста.</returns>
     </member>
     <member name="M:System.Web.WebPages.ApplicationStartPage.GetOutputWriter">
@@ -357,25 +386,45 @@
       <param name="value">Объект для записи.</param>
     </member>
     <member name="T:System.Web.WebPages.AttributeValue">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Хранит значение атрибута.Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
     </member>
     <member name="M:System.Web.WebPages.AttributeValue.#ctor(System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.Object},System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.AttributeValue" />.Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <param name="prefix">Префикс пространства имен атрибута.</param>
+      <param name="value">Значение атрибута.</param>
+      <param name="literal">Значение true, чтобы указать, что значение является литеральным. В противном случае — значение false.</param>
     </member>
-    <member name="M:System.Web.WebPages.AttributeValue.FromTuple(System.Tuple`3)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+    <member name="M:System.Web.WebPages.AttributeValue.FromTuple(System.Tuple{System.Tuple{System.String,System.Int32},System.Tuple{System.Object,System.Int32},System.Boolean})">
+      <summary>Создает значение атрибута из указанного объекта кортежа.</summary>
+      <returns>Созданное значение атрибута.</returns>
+      <param name="value">Объект кортежа, используемый для создания.</param>
+    </member>
+    <member name="M:System.Web.WebPages.AttributeValue.FromTuple(System.Tuple{System.Tuple{System.String,System.Int32},System.Tuple{System.String,System.Int32},System.Boolean})">
+      <summary>Создает значение атрибута из указанного объекта кортежа.</summary>
+      <returns>Созданное значение атрибута.</returns>
+      <param name="value">Объект кортежа, используемый для создания.</param>
     </member>
     <member name="P:System.Web.WebPages.AttributeValue.Literal">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Получает или задает значение, указывающее, является ли значение литеральным.Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <returns>Значение true, если значение является литеральным. В противном случае — значение false.</returns>
     </member>
-    <member name="M:System.Web.WebPages.AttributeValue.op_Implicit(System.Tuple`3)~System.Web.WebPages.AttributeValue">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+    <member name="M:System.Web.WebPages.AttributeValue.op_Implicit(System.Tuple{System.Tuple{System.String,System.Int32},System.Tuple{System.Object,System.Int32},System.Boolean})~System.Web.WebPages.AttributeValue">
+      <summary>Создает значение атрибута из указанного объекта кортежа.</summary>
+      <returns>Созданное значение атрибута.</returns>
+      <param name="value">Объект кортежа, используемый для создания.</param>
+    </member>
+    <member name="M:System.Web.WebPages.AttributeValue.op_Implicit(System.Tuple{System.Tuple{System.String,System.Int32},System.Tuple{System.String,System.Int32},System.Boolean})~System.Web.WebPages.AttributeValue">
+      <summary>Создает значение атрибута из указанного объекта кортежа.</summary>
+      <returns>Созданное значение атрибута.</returns>
+      <param name="value">Объект кортежа, используемый для создания.</param>
     </member>
     <member name="P:System.Web.WebPages.AttributeValue.Prefix">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Получает или задает префикс пространства имен для атрибута.Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <returns>Префикс пространства имен атрибута.</returns>
     </member>
     <member name="P:System.Web.WebPages.AttributeValue.Value">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Получает или задает значение атрибута.Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <returns>Значение атрибута.</returns>
     </member>
     <member name="T:System.Web.WebPages.BrowserHelpers">
       <summary>Позволяет указать настраиваемые сведения о браузере (агенте пользователя).</summary>
@@ -424,16 +473,20 @@
       <summary>Указывает мобильный браузер.</summary>
     </member>
     <member name="T:System.Web.WebPages.BrowserOverrideStore">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Текущий BrowserOverrideStore используется для получения и задания агента пользователя запроса.</summary>
     </member>
     <member name="M:System.Web.WebPages.BrowserOverrideStore.#ctor">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.BrowserOverrideStore" />.</summary>
     </member>
     <member name="M:System.Web.WebPages.BrowserOverrideStore.GetOverriddenUserAgent(System.Web.HttpContextBase)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Ищет пользователя, выполняя поиск файла cookie переопределения браузера.</summary>
+      <returns>Агент пользователя.</returns>
+      <param name="httpContext">Контекст HTTP.</param>
     </member>
     <member name="M:System.Web.WebPages.BrowserOverrideStore.SetOverriddenUserAgent(System.Web.HttpContextBase,System.String)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Добавляет файл cookie переопределения браузера с заданным агентом пользователя в ответ на текущий запрос.</summary>
+      <param name="httpContext">Контекст HTTP.</param>
+      <param name="userAgent">Агент пользователя.</param>
     </member>
     <member name="T:System.Web.WebPages.BrowserOverrideStores">
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
@@ -445,85 +498,118 @@
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
     </member>
     <member name="T:System.Web.WebPages.CookieBrowserOverrideStore">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает переопределенный агент пользователя для запроса из файла cookie.Создает файл cookie для задания переопределенного агента пользователя.</summary>
     </member>
     <member name="M:System.Web.WebPages.CookieBrowserOverrideStore.#ctor">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.CookieBrowserOverrideStore" />.</summary>
     </member>
     <member name="M:System.Web.WebPages.CookieBrowserOverrideStore.#ctor(System.Int32)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.CookieBrowserOverrideStore" />.</summary>
+      <param name="daysToExpire">Количество дней до завершения срока действия.</param>
     </member>
     <member name="M:System.Web.WebPages.CookieBrowserOverrideStore.GetOverriddenUserAgent(System.Web.HttpContextBase)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Ищет пользователя, выполняя поиск файла cookie переопределения браузера.</summary>
+      <returns>Агент пользователя.</returns>
+      <param name="httpContext">Контекст HTTP.</param>
     </member>
     <member name="M:System.Web.WebPages.CookieBrowserOverrideStore.SetOverriddenUserAgent(System.Web.HttpContextBase,System.String)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Добавляет файл cookie переопределения браузера с заданным агентом пользователя в ответ на текущий запрос.</summary>
+      <param name="httpContext">Контекст HTTP.</param>
+      <param name="userAgent">Агент пользователя.</param>
     </member>
     <member name="T:System.Web.WebPages.DefaultDisplayMode">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Представляет режим отображения веб-страниц по умолчанию.</summary>
     </member>
     <member name="M:System.Web.WebPages.DefaultDisplayMode.#ctor">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.DefaultDisplayMode" />.</summary>
     </member>
     <member name="M:System.Web.WebPages.DefaultDisplayMode.#ctor(System.String)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.DefaultDisplayMode" />.</summary>
+      <param name="suffix">Суффикс.</param>
     </member>
     <member name="M:System.Web.WebPages.DefaultDisplayMode.CanHandleContext(System.Web.HttpContextBase)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Указывает значение, определяющее, может ли <see cref="T:System.Web.HttpContextBase" /> обработать контекст.</summary>
+      <returns>Значение true, если <see cref="T:System.Web.HttpContextBase" /> может обработать контекст; в противном случае — значение false.</returns>
+      <param name="httpContext">Указанный контекст HTTP.</param>
     </member>
     <member name="P:System.Web.WebPages.DefaultDisplayMode.ContextCondition">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает или устанавливает значение, которое показывает, отображает ли состояние контекста режим по умолчанию.</summary>
+      <returns>Значение true, если состояние контекста отображает режим по умолчанию; в противном случае — значение false.</returns>
     </member>
     <member name="P:System.Web.WebPages.DefaultDisplayMode.DisplayModeId">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает идентификатор режима отображения веб-страниц.</summary>
+      <returns>Идентификатор режима отображения веб-страниц.</returns>
     </member>
-    <member name="M:System.Web.WebPages.DefaultDisplayMode.GetDisplayInfo(System.Web.HttpContextBase,System.String,System.Func`2)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+    <member name="M:System.Web.WebPages.DefaultDisplayMode.GetDisplayInfo(System.Web.HttpContextBase,System.String,System.Func{System.String,System.Boolean})">
+      <summary>Извлекает данные отображения об элементе в области результата.</summary>
+      <returns>Данные отображения об элементе в области результата.</returns>
+      <param name="httpContext">Контекст http.</param>
+      <param name="virtualPath">Виртуальный путь.</param>
+      <param name="virtualPathExists">Значение true, если виртуальный путь существует; в противном случае — значение false.</param>
     </member>
     <member name="M:System.Web.WebPages.DefaultDisplayMode.TransformPath(System.String,System.String)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Трансформирует путь режима отображения.</summary>
+      <returns>Трансформируемый путь режима отображения.</returns>
+      <param name="virtualPath">Виртуальный путь.</param>
+      <param name="suffix">Суффикс.</param>
     </member>
     <member name="T:System.Web.WebPages.DisplayInfo">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Представляет отображаемые сведения о свойстве.</summary>
     </member>
     <member name="M:System.Web.WebPages.DisplayInfo.#ctor(System.String,System.Web.WebPages.IDisplayMode)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.DisplayInfo" />.</summary>
+      <param name="filePath">Виртуальный путь.</param>
+      <param name="displayMode">Режим активного отображения.</param>
     </member>
     <member name="P:System.Web.WebPages.DisplayInfo.DisplayMode">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает режим активного отображения веб-страницы.</summary>
+      <returns>Режим активного отображения веб-страницы.</returns>
     </member>
     <member name="P:System.Web.WebPages.DisplayInfo.FilePath">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает виртуальный путь текущей веб-страницы.</summary>
+      <returns>Виртуальный путь текущей веб-страницы.</returns>
     </member>
     <member name="T:System.Web.WebPages.DisplayModeProvider">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Представляет режимы отображения для поставщика.</summary>
     </member>
     <member name="F:System.Web.WebPages.DisplayModeProvider.DefaultDisplayModeId">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Определяет идентификатор режима отображения по умолчанию.</summary>
     </member>
     <member name="M:System.Web.WebPages.DisplayModeProvider.GetAvailableDisplayModesForContext(System.Web.HttpContextBase,System.Web.WebPages.IDisplayMode)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает список доступных режимов отображения для базы контекста.</summary>
+      <returns>Список доступных режимов отображения для базы контекста.</returns>
+      <param name="httpContext">База контекста HTTP.</param>
+      <param name="currentDisplayMode">Текущий режим отображения.</param>
     </member>
-    <member name="M:System.Web.WebPages.DisplayModeProvider.GetDisplayInfoForVirtualPath(System.String,System.Web.HttpContextBase,System.Func`2,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+    <member name="M:System.Web.WebPages.DisplayModeProvider.GetDisplayInfoForVirtualPath(System.String,System.Web.HttpContextBase,System.Func{System.String,System.Boolean},System.Web.WebPages.IDisplayMode)">
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает <see cref="T:System.Web.WebPages.DisplayInfo" /> для виртуального пути.</summary>
+      <returns>
+        <see cref="T:System.Web.WebPages.DisplayInfo" /> для виртуального пути.</returns>
+      <param name="virtualPath">Виртуальный путь.</param>
+      <param name="httpContext">База контекста HTTP.</param>
+      <param name="virtualPathExists">Значение true, если виртуальный путь существует; в противном случае — значение false.</param>
+      <param name="currentDisplayMode">Текущий режим отображения.</param>
     </member>
     <member name="P:System.Web.WebPages.DisplayModeProvider.Instance">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает экземпляр <see cref="T:System.Web.WebPages.DisplayModeProvider" />.</summary>
+      <returns>Экземпляр <see cref="T:System.Web.WebPages.DisplayModeProvider" />.</returns>
     </member>
     <member name="F:System.Web.WebPages.DisplayModeProvider.MobileDisplayModeId">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Определяет идентификатор мобильного режима отображения.</summary>
     </member>
     <member name="P:System.Web.WebPages.DisplayModeProvider.Modes">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает список режимов <see cref="T:System.Web.WebPages.DisplayModeProvider" />.</summary>
+      <returns>Список режимов <see cref="T:System.Web.WebPages.DisplayModeProvider" />.</returns>
     </member>
     <member name="P:System.Web.WebPages.DisplayModeProvider.RequireConsistentDisplayMode">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает или устанавливает значение, которое указывает, требуется ли для веб-страницы согласованный режим отображения.</summary>
+      <returns>Значение true, если для веб-страницы требуется согласованный режим отображения. В противном случае — значение false.</returns>
     </member>
     <member name="T:System.Web.WebPages.HelperPage">
       <summary>Представляет базовый класс для страниц, который используется, когда ASP.NET компилирует CSHTML- или VBHTML-файл, и предоставляет свойства и методы на уровне страниц и приложения.</summary>
     </member>
     <member name="M:System.Web.WebPages.HelperPage.#ctor">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.HelperPage" />.</summary>
     </member>
     <member name="P:System.Web.WebPages.HelperPage.App">
       <summary>Получает данные о состоянии приложения в виде объекта <see cref="T:System.Dynamic.DynamicObject" />, который вызывающая сторона может использовать для создания и доступа к настраиваемым свойствам приложения.</summary>
@@ -534,10 +620,19 @@
       <returns>Данные о состоянии приложения.</returns>
     </member>
     <member name="M:System.Web.WebPages.HelperPage.BeginContext(System.IO.TextWriter,System.String,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Помещает все операторы вспомогательного приложения в контекст страницы вспомогательного приложения.</summary>
+      <param name="writer">Модуль записи текста.</param>
+      <param name="virtualPath">Виртуальный путь вспомогательного приложения.</param>
+      <param name="startPosition">Начальная позиция.</param>
+      <param name="length">Длина контекста.</param>
+      <param name="isLiteral">Значение true, если у контекста имеется литеральный атрибут; в противном случае — значение false.</param>
     </member>
     <member name="M:System.Web.WebPages.HelperPage.BeginContext(System.String,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Помещает все операторы вспомогательного приложения в контекст страницы вспомогательного приложения.</summary>
+      <param name="virtualPath">Виртуальный путь вспомогательного приложения.</param>
+      <param name="startPosition">Начальная позиция.</param>
+      <param name="length">Длина контекста.</param>
+      <param name="isLiteral">Значение true, если у контекста имеется литеральный атрибут; в противном случае — значение false.</param>
     </member>
     <member name="P:System.Web.WebPages.HelperPage.Cache">
       <summary>Получает объект кэша для текущего домена приложения.</summary>
@@ -552,13 +647,23 @@
       <returns>Текущая страница.</returns>
     </member>
     <member name="M:System.Web.WebPages.HelperPage.EndContext(System.IO.TextWriter,System.String,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Указывает конец блока контекста.</summary>
+      <param name="writer">Модуль записи текста.</param>
+      <param name="virtualPath">Виртуальный путь вспомогательного приложения.</param>
+      <param name="startPosition">Начальная позиция.</param>
+      <param name="length">Длина контекста.</param>
+      <param name="isLiteral">Значение true, если у контекста имеется литеральный атрибут; в противном случае — значение false.</param>
     </member>
     <member name="M:System.Web.WebPages.HelperPage.EndContext(System.String,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Указывает конец блока контекста.</summary>
+      <param name="virtualPath">Виртуальный путь вспомогательного приложения.</param>
+      <param name="startPosition">Начальная позиция.</param>
+      <param name="length">Длина контекста.</param>
+      <param name="isLiteral">Значение true, если у контекста имеется литеральный атрибут; в противном случае — значение false.</param>
     </member>
     <member name="P:System.Web.WebPages.HelperPage.HelperVirtualPath">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает или задает путь страницы вспомогательного приложения.</summary>
+      <returns>Путь страницы вспомогательного приложения.</returns>
     </member>
     <member name="M:System.Web.WebPages.HelperPage.Href(System.String,System.Object[])">
       <summary>Строит абсолютный URL-адрес по относительному URL-адресу приложения, используя указанные параметры.</summary>
@@ -572,7 +677,7 @@
     </member>
     <member name="P:System.Web.WebPages.HelperPage.IsAjax">
       <summary>Возвращает значение, которое указывает, используется ли Ajax во время запроса веб-страницы.</summary>
-      <returns>Значение true, если Ajax используется при запросе. В противном случае — значение false.</returns>
+      <returns>Значение true, если при запросе используется Ajax. В противном случае — значение false.</returns>
     </member>
     <member name="P:System.Web.WebPages.HelperPage.IsPost">
       <summary>Возвращает значение, которое указывает, является ли текущий запрос запросом POST (HTTP-командой POST).</summary>
@@ -627,19 +732,32 @@
       <returns>Виртуальный путь.</returns>
     </member>
     <member name="M:System.Web.WebPages.HelperPage.WriteAttributeTo(System.IO.TextWriter,System.String,System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.AttributeValue[])">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Записывает атрибут, связанный со вспомогательным приложением.</summary>
+      <param name="writer">Модуль записи текста.</param>
+      <param name="name">Имя атрибута.</param>
+      <param name="prefix">Префикс.</param>
+      <param name="suffix">Суффикс.</param>
+      <param name="values">Значение атрибута.</param>
     </member>
     <member name="M:System.Web.WebPages.HelperPage.WriteLiteralTo(System.IO.TextWriter,System.Object)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Записывает литеральный объект во вспомогательное приложение.</summary>
+      <param name="writer">Модуль записи текста.</param>
+      <param name="value">Значение объекта.</param>
     </member>
     <member name="M:System.Web.WebPages.HelperPage.WriteLiteralTo(System.IO.TextWriter,System.Web.WebPages.HelperResult)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Записывает результирующий объект вспомогательного приложения во вспомогательное приложение.</summary>
+      <param name="writer">Модуль записи текста.</param>
+      <param name="value">Результат вспомогательного приложения.</param>
     </member>
     <member name="M:System.Web.WebPages.HelperPage.WriteTo(System.IO.TextWriter,System.Object)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Записывает объект во вспомогательное приложение.</summary>
+      <param name="writer">Модуль записи текста.</param>
+      <param name="value">Значение объекта.</param>
     </member>
     <member name="M:System.Web.WebPages.HelperPage.WriteTo(System.IO.TextWriter,System.Web.WebPages.HelperResult)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Записывает результирующий объект вспомогательного приложения во вспомогательное приложение.</summary>
+      <param name="writer">Модуль записи текста.</param>
+      <param name="value">Значение результата вспомогательного приложения.</param>
     </member>
     <member name="T:System.Web.WebPages.HelperResult">
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
@@ -666,16 +784,23 @@
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
     </member>
     <member name="T:System.Web.WebPages.IDisplayMode">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Представляет интерфейс режима отображения для веб-страниц.</summary>
     </member>
     <member name="M:System.Web.WebPages.IDisplayMode.CanHandleContext(System.Web.HttpContextBase)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Указывает значение, определяющее, могут ли веб-страницы обрабатывать контекст HTTP.</summary>
+      <returns>Значение true, если веб-страницы могут обрабатывать контекст HTTP; в противном случае — значение false.</returns>
+      <param name="httpContext">Контекст HTTP.</param>
     </member>
     <member name="P:System.Web.WebPages.IDisplayMode.DisplayModeId">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Представляет идентификатор режима отображения для веб-страниц.</summary>
+      <returns>Идентификатор режима отображения для веб-страниц.</returns>
     </member>
-    <member name="M:System.Web.WebPages.IDisplayMode.GetDisplayInfo(System.Web.HttpContextBase,System.String,System.Func`2)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+    <member name="M:System.Web.WebPages.IDisplayMode.GetDisplayInfo(System.Web.HttpContextBase,System.String,System.Func{System.String,System.Boolean})">
+      <summary>Возвращает этот метод для отображения всех сведений для веб-страниц.</summary>
+      <returns>Метод для отображения всех сведений для веб-страниц.</returns>
+      <param name="httpContext">Контекст HTTP.</param>
+      <param name="virtualPath">Виртуальный путь.</param>
+      <param name="virtualPathExists">Значение true, если виртуальный путь существует; в противном случае — значение false.</param>
     </member>
     <member name="T:System.Web.WebPages.ITemplateFile">
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
@@ -684,13 +809,16 @@
       <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
     </member>
     <member name="T:System.Web.WebPages.IValidator">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Определяет свойства и методы объектов, используемых в веб-страницах.</summary>
     </member>
     <member name="P:System.Web.WebPages.IValidator.ClientValidationRule">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает контейнер для клиентской проверки обязательного поля.</summary>
+      <returns>Контейнер для клиентской проверки обязательного поля.</returns>
     </member>
     <member name="M:System.Web.WebPages.IValidator.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Оценивает проверяемое условие и обновляет контекст проверки.</summary>
+      <returns>Проверяемое условие для обновления контекста проверки.</returns>
+      <param name="validationContext">Контекст проверки.</param>
     </member>
     <member name="T:System.Web.WebPages.IVirtualPathFactory">
       <summary>Определяет методы, реализуемые фабриками обработчиков виртуальных путей.</summary>
@@ -702,7 +830,7 @@
     </member>
     <member name="M:System.Web.WebPages.IVirtualPathFactory.Exists(System.String)">
       <summary>Определяет наличие связи указанного виртуального пути с фабрикой обработчиков.</summary>
-      <returns>Значение true, если фабрика обработчиков существует для указанного пути; в противном случае — false.</returns>
+      <returns>Значение true, если для указанного пути существует фабрика обработчиков. В противном случае — false.</returns>
       <param name="virtualPath">Виртуальный путь.</param>
     </member>
     <member name="T:System.Web.WebPages.IWebPageRequestExecutor">
@@ -735,7 +863,7 @@
     </member>
     <member name="M:System.Web.WebPages.RequestExtensions.IsUrlLocalToHost(System.Web.HttpRequestBase,System.String)">
       <summary>Определяет, ссылается ли заданный URL-адрес на локальный компьютер.</summary>
-      <returns>Значение true, если указанный URL-адрес является локальным. В противном случае — значение false.</returns>
+      <returns>Значение true, если заданный URL-адрес указывает на локальный компьютер. В противном случае — значение false.</returns>
       <param name="request">Объект HTTP-запроса.</param>
       <param name="url">URL-адрес для проверки.</param>
     </member>
@@ -749,7 +877,7 @@
     <member name="M:System.Web.WebPages.RequestFieldValidatorBase.#ctor(System.String,System.Boolean)">
       <summary>Инициализирует новый экземпляр производного класса, регистрирует указанную строку как сообщение об ошибке для отображения в случае, если не указано значение, а также указывает, может ли метод использовать непроверенные данные.</summary>
       <param name="errorMessage">Сообщение об ошибке.</param>
-      <param name="useUnvalidatedValues">Значение true, чтобы использовать непроверенные входные данные; false, чтобы отклонять непроверенные данные. Для этого параметра задается значение true путем вызова методов в обстоятельствах, когда фактическое значение вводимых пользователем данных не важно, например для обязательных полей.</param>
+      <param name="useUnvalidatedValues">Значение true, чтобы использовать непроверенные данные, вводимые пользователем. Значение false, чтобы отклонять непроверенные данные.Для этого параметра задается значение true путем вызова методов в обстоятельствах, когда фактическое значение вводимых пользователем данных не важно, например для обязательных полей.</param>
     </member>
     <member name="P:System.Web.WebPages.RequestFieldValidatorBase.ClientValidationRule">
       <summary>При реализации в производном классе получает контейнер для клиентской проверки обязательного поля.</summary>
@@ -784,7 +912,7 @@
       <summary>Настраивает политику кэша для экземпляра HTTP-ответа.</summary>
       <param name="response">Экземпляр HTTP-ответа.</param>
       <param name="numberOfSeconds">Продолжительность времени (в секундах) до истечения срока хранения элементов в кэше.</param>
-      <param name="sliding">Значение true, если срок хранения в кэше определяется на гибкой основе; false, если срок хранения истекает, когда элементы достигают заданного срока действия.</param>
+      <param name="sliding">Значение true, если срок хранения в кэше определяется на гибкой основе; false, если срок хранения элементов истекает по достижении заданного срока действия.</param>
       <param name="varyByParams">Список всех параметров, которые могут быть получены операцией GET или POST, которая влияет на кэширование.</param>
       <param name="varyByHeaders">Список всех HTTP-заголовков, затрагивающих кэширование.</param>
       <param name="varyByContentEncodings">Список всех заголовков Content-Encoding, затрагивающих кэширование.</param>
@@ -837,23 +965,24 @@
     </member>
     <member name="M:System.Web.WebPages.StartPage.GetStartPage(System.Web.WebPages.WebPageRenderingBase,System.String,System.Collections.Generic.IEnumerable{System.String})">
       <summary>Возвращает страницу инициализации для указанной страницы.</summary>
-      <returns>Страница _AppStart, если она существует. Если страница _AppStart не найдена, возвращает страницу _PageStart, если она существует. Если страницы _AppStart и _PageStart не могут быть найдены, возвращает <paramref name="page" />.</returns>
+      <returns>Страница _AppStart, если она существует.Если страница _AppStart не найдена, возвращает страницу _PageStart, если она существует.Если страницы _AppStart и _PageStart не удается найти, возвращает <paramref name="page" />.</returns>
       <param name="page">Страница.</param>
       <param name="fileName">Имя файла страницы.</param>
       <param name="supportedExtensions">Коллекция расширений имен файлов, которые могут содержать синтаксис ASP.NET Razor, например "cshtml" и "vbhtml".</param>
-      <exception cref="T:System.ArgumentNullException">Значение <paramref name="page" /> или <paramref name="fileName" /> равно null.</exception>
-      <exception cref="T:System.ArgumentException">Объект <paramref name="supportedExtensions" /> равен null или пуст.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="page" /> или <paramref name="fileName" /> имеет значение NULL.</exception>
+      <exception cref="T:System.ArgumentException">Значение <paramref name="supportedExtensions" /> равно NULL или пустое.</exception>
     </member>
     <member name="P:System.Web.WebPages.StartPage.Layout">
       <summary>Получает или задает путь страницы макета для страницы <see cref="P:System.Web.WebPages.StartPage.ChildPage" />.</summary>
-      <returns>Путь к странице макета страницы <see cref="P:System.Web.WebPages.StartPage.ChildPage" />.</returns>
+      <returns>Путь к странице макета для страницы <see cref="P:System.Web.WebPages.StartPage.ChildPage" />.</returns>
     </member>
     <member name="P:System.Web.WebPages.StartPage.Page">
-      <summary>Предоставляет доступ через свойства к данным страницы <see cref="P:System.Web.WebPages.StartPage.ChildPage" />, общим для страниц, страниц макетов и частичных страниц.</summary>
+      <summary>Получает доступ через свойства к данным страницы <see cref="P:System.Web.WebPages.StartPage.ChildPage" />, общим для страниц, страниц макетов и частичных страниц.</summary>
       <returns>Объект, содержащий данные страницы <see cref="P:System.Web.WebPages.StartPage.ChildPage" />.</returns>
     </member>
     <member name="P:System.Web.WebPages.StartPage.PageData">
-      <summary>Предоставляет доступ через массив к данным страницы <see cref="P:System.Web.WebPages.StartPage.ChildPage" />, общим для страниц, страниц макетов и частичных страниц.</summary>
+      <summary>Получает доступ через массив к данным страницы <see cref="P:System.Web.WebPages.StartPage.ChildPage" />, общим для страниц, страниц макетов и частичных страниц.</summary>
       <returns>Объект-массив для доступа к данным страницы <see cref="P:System.Web.WebPages.StartPage.ChildPage" />.</returns>
     </member>
     <member name="M:System.Web.WebPages.StartPage.RenderPage(System.String,System.Object[])">
@@ -890,7 +1019,7 @@
       <summary>Преобразует строку в указанный тип данных и задает значение по умолчанию.</summary>
       <returns>Преобразованное значение.</returns>
       <param name="value">Преобразуемое значение.</param>
-      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> равно null.</param>
+      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> имеет значение NULL.</param>
       <typeparam name="TValue">Тип данных для преобразования.</typeparam>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.AsBool(System.String)">
@@ -902,40 +1031,40 @@
       <summary>Преобразует строку в логическое значение и задает значение по умолчанию.</summary>
       <returns>Преобразованное значение.</returns>
       <param name="value">Преобразуемое значение.</param>
-      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> равно null или недопустимо.</param>
+      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> имеет значение NULL или является недопустимым.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.AsDateTime(System.String)">
-      <summary>Преобразует строку в значение <see cref="T:System.DateTime" />.</summary>
+      <summary>Преобразовывает строку в значение <see cref="T:System.DateTime" />.</summary>
       <returns>Преобразованное значение.</returns>
       <param name="value">Преобразуемое значение.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.AsDateTime(System.String,System.DateTime)">
-      <summary>Преобразует строку в значение <see cref="T:System.DateTime" /> и задает значение по умолчанию.</summary>
+      <summary>Преобразовывает строку в значение <see cref="T:System.DateTime" /> и задает значение по умолчанию.</summary>
       <returns>Преобразованное значение.</returns>
       <param name="value">Преобразуемое значение.</param>
-      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> равно null или недопустимо. Значение по умолчанию — минимальное значение времени в системе.</param>
+      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> имеет значение NULL или является недопустимым.Значение по умолчанию — минимальное значение времени в системе.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.AsDecimal(System.String)">
-      <summary>Преобразует строку в значение <see cref="T:System.Decimal" />.</summary>
+      <summary>Преобразовывает строку в число <see cref="T:System.Decimal" />.</summary>
       <returns>Преобразованное значение.</returns>
       <param name="value">Преобразуемое значение.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.AsDecimal(System.String,System.Decimal)">
-      <summary>Преобразует строку в значение <see cref="T:System.Decimal" /> и задает значение по умолчанию.</summary>
+      <summary>Преобразовывает строку в число <see cref="T:System.Decimal" /> и задает значение по умолчанию.</summary>
       <returns>Преобразованное значение.</returns>
       <param name="value">Преобразуемое значение.</param>
-      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> равно null или недопустимо.</param>
+      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> имеет значение NULL или является недопустимым.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.AsFloat(System.String)">
-      <summary>Преобразует строку в значение <see cref="T:System.Single" />.</summary>
+      <summary>Преобразовывает строку в число <see cref="T:System.Single" />.</summary>
       <returns>Преобразованное значение.</returns>
       <param name="value">Преобразуемое значение.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.AsFloat(System.String,System.Single)">
-      <summary>Преобразует строку в значение <see cref="T:System.Single" /> и задает значение по умолчанию.</summary>
+      <summary>Преобразовывает строку в число <see cref="T:System.Single" /> и задает значение по умолчанию.</summary>
       <returns>Преобразованное значение.</returns>
       <param name="value">Преобразуемое значение.</param>
-      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> равно null.</param>
+      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> имеет значение NULL.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.AsInt(System.String)">
       <summary>Преобразует строку в целочисленное значение.</summary>
@@ -946,42 +1075,42 @@
       <summary>Преобразует строку в целочисленное значение и задает значение по умолчанию.</summary>
       <returns>Преобразованное значение.</returns>
       <param name="value">Преобразуемое значение.</param>
-      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> равно null или недопустимо.</param>
+      <param name="defaultValue">Значение, возвращаемое, если <paramref name="value" /> имеет значение NULL или является недопустимым.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.Is``1(System.String)">
       <summary>Проверяет, можно ли преобразовать строковое значение в указанный тип данных.</summary>
-      <returns>Значение true, если <paramref name="value" /> можно преобразовать; в противном случае — false.</returns>
+      <returns>Значение true, если <paramref name="value" /> можно преобразовать в указанный тип. В противном случае — false.</returns>
       <param name="value">Проверяемое значение.</param>
       <typeparam name="TValue">Тип данных для преобразования.</typeparam>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.IsBool(System.String)">
       <summary>Проверяет, можно ли преобразовать строку в логическое значение.</summary>
-      <returns>Значение true, если <paramref name="value" /> можно преобразовать; в противном случае — false.</returns>
+      <returns>Значение true, если <paramref name="value" /> можно преобразовать в указанный тип. В противном случае — false.</returns>
       <param name="value">Проверяемое строковое значение.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.IsDateTime(System.String)">
-      <summary>Проверяет, можно ли преобразовать строковое значение в тип <see cref="T:System.DateTime" />.</summary>
-      <returns>Значение true, если <paramref name="value" /> можно преобразовать; в противном случае — false.</returns>
+      <summary>Проверяет, можно ли преобразовать строку в тип <see cref="T:System.DateTime" />.</summary>
+      <returns>Значение true, если <paramref name="value" /> можно преобразовать в указанный тип. В противном случае — false.</returns>
       <param name="value">Проверяемое строковое значение.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.IsDecimal(System.String)">
-      <summary>Проверяет, можно ли преобразовать строковое значение в тип <see cref="T:System.Decimal" />.</summary>
-      <returns>Значение true, если <paramref name="value" /> можно преобразовать; в противном случае — false.</returns>
+      <summary>Проверяет, можно ли преобразовать строку в тип <see cref="T:System.Decimal" />.</summary>
+      <returns>Значение true, если <paramref name="value" /> можно преобразовать в указанный тип. В противном случае — false.</returns>
       <param name="value">Проверяемое строковое значение.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.IsEmpty(System.String)">
-      <summary>Проверяет, не равно ли строковое значение null и не пусто ли оно.</summary>
-      <returns>Значение true, если <paramref name="value" /> равно null или пусто (""). В противном случае — значение false.</returns>
+      <summary>Проверяет, не равно ли строковое значение NULL и не пустое ли оно.</summary>
+      <returns>Значение true, если <paramref name="value" /> имеет значение NULL или является строкой нулевой длины (""). В противном случае — значение false.</returns>
       <param name="value">Проверяемое строковое значение.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.IsFloat(System.String)">
-      <summary>Проверяет, можно ли преобразовать строковое значение в тип <see cref="T:System.Single" />.</summary>
-      <returns>Значение true, если <paramref name="value" /> можно преобразовать; в противном случае — false.</returns>
+      <summary>Проверяет, можно ли преобразовать строку в тип <see cref="T:System.Single" />.</summary>
+      <returns>Значение true, если <paramref name="value" /> можно преобразовать в указанный тип. В противном случае — false.</returns>
       <param name="value">Проверяемое строковое значение.</param>
     </member>
     <member name="M:System.Web.WebPages.StringExtensions.IsInt(System.String)">
       <summary>Проверяет, можно ли преобразовать строковое значение в целое число.</summary>
-      <returns>Значение true, если <paramref name="value" /> можно преобразовать; в противном случае — false.</returns>
+      <returns>Значение true, если <paramref name="value" /> можно преобразовать в указанный тип. В противном случае — false.</returns>
       <param name="value">Проверяемое строковое значение.</param>
     </member>
     <member name="T:System.Web.WebPages.TemplateFileInfo">
@@ -1007,14 +1136,14 @@
       <summary>Удаляет и возвращает файл шаблона, который находится вверху стека в указанном контексте HTTP.</summary>
       <returns>Файл шаблона, удаленный с вершины стека.</returns>
       <param name="httpContext">Контекст HTTP, который содержит стек с файлами шаблонов.</param>
-      <exception cref="T:System.ArgumentNullException">Параметр <paramref name="httpContext" /> равен null.</exception>
+      <exception cref="T:System.ArgumentNullException">Параметр <paramref name="httpContext" /> равен NULL.</exception>
     </member>
     <member name="M:System.Web.WebPages.TemplateStack.Push(System.Web.HttpContextBase,System.Web.WebPages.ITemplateFile)">
       <summary>Вставляет файл шаблона вверху стека в указанном контексте HTTP.</summary>
       <param name="httpContext">Контекст HTTP, который содержит стек с файлами шаблонов.</param>
       <param name="templateFile">Шаблон, вставляемый в указанный стек.</param>
       <exception cref="T:System.ArgumentNullException">
-        <paramref name="httpContext" /> или <paramref name="templateFile" /> равен null.</exception>
+        <paramref name="httpContext" /> или <paramref name="templateFile" /> равен NULL.</exception>
     </member>
     <member name="T:System.Web.WebPages.ValidationHelper">
       <summary>Реализует проверку для ввода данных пользователем.</summary>
@@ -1022,14 +1151,17 @@
     <member name="M:System.Web.WebPages.ValidationHelper.Add(System.Collections.Generic.IEnumerable{System.String},System.Web.WebPages.IValidator[])">
       <summary>Регистрирует список элементов ввода для проверки.</summary>
       <param name="fields">Имена (значение атрибута name) элементов пользовательского ввода для проверки.</param>
-      <param name="validators">Тип проверки для регистрации для каждого элемента ввода, указанного в <paramref name="fields" />.</param>
+      <param name="validators">Тип регистрируемой проверки для каждого элемента пользовательского ввода, указанного в <paramref name="fields" />.</param>
     </member>
     <member name="M:System.Web.WebPages.ValidationHelper.Add(System.String,System.Web.WebPages.IValidator[])">
       <summary>Регистрирует элемент ввода для проверки.</summary>
       <param name="field">Имя (значение атрибута name) элемента пользовательского ввода для проверки.</param>
       <param name="validators">Список из одного или несколько типов проверки для регистрации.</param>
     </member>
-    <member name="M:System.Web.WebPages.ValidationHelper.AddFormError(System.String)"></member>
+    <member name="M:System.Web.WebPages.ValidationHelper.AddFormError(System.String)">
+      <summary>Добавляет сообщение об ошибке.</summary>
+      <param name="errorMessage">Сообщение об ошибке.</param>
+    </member>
     <member name="M:System.Web.WebPages.ValidationHelper.ClassFor(System.String)">
       <summary>Отображает атрибут, который ссылается на определение стиля CSS, используемое при отображении сообщений проверки для элемента ввода.</summary>
       <returns>Атрибут.</returns>
@@ -1041,22 +1173,22 @@
       <param name="field">Имя (значение атрибута name) элемента пользовательского ввода для проверки.</param>
     </member>
     <member name="P:System.Web.WebPages.ValidationHelper.FormField">
-      <summary>Получает имя текущей формы. Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода. </summary>
+      <summary>Получает имя текущей формы.Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
       <returns>Имя.</returns>
     </member>
     <member name="M:System.Web.WebPages.ValidationHelper.GetErrors(System.String[])">
-      <summary>Возвращает список текущих ошибок проверки и при необходимости позволяет указать список полей для проверки.</summary>
+      <summary>Возвращает список текущих ошибок проверки и позволяет задать список полей для проверки.</summary>
       <returns>Список ошибок.</returns>
-      <param name="fields">Необязательный параметр. Имена (значение атрибута name) элементов пользовательского ввода для получения сведений об ошибках. Можно указать любое количество имен элементов, разделенных запятыми. Если не указать список полей, метод возвращает ошибки для всех полей.</param>
+      <param name="fields">Необязательный параметр.Имена (значение атрибута name) элементов пользовательского ввода для получения сведений об ошибках.Можно указать любое количество имен элементов, разделенных запятыми.Если не указать список полей, метод возвращает ошибки для всех полей.</param>
     </member>
     <member name="P:System.Web.WebPages.ValidationHelper.InvalidCssClass">
-      <summary>Возвращает имя класса, который используется для указания вида сообщения об ошибке, если возникли ошибки. Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода. </summary>
+      <summary>Возвращает имя класса, который используется для указания вида сообщения об ошибке, если возникли ошибки.Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
       <returns>Имя.</returns>
     </member>
     <member name="M:System.Web.WebPages.ValidationHelper.IsValid(System.String[])">
       <summary>Определяет, проходит ли содержимое поля ввода проверку, и при необходимости позволяет указать список полей для проверки.</summary>
       <returns>Значение true, если все указанные поля проходят проверку. В противном случае — значение false.</returns>
-      <param name="fields">Необязательный параметр. Имена (значение атрибута name) элементов пользовательского ввода для проверки ошибок. Можно указать любое количество имен элементов, разделенных запятыми. Если не указать список полей, метод проверяет все элементы, зарегистрированные для проверки.</param>
+      <param name="fields">Необязательный параметр.Имена (значение атрибута name) элементов пользовательского ввода для проверки на наличие ошибок.Можно указать любое количество имен элементов, разделенных запятыми.Если не указать список полей, метод проверяет все элементы, зарегистрированные для проверки.</param>
     </member>
     <member name="M:System.Web.WebPages.ValidationHelper.RequireField(System.String)">
       <summary>Регистрирует указанное поле ввода как обязательное для заполнения.</summary>
@@ -1069,19 +1201,19 @@
     </member>
     <member name="M:System.Web.WebPages.ValidationHelper.RequireFields(System.String[])">
       <summary>Регистрирует указанные поля как обязательные для заполнения.</summary>
-      <param name="fields">Имена (значение атрибута name) элементов пользовательского ввода для проверки. Можно указать любое количество имен элементов, разделенных запятыми.</param>
+      <param name="fields">Имена (значение атрибута name) элементов пользовательского ввода для проверки.Можно указать любое количество имен элементов, разделенных запятыми.</param>
     </member>
     <member name="M:System.Web.WebPages.ValidationHelper.Validate(System.String[])">
       <summary>Выполняет проверку зарегистрированных элементов и при необходимости позволяет указать список полей для проверки.</summary>
       <returns>Список ошибок для указанных полей, если происходили ошибки проверки.</returns>
-      <param name="fields">Необязательный параметр. Имена (значение атрибута name) элементов пользовательского ввода для проверки. Можно указать любое количество имен элементов, разделенных запятыми. Если не указать список, этот метод проверяет все зарегистрированные элементы.</param>
+      <param name="fields">Необязательный параметр.Имена (значение атрибута name) элементов пользовательского ввода для проверки.Можно указать любое количество имен элементов, разделенных запятыми.Если не указать список, этот метод проверяет все зарегистрированные элементы.</param>
     </member>
     <member name="P:System.Web.WebPages.ValidationHelper.ValidCssClass">
-      <summary>Возвращает имя класса, который используется для указания вида сообщения об ошибке, если возникли ошибки. Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода. </summary>
+      <summary>Возвращает имя класса, который используется для указания вида сообщения об ошибке, если возникли ошибки.Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
       <returns>Имя.</returns>
     </member>
     <member name="T:System.Web.WebPages.Validator">
-      <summary>Определяет проверки, которые можно быть зарегистрировать с помощью метода <see cref="M:System.Web.WebPages.ValidationHelper.Add(System.String,System.Web.WebPages.IValidator[])" />.</summary>
+      <summary>Определяет проверки, которые можно зарегистрировать с помощью метода <see cref="M:System.Web.WebPages.ValidationHelper.Add(System.String,System.Web.WebPages.IValidator[])" />.</summary>
     </member>
     <member name="M:System.Web.WebPages.Validator.#ctor">
       <summary>Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.Validator" />.</summary>
@@ -1099,6 +1231,7 @@
     <member name="M:System.Web.WebPages.Validator.EqualsTo(System.String,System.String)">
       <summary>Определяет проверку этого поля ввода путем сравнения с другим полем.</summary>
       <returns>Проверка.</returns>
+      <param name="otherFieldName">Другое поле для сравнения.</param>
       <param name="errorMessage">Сообщение об ошибке на случай, если проверка завершается с ошибкой.</param>
     </member>
     <member name="M:System.Web.WebPages.Validator.Float(System.String)">
@@ -1114,14 +1247,14 @@
     <member name="M:System.Web.WebPages.Validator.Range(System.Double,System.Double,System.String)">
       <summary>Определяет проверку попадания десятичного числа в диапазон.</summary>
       <returns>Проверка.</returns>
-      <param name="minValue">Минимальное значение. Значение по умолчанию равно 0.</param>
+      <param name="minValue">Минимальное значение.Значение по умолчанию равно 0.</param>
       <param name="maxValue">Максимальное значение.</param>
       <param name="errorMessage">Сообщение об ошибке на случай, если проверка завершается с ошибкой.</param>
     </member>
     <member name="M:System.Web.WebPages.Validator.Range(System.Int32,System.Int32,System.String)">
       <summary>Определяет проверку попадания целого числа в диапазон.</summary>
       <returns>Проверка.</returns>
-      <param name="minValue">Минимальное значение. Значение по умолчанию равно 0.</param>
+      <param name="minValue">Минимальное значение.Значение по умолчанию равно 0.</param>
       <param name="maxValue">Максимальное значение. </param>
       <param name="errorMessage">Сообщение об ошибке на случай, если проверка завершается с ошибкой.</param>
     </member>
@@ -1140,7 +1273,7 @@
       <summary>Определяет проверку длины строки.</summary>
       <returns>Проверка.</returns>
       <param name="maxLength">Максимальная длина строки.</param>
-      <param name="minLength">Минимальная длина строки. Значение по умолчанию равно 0.</param>
+      <param name="minLength">Минимальная длина строки.Значение по умолчанию равно 0.</param>
       <param name="errorMessage">Сообщение об ошибке на случай, если проверка завершается с ошибкой.</param>
     </member>
     <member name="M:System.Web.WebPages.Validator.Url(System.String)">
@@ -1206,7 +1339,7 @@
       <summary>Выступает в качестве базового класса для классов, представляющих страницу ASP.NET Razor.</summary>
     </member>
     <member name="M:System.Web.WebPages.WebPageBase.#ctor">
-      <summary>Инициализирует класс <see cref="T:System.Web.WebPages.WebPageBase" /> для использования экземплярами классов-наследников. Этот конструктор может вызываться только в классах-наследниках.</summary>
+      <summary>Инициализирует класс <see cref="T:System.Web.WebPages.WebPageBase" /> для использования экземплярами классов-наследников.Этот конструктор может вызываться только в классах-наследниках.</summary>
     </member>
     <member name="M:System.Web.WebPages.WebPageBase.ConfigurePage(System.Web.WebPages.WebPageBase)">
       <summary>При переопределении в производном классе настраивает текущую веб-страницу на основе конфигурации родительской веб-страницы.</summary>
@@ -1216,6 +1349,9 @@
       <summary>Создает новый экземпляр класса <see cref="T:System.Web.WebPages.WebPageBase" />, используя указанный виртуальный путь.</summary>
       <returns>Новый объект <see cref="T:System.Web.WebPages.WebPageBase" />.</returns>
       <param name="virtualPath">Виртуальный путь для создания экземпляра.</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.CreatePageFromVirtualPath(System.String,System.Web.HttpContextBase,System.Func{System.String,System.Boolean},System.Web.WebPages.DisplayModeProvider,System.Web.WebPages.IDisplayMode)">
+      <summary>Выполняет попытку создать экземпляр WebPageBase из virtualPath и помещает в оболочку сложные исключения компилятора с более простыми сообщениями</summary>
     </member>
     <member name="M:System.Web.WebPages.WebPageBase.DefineSection(System.String,System.Web.WebPages.SectionWriter)">
       <summary>Вызывается страницами содержимого для создания именованных разделов.</summary>
@@ -1284,7 +1420,7 @@
       <summary>Отображает содержимое одной страницы в другой странице.</summary>
       <returns>HTML-содержимое для отображения.</returns>
       <param name="path">Путь страницы для отображения.</param>
-      <param name="data">(Необязательно) Массив данных для передачи отображаемой странице. В отображенной странице эти параметры можно использовать с помощью свойства <see cref="P:System.Web.WebPages.WebPageBase.PageData" />.</param>
+      <param name="data">(Необязательно) Массив данных для передачи отображаемой странице.В отображенной странице эти параметры можно использовать с помощью свойства <see cref="P:System.Web.WebPages.WebPageBase.PageData" />.</param>
     </member>
     <member name="M:System.Web.WebPages.WebPageBase.RenderSection(System.String)">
       <summary>На страницах макетов отображает содержимое именованного раздела.</summary>
@@ -1311,7 +1447,7 @@
       <param name="value">Объект для записи.</param>
     </member>
     <member name="T:System.Web.WebPages.WebPageContext">
-      <summary>Содержит данные, которые используются объектом <see cref="T:System.Web.WebPages.WebPage" /> для ссылки на сведения о веб-приложении, текущем HTTP-запроса, текущем контексте выполнения и данные отображения страниц.</summary>
+      <summary>Содержит данные, которые используются объектом <see cref="T:System.Web.WebPages.WebPage" /> для ссылки на сведения о веб-приложении, текущем HTTP-запросе, текущем контексте выполнения и данных отображения страниц.</summary>
     </member>
     <member name="M:System.Web.WebPages.WebPageContext.#ctor">
       <summary>Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.WebPageContext" />.</summary>
@@ -1342,69 +1478,32 @@
       <summary>Предоставляет объекты и методы для выполнения и отображения страниц ASP.NET с синтаксисом Razor.</summary>
     </member>
     <member name="M:System.Web.WebPages.WebPageExecutingBase.#ctor">
-      <summary>Инициализирует класс <see cref="T:System.Web.WebPages.WebPageExecutingBase" /> для использования экземплярами классов-наследников. Этот конструктор может вызываться только в классах-наследниках.</summary>
+      <summary>Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.WebPageExecutingBase" />.Этот конструктор может вызываться только в классах-наследниках.</summary>
     </member>
-    <member name="P:System.Web.WebPages.WebPageExecutingBase.App">
-      <summary>Получает данные о состоянии приложения в виде объекта <see cref="T:System.Dynamic.DynamicObject" />, который вызывающая сторона может использовать для создания и доступа к настраиваемым свойствам приложения.</summary>
-      <returns>Данные о состоянии приложения.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageExecutingBase.AppState">
-      <summary>Возвращает ссылку на глобальные данные состояния приложения, которые можно совместно использовать в сеансах и запросах приложения ASP.NET.</summary>
-      <returns>Данные о состоянии приложения.</returns>
-    </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.IO.TextWriter,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.IO.TextWriter,System.String,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.String,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
+    <member name="P:System.Web.WebPages.WebPageExecutingBase.App"></member>
+    <member name="P:System.Web.WebPages.WebPageExecutingBase.AppState"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.Int32,System.Int32,System.Boolean)"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.IO.TextWriter,System.Int32,System.Int32,System.Boolean)"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.IO.TextWriter,System.String,System.Int32,System.Int32,System.Boolean)"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.String,System.Int32,System.Int32,System.Boolean)"></member>
     <member name="P:System.Web.WebPages.WebPageExecutingBase.Context">
       <summary>При переопределении в производном классе получает или задает объект <see cref="T:System.Web.HttpContextBase" />, связанный со страницей.</summary>
       <returns>Данные текущего контекста.</returns>
     </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.IO.TextWriter,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.IO.TextWriter,System.String,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.String,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.Execute">
-      <summary>Выполняет серверный код в текущей веб-странице, помеченный синтаксисом Razor.</summary>
-    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.Int32,System.Int32,System.Boolean)"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.IO.TextWriter,System.Int32,System.Int32,System.Boolean)"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.IO.TextWriter,System.String,System.Int32,System.Int32,System.Boolean)"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.String,System.Int32,System.Int32,System.Boolean)"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.Execute"></member>
     <member name="M:System.Web.WebPages.WebPageExecutingBase.GetOutputWriter">
       <summary>Возвращает экземпляр модуля записи текста, используемый для отображения страницы.</summary>
       <returns>Модуль записи текста.</returns>
     </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.Href(System.String,System.Object[])">
-      <summary>Строит абсолютный URL-адрес по относительному URL-адресу приложения, используя указанные параметры.</summary>
-      <returns>Абсолютный URL-адрес.</returns>
-      <param name="path">Начальный путь для использования в URL-адресе.</param>
-      <param name="pathParts">Дополнительные сведения о пути, например папки и подпапки.</param>
-    </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.NormalizePath(System.String)">
-      <summary>Возвращает нормализованный путь по заданному пути.</summary>
-      <returns>Нормализованный путь.</returns>
-      <param name="path">Путь для нормализации.</param>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageExecutingBase.VirtualPath">
-      <summary>Получает или задает виртуальный путь страницы.</summary>
-      <returns>Виртуальный путь.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageExecutingBase.VirtualPathFactory">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.Href(System.String,System.Object[])"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.NormalizeLayoutPagePath(System.String)"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.NormalizePath(System.String)"></member>
+    <member name="P:System.Web.WebPages.WebPageExecutingBase.VirtualPath"></member>
+    <member name="P:System.Web.WebPages.WebPageExecutingBase.VirtualPathFactory"></member>
     <member name="M:System.Web.WebPages.WebPageExecutingBase.Write(System.Object)">
       <summary>Записывает строковое представление заданного объекта в строку в кодировке HTML.</summary>
       <param name="value">Кодируемый и записываемый объект.</param>
@@ -1413,15 +1512,9 @@
       <summary>Записывает указанный объект <see cref="T:System.Web.WebPages.HelperResult" /> в строку в кодировке HTML.</summary>
       <param name="result">Кодируемый и записываемый результат вспомогательного класса.</param>
     </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteAttribute(System.String,System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.AttributeValue[])">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteAttributeTo(System.IO.TextWriter,System.String,System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.AttributeValue[])">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
-    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteAttributeTo(System.String,System.IO.TextWriter,System.String,System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.AttributeValue[])">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteAttribute(System.String,System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.AttributeValue[])"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteAttributeTo(System.IO.TextWriter,System.String,System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.AttributeValue[])"></member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteAttributeTo(System.String,System.IO.TextWriter,System.String,System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.AttributeValue[])"></member>
     <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteLiteral(System.Object)">
       <summary>Записывает указанный объект без предварительного HTML-кодирования.</summary>
       <param name="value">Объект для записи.</param>
@@ -1447,11 +1540,12 @@
     <member name="M:System.Web.WebPages.WebPageHttpHandler.#ctor(System.Web.WebPages.WebPage)">
       <summary>Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.WebPageHttpHandler" />, используя указанную веб-страницу.</summary>
       <param name="webPage">Веб-страница для обработки.</param>
-      <exception cref="T:System.ArgumentNullException">Параметр <paramref name="webPage" /> равен null.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="webPage" /> имеет значение NULL.</exception>
     </member>
     <member name="M:System.Web.WebPages.WebPageHttpHandler.CreateFromVirtualPath(System.String)">
-      <summary>Создает новый обработчик <see cref="T:System.Web.IHttpHandler" /> по указанному виртуальному пути.</summary>
-      <returns>Объект <see cref="T:System.Web.IHttpHandler" /> по указанному виртуальному пути.</returns>
+      <summary>Создает новый объект обработчика <see cref="T:System.Web.IHttpHandler" /> по указанному виртуальному пути.</summary>
+      <returns>Объект <see cref="T:System.Web.IHttpHandler" /> для указанного виртуального пути.</returns>
       <param name="virtualPath">Виртуальный путь для создания обработчика.</param>
     </member>
     <member name="P:System.Web.WebPages.WebPageHttpHandler.DisableWebPagesResponseHeader">
@@ -1459,8 +1553,8 @@
       <returns>Значение true, если заголовки ответа веб-страницы отключены; в противном случае — значение false.</returns>
     </member>
     <member name="M:System.Web.WebPages.WebPageHttpHandler.GetRegisteredExtensions">
-      <summary>Возвращает список расширений имен файлов, которые может обрабатывать текущий <see cref="T:System.Web.WebPages.WebPageHttpHandler" />.</summary>
-      <returns>Доступный только для чтения список расширений, которые обрабатываются экземпляром <see cref="T:System.Web.WebPages.WebPageHttpHandler" /> в настоящее время.</returns>
+      <summary>Возвращает список расширений файлов, которые может обрабатывать текущий экземпляр <see cref="T:System.Web.WebPages.WebPageHttpHandler" />.</summary>
+      <returns>Доступный только для чтения список расширений файлов, которые обрабатываются текущим экземпляром <see cref="T:System.Web.WebPages.WebPageHttpHandler" />.</returns>
     </member>
     <member name="P:System.Web.WebPages.WebPageHttpHandler.IsReusable">
       <summary>Получает значение, указывающее, может ли другой запрос использовать экземпляр <see cref="T:System.Web.WebPages.WebPageHttpHandler" />.</summary>
@@ -1471,11 +1565,11 @@
       <param name="context">Контекст для использования при обработке веб-страницы.</param>
     </member>
     <member name="M:System.Web.WebPages.WebPageHttpHandler.RegisterExtension(System.String)">
-      <summary>Добавляет расширение в список расширений, которые обрабатываются экземпляром <see cref="T:System.Web.WebPages.WebPageHttpHandler" /> в настоящее время.</summary>
+      <summary>Добавляет расширение файла в список расширений, которые обрабатываются текущим экземпляром <see cref="T:System.Web.WebPages.WebPageHttpHandler" />.</summary>
       <param name="extension">Добавляемое расширение без точки в начале.</param>
     </member>
     <member name="F:System.Web.WebPages.WebPageHttpHandler.WebPagesVersionHeaderName">
-      <summary>Имя HTML-тега (X-AspNetWebPages-Version) для той версии спецификации веб-страниц ASP.NET, которая используется этой веб-страницей.</summary>
+      <summary>Имя HTML-тега (X-AspNetWebPages-Version) для версии спецификации веб-страниц ASP.NET, которая используется этой веб-страницей.</summary>
     </member>
     <member name="T:System.Web.WebPages.WebPageRenderingBase">
       <summary>Предоставляет методы и свойства, используемые для отображения страниц, использующих систему представлений Razor.</summary>
@@ -1483,29 +1577,14 @@
     <member name="M:System.Web.WebPages.WebPageRenderingBase.#ctor">
       <summary>Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.WebPageRenderingBase" />.</summary>
     </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.Cache">
-      <summary>При переопределении в производном классе получает объект кэша текущего домена приложения.</summary>
-      <returns>Объект кэша.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.Culture">
-      <summary>При переопределении в производном классе получает или задает культуру для текущего потока.</summary>
-      <returns>Культура для текущего потока.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.DisplayMode">
-      <summary>Получает отображаемое имя для запроса.</summary>
-      <returns>Режим отображения.</returns>
-    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Cache"></member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Culture"></member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.DisplayMode"></member>
     <member name="M:System.Web.WebPages.WebPageRenderingBase.ExecutePageHierarchy">
       <summary>При переопределении в производном классе вызывает методы, которые используются для инициализации страницы.</summary>
     </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.IsAjax">
-      <summary>При переопределении в производном классе возвращает значение, которое указывает, используется ли Ajax во время запроса веб-страницы.</summary>
-      <returns>Значение true, если Ajax используется при запросе. В противном случае — значение false.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.IsPost">
-      <summary>При переопределении в производном классе возвращает значение, указывающее, является ли HTTP-метод передачи данных, который используется клиентом для запроса веб-страницы, запросом POST.</summary>
-      <returns>Значение true, если это HTTP-команда POST. В противном случае — значение false.</returns>
-    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.IsAjax"></member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.IsPost"></member>
     <member name="P:System.Web.WebPages.WebPageRenderingBase.Layout">
       <summary>При переопределении в производном классе получает или задает путь для страницы макета.</summary>
       <returns>Путь к странице макета.</returns>
@@ -1514,58 +1593,33 @@
       <summary>При переопределении в производном классе предоставляет доступ через свойства к данным страницы, общим для страниц, страниц макетов и частичных страниц.</summary>
       <returns>Объект, содержащий данные страницы.</returns>
     </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.PageContext">
-      <summary>При переопределении в производном классе получает контекст HTTP для страницы.</summary>
-      <returns>Контекст HTTP для веб-страницы.</returns>
-    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.PageContext"></member>
     <member name="P:System.Web.WebPages.WebPageRenderingBase.PageData">
       <summary>При переопределении в производном классе предоставляет доступ через массив к данным страницы, общим для страниц, страниц макетов и частичных страниц.</summary>
       <returns>Объект-массив для доступа к данным страницы.</returns>
     </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.Profile">
-      <summary>Получает данные профиля для контекста текущего запроса.</summary>
-      <returns>Данные профиля.</returns>
-    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Profile"></member>
     <member name="M:System.Web.WebPages.WebPageRenderingBase.RenderPage(System.String,System.Object[])">
       <summary>При переопределении в производном классе отображает веб-страницу.</summary>
       <returns>HTML-разметка, представляющая веб-страницу.</returns>
       <param name="path">Путь страницы для отображения.</param>
       <param name="data">Дополнительные данные, используемые для визуализации страницы.</param>
     </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.Request">
-      <summary>При переопределении в производном классе получает объект <see cref="T:System.Web.HttpRequest" /> текущего HTTP-запроса.</summary>
-      <returns>Объект <see cref="T:System.Web.HttpRequest" />, содержащий значения HTTP, отправленные клиентом во время веб-запроса.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.Response">
-      <summary>При переопределении в производном классе получает объект <see cref="T:System.Web.HttpResponse" /> текущего HTTP-ответа.</summary>
-      <returns>Объект <see cref="T:System.Web.HttpResponse" />, содержащий HTTP-ответ от операции ASP.NET.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.Server">
-      <summary>При переопределении получает объект <see cref="T:System.Web.HttpServerUtility" />, который предоставляет методы, используемые в рамках обработки веб-страниц.</summary>
-      <returns>Объект <see cref="T:System.Web.HttpServerUtility" />.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.Session">
-      <summary>При переопределении в производном классе получает объект <see cref="T:System.Web.HttpSessionState" /> текущего HTTP-запроса.</summary>
-      <returns>Данные сеанса для текущего запроса.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.TemplateInfo">
-      <summary>При переопределении в производном классе получает информацию о выполняющемся сейчас файле.</summary>
-      <returns>Сведения о выполняющемся файле.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.UICulture">
-      <summary>При переопределении в производном классе получает или задает текущую культуру диспетчера ресурсов для поиска ресурсов для конкретной культуры во время выполнения.</summary>
-      <returns>Культура, в настоящее время используемая диспетчером ресурсов.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.UrlData">
-      <summary>При переопределении в производном классе получает данные о URL-пути.</summary>
-      <returns>Данные, связанные с путем URL-адреса.</returns>
-    </member>
-    <member name="P:System.Web.WebPages.WebPageRenderingBase.User">
-      <summary>При переопределении в производном классе получает пользовательское значение на основе контекста HTTP.</summary>
-      <returns>Пользовательское значение на основе контекста HTTP.</returns>
-    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Request"></member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Response"></member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Server"></member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Session"></member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.TemplateInfo"></member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.UICulture"></member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.UrlData"></member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.User"></member>
     <member name="T:System.Web.WebPages.Html.HtmlHelper">
       <summary>Предоставляет поддержку отображения элементов управления HTML-форм и проверки форм на веб-странице.</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.AnonymousObjectToHtmlAttributes(System.Object)">
+      <summary>Создает словарь атрибутов HTML из входного объекта, преобразуя знаки подчеркивания в тире.</summary>
+      <returns>Словарь, представляющий атрибуты HTML.</returns>
+      <param name="htmlAttributes">Анонимный объект, описывающий атрибуты HTML.</param>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.AttributeEncode(System.Object)">
       <summary>Возвращает HTML-кодированную строку с представлением объекта, используя минимальное кодирование, которое подходит только для HTML-атрибутов, заключенных в двойные кавычки.</summary>
@@ -1603,7 +1657,7 @@
       <returns>HTML-разметка, представляющая флажок.</returns>
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления.</param>
       <param name="isChecked">Значение true, чтобы задать атрибут checked как checked. В противном случае — значение false.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.CheckBox(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
@@ -1617,7 +1671,7 @@
       <summary>Возвращает HTML-элемент управления "флажок" с указанным именем и настраиваемыми атрибутами, определенными по объекту атрибутов.</summary>
       <returns>HTML-разметка, представляющая флажок.</returns>
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.DropDownList(System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem})">
@@ -1640,7 +1694,7 @@
       <returns>HTML-разметка, представляющая раскрывающийся список.</returns>
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.DropDownList(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem})">
@@ -1666,7 +1720,7 @@
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="defaultOption">Текст для отображения по умолчанию в списке.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.DropDownList(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
@@ -1675,7 +1729,7 @@
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="defaultOption">Текст для отображения по умолчанию в списке.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="selectedValue">Значение, которое указывает элемент, выбранный в списке по умолчанию. Выбранный элемент будет первым элементом списка, значение (или текст, если значения нет) которого соответствует параметру. </param>
+      <param name="selectedValue">Значение, которое указывает элемент, выбранный в списке по умолчанию.Выбранный элемент будет первым элементом списка, значение (или текст, если значения нет) которого соответствует параметру.</param>
       <param name="htmlAttributes">Имена и значения настраиваемых атрибутов для элемента.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
@@ -1685,8 +1739,8 @@
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="defaultOption">Текст для отображения по умолчанию в списке.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="selectedValue">Значение, которое указывает элемент, выбранный в списке по умолчанию. Выбранный элемент будет первым элементом списка, значение (или текст, если значения нет) которого соответствует параметру.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="selectedValue">Значение, которое указывает элемент, выбранный в списке по умолчанию.Выбранный элемент будет первым элементом списка, значение (или текст, если значения нет) которого соответствует параметру.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.Encode(System.Object)">
@@ -1725,12 +1779,12 @@
       <returns>HTML-разметка, представляющая скрытый элемент.</returns>
       <param name="name"> Значение для назначения атрибуту name HTML-элемента управления.</param>
       <param name="value">Значение для назначения атрибуту value элемента.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="P:System.Web.WebPages.Html.HtmlHelper.IdAttributeDotReplacement">
       <summary>Получает или задает символ, используемый для замены точек в атрибуте id отображаемых элементов управления формы.</summary>
-      <returns>Символ, используемый для замены точек в атрибуте id отображаемых элементов управления формы. Значение по умолчанию — _.</returns>
+      <returns>Символ, используемый для замены точек в атрибуте id отображаемых элементов управления формы.Значение по умолчанию — _.</returns>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.Label(System.String)">
       <summary>Возвращает HTML-элемент "метка", который отображает указанный текст.</summary>
@@ -1742,7 +1796,7 @@
       <summary>Возвращает HTML-элемент "метка", который отображает указанный текст, с указанными настраиваемыми атрибутами.</summary>
       <returns>HTML-разметка, представляющая метку.</returns>
       <param name="labelText">Отображаемый текст.</param>
-      <param name="attributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="attributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="labelText" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.Label(System.String,System.String)">
@@ -1756,7 +1810,7 @@
       <summary>Возвращает HTML-элемент "метка", который отображает указанный текст, с указанным атрибутом for и настраиваемыми атрибутами, определенными по словарю атрибутов.</summary>
       <returns>HTML-разметка, представляющая метку.</returns>
       <param name="labelText">Отображаемый текст.</param>
-      <param name="labelFor"> Значение для назначения атрибуту for HTML-элемента управления.</param>
+      <param name="labelFor">Значение для назначения атрибуту for HTML-элемента управления.</param>
       <param name="attributes">Имена и значения настраиваемых атрибутов для элемента.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="labelText" /> равен null или пуст.</exception>
     </member>
@@ -1765,13 +1819,13 @@
       <returns>HTML-разметка, представляющая метку.</returns>
       <param name="labelText">Отображаемый текст.</param>
       <param name="labelFor">Значение для назначения атрибуту for HTML-элемента управления.</param>
-      <param name="attributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="attributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="labelText" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem})">
       <summary>Возвращает HTML-элемент управления "список" с указанным именем и элементами списка.</summary>
       <returns>HTML-разметка, представляющая список.</returns>
-      <param name="name"> Значение для назначения атрибуту name HTML-элемента управления select.</param>
+      <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
@@ -1788,7 +1842,7 @@
       <returns>HTML-разметка, представляющая список.</returns>
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Int32,System.Boolean)">
@@ -1796,7 +1850,7 @@
       <returns>HTML-разметка, представляющая список.</returns>
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию. Выбранные элементы извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию.Выбранные элементы извлекаются через отражение путем проверки свойств объекта.</param>
       <param name="size">Значение для назначения атрибуту size элемента.</param>
       <param name="allowMultiple">Значение true, если множественный выбор разрешен. В противном случае — значение false.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
@@ -1824,7 +1878,7 @@
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="defaultOption">Текст для отображения по умолчанию в списке.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
@@ -1833,7 +1887,7 @@
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="defaultOption">Текст для отображения по умолчанию в списке.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию. Выбранные элементы извлекаются через отражение путем проверки свойств объекта. </param>
+      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию.Выбранные элементы извлекаются через отражение путем проверки свойств объекта.</param>
       <param name="htmlAttributes">Имена и значения настраиваемых атрибутов для элемента.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
@@ -1843,7 +1897,7 @@
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="defaultOption">Текст для отображения по умолчанию в списке.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию. Выбранные элементы извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию.Выбранные элементы извлекаются через отражение путем проверки свойств объекта.</param>
       <param name="size">Значение для назначения атрибуту size элемента.</param>
       <param name="allowMultiple">Значение true, если множественный выбор разрешен. В противном случае — значение false.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
@@ -1854,7 +1908,7 @@
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="defaultOption">Текст для отображения по умолчанию в списке.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию. Выбранные элементы извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию.Выбранные элементы извлекаются через отражение путем проверки свойств объекта.</param>
       <param name="size">Значение для назначения атрибуту size элемента.</param>
       <param name="allowMultiple">Значение true, если множественный выбор разрешен. В противном случае — значение false.</param>
       <param name="htmlAttributes">Имена и значения настраиваемых атрибутов для элемента.</param>
@@ -1866,10 +1920,10 @@
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="defaultOption">Текст для отображения по умолчанию в списке.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию. Выбранные элементы извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию.Выбранные элементы извлекаются через отражение путем проверки свойств объекта.</param>
       <param name="size">Значение для назначения атрибуту size элемента.</param>
       <param name="allowMultiple">Значение true, если множественный выбор разрешен. В противном случае — значение false.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Object)">
@@ -1878,9 +1932,14 @@
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления select.</param>
       <param name="defaultOption">Текст для отображения по умолчанию в списке.</param>
       <param name="selectList">Список объектов <see cref="T:System.Web.WebPages.Html.SelectListItem" />, которые используются для заполнения списка.</param>
-      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию. Выбранные элементы извлекаются через отражение путем проверки свойств объекта.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="selectedValues">Объект, который задает элементы, выбранные в списке по умолчанию.Выбранные элементы извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ObjectToDictionary(System.Object)">
+      <summary>Создает словарь из объекта, добавляя каждое открытое свойство экземпляра в качестве ключа вместе со связанным значением в словаре.Кроме того, предоставляет открытые свойства из производных типов.Обычно это используется в объектах анонимного типа.</summary>
+      <returns>Созданный словарь имен свойств и значений свойств.</returns>
+      <param name="value">Объект для преобразования.</param>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.Password(System.String)">
       <summary>Возвращает HTML-элемент управления "пароль" с указанным именем.</summary>
@@ -1908,20 +1967,20 @@
       <returns>HTML-разметка, представляющая элемент "пароль".</returns>
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления.</param>
       <param name="value">Значение для назначения атрибуту value элемента.</param>
-      <param name="htmlAttributes"> Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object)">
       <summary>Возвращает HTML-элемент управления "переключатель" с указанным именем и значением.</summary>
       <returns>HTML-разметка, представляющая элемент "переключатель".</returns>
-      <param name="name">Значение для назначения атрибуту name HTML-элемента управления. Атрибут name определяет группу, к которой принадлежит переключатель.</param>
+      <param name="name">Значение для назначения атрибуту name HTML-элемента управления.Атрибут name определяет группу, к которой принадлежит переключатель.</param>
       <param name="value">Значение для назначения атрибуту value элемента.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object,System.Boolean)">
       <summary>Возвращает HTML-элемент управления "переключатель" с указанным именем, значением и выбором по умолчанию.</summary>
       <returns>HTML-разметка, представляющая элемент "переключатель".</returns>
-      <param name="name">Значение для назначения атрибуту name HTML-элемента управления. Атрибут name определяет группу, к которой принадлежит переключатель.</param>
+      <param name="name">Значение для назначения атрибуту name HTML-элемента управления.Атрибут name определяет группу, к которой принадлежит переключатель.</param>
       <param name="value">Значение для назначения атрибуту value элемента.</param>
       <param name="isChecked">Значение true, если элемент выбран. В противном случае — значение false.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
@@ -1929,7 +1988,7 @@
     <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
       <summary>Возвращает HTML-элемент управления "переключатель" с указанным именем, значением, состоянием выбора по умолчанию и настраиваемыми атрибутами, определенными по словарю атрибутов.</summary>
       <returns>HTML-разметка, представляющая элемент "переключатель".</returns>
-      <param name="name">Значение для назначения атрибуту name HTML-элемента управления. Атрибут name определяет группу, к которой принадлежит переключатель.</param>
+      <param name="name">Значение для назначения атрибуту name HTML-элемента управления.Атрибут name определяет группу, к которой принадлежит переключатель.</param>
       <param name="value">Значение для назначения атрибуту value элемента.</param>
       <param name="isChecked">Значение true, если элемент выбран. В противном случае — значение false.</param>
       <param name="htmlAttributes">Имена и значения настраиваемых атрибутов для элемента.</param>
@@ -1938,26 +1997,26 @@
     <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object,System.Boolean,System.Object)">
       <summary>Возвращает HTML-элемент управления "переключатель" с указанным именем, значением, состоянием выбора по умолчанию и настраиваемыми атрибутами, определенными по объекту атрибутов.</summary>
       <returns>HTML-разметка, представляющая элемент "переключатель".</returns>
-      <param name="name">Значение для назначения атрибуту name HTML-элемента управления. Атрибут name определяет группу, к которой принадлежит переключатель.</param>
+      <param name="name">Значение для назначения атрибуту name HTML-элемента управления.Атрибут name определяет группу, к которой принадлежит переключатель.</param>
       <param name="value">Значение для назначения атрибуту value элемента.</param>
       <param name="isChecked">Значение true, если элемент выбран. В противном случае — значение false.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
       <summary>Возвращает HTML-элемент управления "переключатель" с указанным именем, значением и настраиваемыми атрибутами, определенными по словарю атрибутов.</summary>
       <returns>HTML-разметка, представляющая элемент "переключатель".</returns>
-      <param name="name">Значение для назначения атрибуту name HTML-элемента управления. Атрибут name определяет группу, к которой принадлежит переключатель.</param>
+      <param name="name">Значение для назначения атрибуту name HTML-элемента управления.Атрибут name определяет группу, к которой принадлежит переключатель.</param>
       <param name="value">Значение для назначения атрибуту value элемента.</param>
-      <param name="htmlAttributes"> Имена и значения настраиваемых атрибутов для элемента.</param>
+      <param name="htmlAttributes">Имена и значения настраиваемых атрибутов для элемента.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object,System.Object)">
       <summary>Возвращает HTML-элемент управления "переключатель" с указанным именем, значением и настраиваемыми атрибутами, определенными по объекту атрибутов.</summary>
       <returns>HTML-разметка, представляющая элемент "переключатель".</returns>
-      <param name="name">Значение для назначения атрибуту name HTML-элемента управления. Атрибут name определяет группу, к которой принадлежит переключатель.</param>
+      <param name="name">Значение для назначения атрибуту name HTML-элемента управления.Атрибут name определяет группу, к которой принадлежит переключатель.</param>
       <param name="value">Значение для назначения атрибуту value элемента.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.Raw(System.Object)">
@@ -1987,7 +2046,7 @@
       <summary>Возвращает HTML-элемент управления "текстовое поле" с указанным именем и настраиваемыми атрибутами, определенными по объекту атрибутов.</summary>
       <returns>HTML-разметка, представляющая элемент "текстовое поле".</returns>
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления textarea.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.TextArea(System.String,System.String)">
@@ -2018,11 +2077,11 @@
     <member name="M:System.Web.WebPages.Html.HtmlHelper.TextArea(System.String,System.String,System.Int32,System.Int32,System.Object)">
       <summary>Возвращает HTML-элемент управления "текстовое поле" с указанным именем, значением, атрибутами row, col и настраиваемыми атрибутами, определенными по объекту атрибутов.</summary>
       <returns>HTML-разметка, представляющая элемент "текстовое поле".</returns>
-      <param name="name"> Значение для назначения атрибуту name HTML-элемента управления textarea.</param>
+      <param name="name">Значение для назначения атрибуту name HTML-элемента управления textarea.</param>
       <param name="value">Отображаемый текст.</param>
       <param name="rows">Значение для назначения атрибуту rows элемента.</param>
       <param name="columns">Значение для назначения атрибуту cols элемента.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.TextArea(System.String,System.String,System.Object)">
@@ -2030,7 +2089,7 @@
       <returns>HTML-разметка, представляющая элемент "текстовое поле".</returns>
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления textarea.</param>
       <param name="value">Отображаемый текст.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.TextBox(System.String)">
@@ -2059,7 +2118,7 @@
       <returns>HTML-разметка, представляющая элемент "текст".</returns>
       <param name="name">Значение для назначения атрибуту name HTML-элемента управления.</param>
       <param name="value">Значение для назначения атрибуту value элемента.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="P:System.Web.WebPages.Html.HtmlHelper.UnobtrusiveJavaScriptEnabled">
@@ -2068,11 +2127,11 @@
     </member>
     <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationInputCssClassName">
       <summary>Получает или задает имя класса CSS, который определяет внешний вид элементов input при сбое проверки.</summary>
-      <returns>Имя класса CSS. По умолчанию используется значение field-validation-error.</returns>
+      <returns>Имя класса CSS.По умолчанию используется значение field-validation-error.</returns>
     </member>
     <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationInputValidCssClassName">
       <summary>Получает или задает имя класса CSS, который определяет внешний вид элементов input при успешной проверке.</summary>
-      <returns>Имя класса CSS. По умолчанию используется значение input-validation-valid.</returns>
+      <returns>Имя класса CSS.По умолчанию используется значение input-validation-valid.</returns>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationMessage(System.String)">
       <summary>Возвращает HTML-элемент span, который содержит первое сообщение об ошибке проверки для указанного поля формы.</summary>
@@ -2091,21 +2150,21 @@
       <summary>Возвращает HTML-элемент span с указанными настраиваемыми атрибутами, определенными по объекту атрибутов, и первым сообщением об ошибке проверки для указанного поля формы.</summary>
       <returns>Если значение в указанном поле допустимо, null; в противном случае — HTML-разметка, которая представляет сообщение об ошибке проверки, связанной с указанным полем.</returns>
       <param name="name">Имя проверяемого поля формы.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationMessage(System.String,System.String)">
       <summary>Возвращает HTML-элемент span, который содержит сообщение об ошибке проверки для указанного поля формы.</summary>
       <returns>Если значение в указанном поле допустимо, null; в противном случае — HTML-разметка, которая представляет сообщение об ошибке проверки, связанной с указанным полем.</returns>
       <param name="name">Имя проверяемого поля формы.</param>
-      <param name="message">Сообщение об ошибке проверки для отображения. Если значение равно null, отображается первое сообщение об ошибке проверки, связанной с полем формы.</param>
+      <param name="message">Сообщение об ошибке проверки для отображения.Если значение равно null, отображается первое сообщение об ошибке проверки, связанной с полем формы.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationMessage(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
       <summary>Возвращает HTML-элемент span с указанными настраиваемыми атрибутами, определенными по словарю атрибутов, и сообщением об ошибке проверки для указанного поля формы.</summary>
       <returns>Если значение в указанном поле допустимо, null; в противном случае — HTML-разметка, которая представляет сообщение об ошибке проверки, связанной с указанным полем.</returns>
       <param name="name">Имя проверяемого поля формы.</param>
-      <param name="message">Сообщение об ошибке проверки для отображения. Если значение равно null, отображается первое сообщение об ошибке проверки, связанной с полем формы.</param>
+      <param name="message">Сообщение об ошибке проверки для отображения.Если значение равно null, отображается первое сообщение об ошибке проверки, связанной с полем формы.</param>
       <param name="htmlAttributes"> Имена и значения настраиваемых атрибутов для элемента.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
@@ -2113,17 +2172,17 @@
       <summary>Возвращает HTML-элемент span с указанными настраиваемыми атрибутами, определенными по объекту атрибутов, и сообщением об ошибке проверки для указанного поля формы.</summary>
       <returns>Если значение в указанном поле допустимо, null; в противном случае — HTML-разметка, которая представляет сообщение об ошибке проверки, связанной с указанным полем.</returns>
       <param name="name">Имя проверяемого поля формы.</param>
-      <param name="message">Сообщение об ошибке проверки для отображения. Если значение равно null, отображается первое сообщение об ошибке проверки, связанной с полем формы.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="message">Сообщение об ошибке проверки для отображения.Если значение равно null, отображается первое сообщение об ошибке проверки, связанной с полем формы.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
       <exception cref="T:Sytem.ArgumentException">Объект <paramref name="name" /> равен null или пуст.</exception>
     </member>
     <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationMessageCssClassName">
       <summary>Получает или задает имя класса CSS, который определяет внешний вид сообщений об ошибках при сбое проверки.</summary>
-      <returns>Имя класса CSS.  По умолчанию используется значение field-validation-error.</returns>
+      <returns>Имя класса CSS.По умолчанию используется значение field-validation-error.</returns>
     </member>
     <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationMessageValidCssClassName">
       <summary>Получает или задает имя класса CSS, который определяет внешний вид сообщений об ошибках при успешной проверке.</summary>
-      <returns>Имя класса CSS. По умолчанию используется значение field-validation-valid.</returns>
+      <returns>Имя класса CSS.По умолчанию используется значение field-validation-valid.</returns>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary">
       <summary>Возвращает HTML-элемент div с неупорядоченным списком всех сообщений об ошибках проверки из словаря состояния модели.</summary>
@@ -2142,7 +2201,7 @@
     <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary(System.Object)">
       <summary>Возвращает HTML-элемент div с неупорядоченным списком всех сообщений об ошибках проверки из словаря состояния модели и указанными настраиваемыми атрибутами, определенными по объекту атрибутов.</summary>
       <returns>HTML-разметка, представляющая ошибки проверки.</returns>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary(System.String)">
       <summary>Возвращает HTML-элемент div со сводным сообщением и неупорядоченным списком всех сообщений об ошибках проверки из словаря состояния модели.</summary>
@@ -2161,7 +2220,7 @@
       <returns>HTML-разметка, представляющая ошибки проверки.</returns>
       <param name="message">Сводное сообщение, следующее до списка сообщений об ошибках проверки.</param>
       <param name="excludeFieldErrors">Значение true, чтобы исключить сообщения об ошибках проверки полей из результатов; false чтобы включить ошибки уровня модели и уровня полей.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
     </member>
     <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
       <summary>Возвращает HTML-элемент div со сводным сообщением, неупорядоченным списком всех сообщений об ошибках проверки из словаря состояния модели и указанными настраиваемыми атрибутами, определенными по словарю атрибутов.</summary>
@@ -2173,15 +2232,15 @@
       <summary>Возвращает HTML-элемент div со сводным сообщением, неупорядоченным списком всех сообщений об ошибках проверки из словаря состояния модели и указанными настраиваемыми атрибутами, определенными по объекту атрибутов.</summary>
       <returns>HTML-разметка, представляющая ошибки проверки.</returns>
       <param name="message">Сводное сообщение, следующее до списка сообщений об ошибках проверки.</param>
-      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента. Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
+      <param name="htmlAttributes">Объект, содержащий настраиваемые атрибуты для элемента.Имена и значения атрибутов извлекаются через отражение путем проверки свойств объекта.</param>
     </member>
     <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationSummaryClass">
       <summary>Получает или задает имя класса CSS, который определяет внешний вид сводки проверки при сбое проверки.</summary>
-      <returns>Имя класса CSS. По умолчанию используется значение validation-summary-errors.</returns>
+      <returns>Имя класса CSS.По умолчанию используется значение validation-summary-errors.</returns>
     </member>
     <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationSummaryValidClass">
       <summary>Получает или задает имя класса CSS, который определяет внешний вид сводки проверки при успешной проверке.</summary>
-      <returns>Имя класса CSS. По умолчанию используется значение validation-summary-valid.</returns>
+      <returns>Имя класса CSS.По умолчанию используется значение validation-summary-valid.</returns>
     </member>
     <member name="T:System.Web.WebPages.Html.ModelState">
       <summary>Инкапсулирует состояние привязки модели к свойству аргумента метода действия или к самому аргументу.</summary>
@@ -2240,8 +2299,8 @@
     </member>
     <member name="M:System.Web.WebPages.Html.ModelStateDictionary.CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.Web.WebPages.Html.ModelState}[],System.Int32)">
       <summary>Копирует элементы словаря состояния модели в массив, начиная с указанного индекса.</summary>
-      <param name="array">Одномерный массив <see cref="T:System.Array" />, куда копируются элементы.</param>
-      <param name="arrayIndex">Индекс в массиве <paramref name="array" />, с которого начинается копирование.</param>
+      <param name="array">Экземпляр одномерного <see cref="T:System.Array" />, в который копируются элементы.</param>
+      <param name="arrayIndex">Индекс в <paramref name="array" />, с которого начинается копирование.</param>
     </member>
     <member name="P:System.Web.WebPages.Html.ModelStateDictionary.Count">
       <summary>Возвращает число состояний модели в словаре.</summary>
@@ -2257,35 +2316,35 @@
     </member>
     <member name="P:System.Web.WebPages.Html.ModelStateDictionary.IsValid">
       <summary>Возвращает значение, указывающее, связаны ли какие-либо сообщения об ошибках с любым состоянием модели в словаре.</summary>
-      <returns>Значение true, если сообщения об ошибках связаны с каким-либо состоянием в словаре; в противном случае — false.</returns>
+      <returns>Значение true, если сообщения об ошибках связаны с каким-либо состоянием в словаре; в противном случае — значение false.</returns>
     </member>
     <member name="M:System.Web.WebPages.Html.ModelStateDictionary.IsValidField(System.String)">
       <summary>Определяет, связаны ли какие-либо сообщения об ошибках с заданным ключом.</summary>
-      <returns>Значение true, если сообщения об ошибках не связаны с заданным ключом. В противном случае — значение false.</returns>
+      <returns>Значение true, если сообщения об ошибках не связаны с заданным ключом или он не существует. В противном случае — значение false.</returns>
       <param name="key">Ключ.</param>
-      <exception cref="T:System.ArgumentNullException">Параметр <paramref name="key" /> равен null.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="key" /> имеет значение NULL.</exception>
     </member>
     <member name="P:System.Web.WebPages.Html.ModelStateDictionary.Item(System.String)">
       <summary>Возвращает или задает состояние модели, связанное с указанным ключом в словаре.</summary>
       <returns>Состояние модели, связанное с указанным ключом в словаре.</returns>
-      <param name="key">Ключ, связанный с состоянием модели.</param>
     </member>
     <member name="P:System.Web.WebPages.Html.ModelStateDictionary.Keys">
       <summary>Получает список, содержащий ключи в словаре состояния модели.</summary>
       <returns>Список ключей в словаре.</returns>
     </member>
     <member name="M:System.Web.WebPages.Html.ModelStateDictionary.Merge(System.Web.WebPages.Html.ModelStateDictionary)">
-      <summary>Копирует значения из указанного словаря состояния модели в этот <see cref="T:System.Web.WebPages.Html.ModelStateDictionary" />, перезаписывая существующие значения, если ключи совпадают.</summary>
+      <summary>Копирует значения из указанного словаря состояния модели в этот экземпляр <see cref="T:System.Web.WebPages.Html.ModelStateDictionary" />, перезаписывая существующие значения, если ключи совпадают.</summary>
       <param name="dictionary">Словарь состояния модели, откуда копируются значения.</param>
     </member>
     <member name="M:System.Web.WebPages.Html.ModelStateDictionary.Remove(System.Collections.Generic.KeyValuePair{System.String,System.Web.WebPages.Html.ModelState})">
       <summary>Удаляет первое вхождение указанного элемента из словаря состояния модели.</summary>
-      <returns>Значение true, если элемент был успешно удален. В противном случае — false.</returns>
+      <returns>Значение true, если элемент был успешно удален из словаря состояния модели. В противном случае — значение false.</returns>
       <param name="item">Удаляемый элемент.</param>
     </member>
     <member name="M:System.Web.WebPages.Html.ModelStateDictionary.Remove(System.String)">
       <summary>Удаляет элемент с заданным ключом из словаря состояния модели.</summary>
-      <returns>Значение true, если элемент был успешно удален. В противном случае — false.</returns>
+      <returns>Значение true, если элемент был успешно удален из словаря состояния модели. Значение false, если элемент не был удален или не существует в словаре состояния модели.</returns>
       <param name="key">Ключ элемента, который необходимо удалить.</param>
     </member>
     <member name="M:System.Web.WebPages.Html.ModelStateDictionary.SetModelValue(System.String,System.Object)">
@@ -2301,7 +2360,7 @@
       <summary>Получает значение состояния модели, связанное с указанным ключом.</summary>
       <returns>Значение true, если словарь состояния модели содержит элемент с указанным ключом. В противном случае — значение false.</returns>
       <param name="key">Ключ для получения значения.</param>
-      <param name="value">После возврата из метода — значение состояния модели, связанное с указанным ключом, если он найден; в противном случае возвращается значение по умолчанию для типа <see cref="T:System.Web.WebPages.Html.ModelState" />. Этот параметр передается неинициализированным.</param>
+      <param name="value">После возвращения из метода содержит значение состояния модели, связанное с указанным ключом, если он найден. В противном случае содержит значение по умолчанию для типа <see cref="T:System.Web.WebPages.Html.ModelState" />.Этот параметр передается неинициализированным.</param>
     </member>
     <member name="P:System.Web.WebPages.Html.ModelStateDictionary.Values">
       <summary>Получает список, содержащий значения в словаре состояния модели.</summary>
@@ -2318,65 +2377,98 @@
       <param name="item">Копируемый элемент списка выбора.</param>
     </member>
     <member name="P:System.Web.WebPages.Html.SelectListItem.Selected">
-      <summary>Получает или задает значение, указывающее, выбран ли этот экземпляр <see cref="T:System.Web.WebPages.Html.SelectListItem" />.</summary>
+      <summary>Получает или задает значение, указывающее, выбран ли экземпляр <see cref="T:System.Web.WebPages.Html.SelectListItem" />.</summary>
       <returns>Значение true, если элемент выбран. В противном случае — значение false.</returns>
     </member>
     <member name="P:System.Web.WebPages.Html.SelectListItem.Text">
-      <summary>Возвращает или задает текст для отображения <see cref="T:System.Web.WebPages.Html.SelectListItem" /> на веб-странице.</summary>
+      <summary>Получает или задает текст для отображения экземпляра <see cref="T:System.Web.WebPages.Html.SelectListItem" /> на веб-странице.</summary>
       <returns>Текст для отображения элемента списка.</returns>
     </member>
     <member name="P:System.Web.WebPages.Html.SelectListItem.Value">
-      <summary>Получает или задает значение HTML-атрибута value HTML-элемента option, связанного с <see cref="T:System.Web.WebPages.Html.SelectListItem" />.</summary>
-      <returns>Значение HTML-атрибута value, связанного с элементом списка.</returns>
+      <summary>Получает или задает значение атрибута HTML value HTML-элемента option, связанного с экземпляром <see cref="T:System.Web.WebPages.Html.SelectListItem" />.</summary>
+      <returns>Значение атрибута HTML value, связанного с элементом списка выбора.</returns>
     </member>
     <member name="T:System.Web.WebPages.Instrumentation.InstrumentationService">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Представляет службу инструментирования веб-страниц.</summary>
     </member>
     <member name="M:System.Web.WebPages.Instrumentation.InstrumentationService.#ctor">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.Instrumentation.InstrumentationService" />.</summary>
     </member>
     <member name="M:System.Web.WebPages.Instrumentation.InstrumentationService.BeginContext(System.Web.HttpContextBase,System.String,System.IO.TextWriter,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Вызывается перед отображением выходных данных для указанного контекста.</summary>
+      <param name="context">Контекст.</param>
+      <param name="virtualPath">Виртуальный путь.</param>
+      <param name="writer">Модуль записи.</param>
+      <param name="startPosition">Начальная позиция.</param>
+      <param name="length">Длина контекста.</param>
+      <param name="isLiteral">Определяет, является ли контекст литеральным.</param>
     </member>
     <member name="M:System.Web.WebPages.Instrumentation.InstrumentationService.EndContext(System.Web.HttpContextBase,System.String,System.IO.TextWriter,System.Int32,System.Int32,System.Boolean)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Вызывается после отображения выходных данных для указанного контекста.</summary>
+      <param name="context">Контекст.</param>
+      <param name="virtualPath">Виртуальный путь.</param>
+      <param name="writer">Модуль записи.</param>
+      <param name="startPosition">Начальная позиция.</param>
+      <param name="length">Длина контекста.</param>
+      <param name="isLiteral">Определяет, является ли контекст литеральным.</param>
     </member>
     <member name="P:System.Web.WebPages.Instrumentation.InstrumentationService.IsAvailable">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает значение, указывающее, доступна ли служба.</summary>
+      <returns>Значение true, если служба доступна. В противном случае — значение false.</returns>
     </member>
     <member name="T:System.Web.WebPages.Instrumentation.PositionTagged`1">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
-      <typeparam name="T"></typeparam>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Представляет позицию с тегом.</summary>
+      <typeparam name="T">Тип позиции.</typeparam>
     </member>
     <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.#ctor(`0,System.Int32)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Инициализирует новый экземпляр класса <see cref="T:System.Web.WebPages.Instrumentation.PositionTagged`1" />.</summary>
+      <param name="value">Значение этого текущего экземпляра.</param>
+      <param name="offset">Смещение.</param>
     </member>
     <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.Equals(System.Object)">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Определяет, равен ли заданный объект текущему объекту.</summary>
+      <returns>Значение true, если указанный объект равен текущему объекту; в противном случае — значение false.</returns>
+      <param name="obj">Объект, с которым идет сравнение.</param>
     </member>
     <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.GetHashCode">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает хэш-код текущего экземпляра.</summary>
+      <returns>Хэш-код текущего экземпляра.</returns>
     </member>
     <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.op_Equality(System.Web.WebPages.Instrumentation.PositionTagged{`0},System.Web.WebPages.Instrumentation.PositionTagged{`0})">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Определяет, равны ли оба объекта.</summary>
+      <returns>Значение true, если два объекта равны; в противном случае — значение false.</returns>
+      <param name="left">Первый объект.</param>
+      <param name="right">Второй объект.</param>
     </member>
-    <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.op_Implicit(System.Tuple`2)~System.Web.WebPages.Instrumentation.PositionTagged{`0}">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+    <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.op_Implicit(System.Tuple{`0,System.Int32})~System.Web.WebPages.Instrumentation.PositionTagged{`0}">
+      <summary>Преобразовывает заданный объект в объект <see cref="T:System.Web.WebPages.Instrumentation.PositionTagged`1" />.</summary>
+      <returns>
+        <see cref="T:System.Web.WebPages.Instrumentation.PositionTagged`1" />, представляющий преобразованное значение <paramref name="value" />.</returns>
+      <param name="value">Преобразовываемый объект.</param>
     </member>
     <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.op_Implicit(System.Web.WebPages.Instrumentation.PositionTagged{`0})~`0">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Преобразовывает <paramref name="value" /> в объект <see cref="T:System.Web.WebPages.Instrumentation.PositionTagged`1" />.</summary>
+      <returns>
+        <see cref="T:System.Web.WebPages.Instrumentation.PositionTagged`1" />, представляющий преобразованное значение <paramref name="value" />.</returns>
+      <param name="value">Преобразовываемый объект.</param>
     </member>
     <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.op_Inequality(System.Web.WebPages.Instrumentation.PositionTagged{`0},System.Web.WebPages.Instrumentation.PositionTagged{`0})">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Определяет, являются ли два объекта неравными.</summary>
+      <returns>Значение true, если два объекта не равны; в противном случае — значение false.</returns>
+      <param name="left">Первый объект.</param>
+      <param name="right">Второй объект.</param>
     </member>
     <member name="P:System.Web.WebPages.Instrumentation.PositionTagged`1.Position">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает или задает позицию, связанную с <see cref="T:System.Web.WebPages.Instrumentation.PositionTagged`1" />.</summary>
+      <returns>Позиция, связанная с <see cref="T:System.Web.WebPages.Instrumentation.PositionTagged`1" />.</returns>
     </member>
     <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.ToString">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Возвращает строку, представляющую объект <see cref="T:System.Web.WebPages.Instrumentation.PositionTagged`1" />.</summary>
+      <returns>Строка, представляющая объект <see cref="T:System.Web.WebPages.Instrumentation.PositionTagged`1" />.</returns>
     </member>
     <member name="P:System.Web.WebPages.Instrumentation.PositionTagged`1.Value">
-      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</summary>
+      <summary>Этот тип или член поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.Получает или задает значение текущего экземпляра.</summary>
+      <returns>Значение текущего экземпляра.</returns>
     </member>
     <member name="T:System.Web.WebPages.Scope.AspNetRequestScopeStorageProvider">
       <summary>Определяет поставщик хранения областей запросов ASP.NET.</summary>
@@ -2391,7 +2483,6 @@
     <member name="P:System.Web.WebPages.Scope.AspNetRequestScopeStorageProvider.CurrentScope">
       <summary>Получает или задает словарь для хранения данных в текущей области.</summary>
       <returns>Словарь данных для хранения текущей области данных.</returns>
-      <exception cref="T:System.InvalidOperationException">Начальная страница приложения не была выполнена до попытки задать это свойство.</exception>
     </member>
     <member name="P:System.Web.WebPages.Scope.AspNetRequestScopeStorageProvider.GlobalScope">
       <summary>Получает словарь для хранения данных в глобальной области.</summary>
@@ -2400,7 +2491,6 @@
     <member name="P:System.Web.WebPages.Scope.AspNetRequestScopeStorageProvider.RequestScope">
       <summary>Получает словарь для хранения данных в области запроса.</summary>
       <returns>Словарь для хранения области данных запроса.</returns>
-      <exception cref="T:System.InvalidOperationException">Начальная страница приложения не была выполнена до попытки задать это свойство.</exception>
     </member>
     <member name="T:System.Web.WebPages.Scope.IScopeStorageProvider">
       <summary>Определяет словарь, который предоставляет доступ к данным по областям.</summary>
@@ -2448,72 +2538,71 @@
       <param name="baseScope">Базовая область.</param>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Add(System.Collections.Generic.KeyValuePair{System.Object,System.Object})">
-      <summary>Добавление пары "ключ-значение" в <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> по указанной универсальной коллекции.</summary>
+      <summary>Добавляет пару «ключ-значение» в объект <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> посредством указанной универсальной коллекции.</summary>
       <param name="item">Пара "ключ-значение".</param>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Add(System.Object,System.Object)">
-      <summary>Добавляет указанный ключ и указанное значение в <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" />.</summary>
+      <summary>Добавляет указанный ключ и указанное значение в объект <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" />.</summary>
       <param name="key">Ключ.</param>
       <param name="value">Значение.</param>
     </member>
     <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BackingStore">
-      <summary>Получает словарь, где хранятся объектные данные <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" />.</summary>
+      <summary>Получает словарь, в котором хранятся данные объекта <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" />.</summary>
     </member>
     <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope">
-      <summary>Получает базовую область <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" />.</summary>
-      <returns>Базовая область <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" />.</returns>
+      <summary>Получает базовую область для объекта <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" />.</summary>
+      <returns>Базовая область для объекта <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" />.</returns>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Clear">
       <summary>Удаляет все ключи и значения из объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Contains(System.Collections.Generic.KeyValuePair{System.Object,System.Object})">
-      <summary>Возвращает значение, указывающее, есть ли заданная пара "ключ-значение" в <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> объекте или <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
-      <returns>Значение true, если объект <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> или <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> содержит пару. В противном случае — значение false.</returns>
+      <summary>Возвращает значение, указывающее, существует ли заданная пара «ключ-значение» в объекте <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> или <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
+      <returns>Значение true, если объект <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> или <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> содержит элемент с указанной парой «ключ-значение». В противном случае — значение false.</returns>
       <param name="item">Пара "ключ-значение".</param>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.ContainsKey(System.Object)">
-      <summary>Возвращает значение, указывающее, есть ли заданный ключ в <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> объекте или <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
-      <returns>Значение true, если объект <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> или <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> содержит ключ. В противном случае — значение false.</returns>
+      <summary>Возвращает значение, указывающее, существует ли заданный ключ в объекте <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> или <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
+      <returns>Значение true, если объект <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> или <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> содержит элемент с указанным ключом. В противном случае — значение false.</returns>
       <param name="key">Ключ.</param>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.CopyTo(System.Collections.Generic.KeyValuePair{System.Object,System.Object}[],System.Int32)">
-      <summary>Копирует все элементы объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> в <see cref="T:System.Array" />, начиная с указанного индекса.</summary>
+      <summary>Копирует все элементы объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> в объект <see cref="T:System.Array" />, начиная с указанного индекса.</summary>
       <param name="array">Массив.</param>
-      <param name="arrayIndex">Отсчитываемый от нуля индекс <paramref name="array" />.</param>
+      <param name="arrayIndex">Отсчитываемый от нуля индекс в <paramref name="array" />.</param>
     </member>
     <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.Count">
-      <summary>Возвращает количество пар "ключ-значение" в объединенных объектах <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
+      <summary>Возвращает количество пар «ключ-значение» в объединенных объектах <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
       <returns>Число пар "ключ-значение".</returns>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.GetEnumerator">
-      <summary>Возвращает перечислитель, с помощью которого можно осуществлять итерацию по объединенным объектам <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
+      <summary>Возвращает перечислитель, с помощью которого можно выполнить итерацию по объединенным объектам <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
       <returns>Объект <see cref="T:System.Collections.Generic.IEnumerator" />.</returns>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.GetItems">
-      <summary>Возвращает перечислитель, с помощью которого можно осуществлять итерацию по отдельным элементам объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
+      <summary>Возвращает перечислитель, с помощью которого можно выполнить итерацию по отдельным элементам объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
       <returns>Перечислитель, который содержит отдельные элементы объединенных словарей.</returns>
     </member>
     <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.IsReadOnly">
-      <summary>Получает значение, указывающее, действительно ли <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> доступен только для чтения.</summary>
-      <returns>Значение true, если <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> доступен только для чтения. В противном случае — значение false.</returns>
+      <summary>Получает значение, указывающее, действительно ли объект <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> доступен только для чтения.</summary>
+      <returns>Значение true, если объект <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> доступен только для чтения. В противном случае — значение false.</returns>
     </member>
     <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.Item(System.Object)">
       <summary>Получает или задает элемент, связанный с указанным ключом.</summary>
       <returns>Элемент, имеющий указанный ключ.</returns>
-      <param name="key">Ключ элемента, который требуется получить или задать.</param>
     </member>
     <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.Keys">
-      <summary>Возвращает объект <see cref="T:System.Collections.Generic.List`1" /> с ключами из объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
+      <summary>Получает объект <see cref="T:System.Collections.Generic.List`1" />, содержащий ключи из объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
       <returns>Объект, содержащий ключи.</returns>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Remove(System.Collections.Generic.KeyValuePair{System.Object,System.Object})">
-      <summary>Удаляет указанную пару "ключ-значение" из объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
-      <returns>Значение true, если пара удалена, или false, если <paramref name="item" /> не найден в объединении объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</returns>
+      <summary>Удаляет указанную пару «ключ-значение» из объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
+      <returns>Значение true, если пара «ключ-значение» удалена, или false, если <paramref name="item" /> не найден в объединенных объектах <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</returns>
       <param name="item">Пара "ключ-значение".</param>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Remove(System.Object)">
       <summary>Удаляет из объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> значение, имеющее указанный ключ.</summary>
-      <returns>Значение true, если пара удалена, или false, если <paramref name="key" /> не найден в объединении объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</returns>
+      <returns>Значение true, если пара «ключ-значение» удалена, или false, если <paramref name="key" /> не найден в объединенных объектах <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</returns>
       <param name="key">Ключ.</param>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.SetValue(System.Object,System.Object)">
@@ -2526,13 +2615,13 @@
       <returns>Перечислитель.</returns>
     </member>
     <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.TryGetValue(System.Object,System.Object@)">
-      <summary>Получает из объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> значение, имеющее указанный ключ.</summary>
-      <returns>Значение true, если объект <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> или <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> содержит указанный ключ. В противном случае — значение false.</returns>
+      <summary>Получает из объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> значение, связанное с указанным ключом.</summary>
+      <returns>Значение true, если объединенные объекты <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> содержат элемент с указанным ключом. В противном случае — значение false.</returns>
       <param name="key">Ключ.</param>
-      <param name="value">При возврате из метода это значение, связанное с указанным ключом, если он найден; в противном случае возвращается значение по умолчанию для типа параметра <paramref name="value" />. Этот параметр передается неинициализированным.</param>
+      <param name="value">При возвращении из метода содержит это значение, связанное с указанным ключом, если он найден; в противном случае содержит значение по умолчанию для типа параметра <paramref name="value" />.Этот параметр передается неинициализированным.</param>
     </member>
     <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.Values">
-      <summary>Возвращает объект <see cref="T:System.Collections.Generic.List`1" /> со значениями из объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
+      <summary>Получает объект <see cref="T:System.Collections.Generic.List`1" />, содержащий значения из объединенных объектов <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> и <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" />.</summary>
       <returns>Объект, который содержит значения.</returns>
     </member>
     <member name="T:System.Web.WebPages.Scope.StaticScopeStorageProvider">
