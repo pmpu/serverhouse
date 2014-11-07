@@ -13,6 +13,9 @@
 <hr>
 
 ## new tasks - new screens
+<img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/238e195e9c025cf384a3ca16a667884de4d76164/other/images/screenshots/hdd.jpg"><br>
+<i>(New HDD)</i>
+
 <img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/screenshots/ssd.jpg"><br>
 <i>(first SSD)</i>
 
