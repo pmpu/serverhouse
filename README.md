@@ -13,6 +13,9 @@
 <hr>
 
 ## new tasks - new screens
+<img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/36958f4164075133550040b4d12afc8fe57bcb36/other/images/screenshots/disk_animation_details.png"><br>
+<i>(Animation HDD components view)</i>
+
 <img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/238e195e9c025cf384a3ca16a667884de4d76164/other/images/screenshots/hdd.jpg"><br>
 <i>(New HDD)</i>
 
