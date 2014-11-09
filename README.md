@@ -13,6 +13,15 @@
 <hr>
 
 ## new tasks - new screens
+<img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/36958f4164075133550040b4d12afc8fe57bcb36/other/images/screenshots/disk_animation_details.png"><br>
+<i>(Animation HDD components view)</i>
+
+<img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/238e195e9c025cf384a3ca16a667884de4d76164/other/images/screenshots/hdd.jpg"><br>
+<i>(New HDD)</i>
+
+<img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/master/other/images/screenshots/ssd.jpg"><br>
+<i>(first SSD)</i>
+
 <a href="http://www.youtube.com/watch?v=TzM7fh1nt-E" target="_blank"><img width="500"  src="http://img.youtube.com/vi/TzM7fh1nt-E/0.jpg"/></a><br>
 <i>(titles video preview)</i><br><br>
 <img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/02d5c744028fc1aed2b6fc3c3b8d17598dc2adec/other/images/screenshots/hddinside.jpg"><br>
