@@ -1,13 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Titles/Default.aspx">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Titles/web.config">
     <Files>
       <File FileName="Titles/auth.aspx.cs" Line="52" Column="52" />
       <File FileName="Titles/auth.aspx" Line="7" Column="7" />
       <File FileName="Titles/auth.aspx.designer.cs" Line="1" Column="1" />
       <File FileName="Titles/Default.aspx.cs" Line="4" Column="4" />
-      <File FileName="Titles/Default.aspx" Line="3" Column="3" />
-      <File FileName="Titles/api.aspx.cs" Line="40" Column="40" />
+      <File FileName="Titles/Default.aspx" Line="39" Column="39" />
+      <File FileName="Titles/api.aspx.cs" Line="16" Column="16" />
       <File FileName="Titles/web.config" Line="7" Column="7" />
       <File FileName="Titles/Titles.cs" Line="4" Column="4" />
     </Files>
