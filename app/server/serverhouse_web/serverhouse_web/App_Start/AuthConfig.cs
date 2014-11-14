@@ -27,18 +27,15 @@ namespace serverhouse_web
             //    appId: "",
             //    appSecret: "");
 
-<<<<<<< HEAD
             //OAuthWebSecurity.RegisterGoogleClient();
-=======
             OAuthWebSecurity.RegisterGoogleClient();
 	   
 
 		 OAuthWebSecurity.RegisterClient(
        client: new VKontakteAuthenticationClient(
-              appId: "4588730", appSecret: "B6hJ3rq76cR4vZgZB7SF"),
+              appId: "4634918", appSecret: "Qr4ssc9kFrZaoXy8zoLh"),
        displayName: "ВКонтакте", // надпись на кнопке
        extraData: null);
->>>>>>> Auth32
         }
     }
 }
