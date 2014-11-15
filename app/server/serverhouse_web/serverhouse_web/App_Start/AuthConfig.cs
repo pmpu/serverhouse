@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Web.WebPages.OAuth;
 using serverhouse_web.Models;
-using MvcApplication.Code;
+using serverhouse_web.Code;
 
 namespace serverhouse_web
 {
@@ -27,18 +27,16 @@ namespace serverhouse_web
             //    appId: "",
             //    appSecret: "");
 
-<<<<<<< HEAD
-            //OAuthWebSecurity.RegisterGoogleClient();
-=======
-            OAuthWebSecurity.RegisterGoogleClient();
+
+           // OAuthWebSecurity.RegisterGoogleClient();
 	   
 
-		 OAuthWebSecurity.RegisterClient(
-       client: new VKontakteAuthenticationClient(
-              appId: "4588730", appSecret: "B6hJ3rq76cR4vZgZB7SF"),
-       displayName: "ВКонтакте", // надпись на кнопке
-       extraData: null);
->>>>>>> Auth32
+		    OAuthWebSecurity.RegisterClient(
+                client: new VKontakteAuthenticationClient(
+                                appId: "4635100", appSecret: "6ImFiGdKxmfVTUgimKyO"),
+                displayName: "ВКонтакте", // надпись на кнопке
+                extraData: null);
+
         }
     }
 }
