@@ -913,7 +913,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: rgb(196, 23, 27);
+  color: rgb(164, 115, 81);
   text-decoration: none;
 }
 a:hover,
@@ -2802,7 +2802,7 @@ fieldset[disabled] .btn {
 }
 .btn-default {
   color: #ffffff;
-  background-color: rgb(186, 13, 17);
+  background-color: rgb(116, 114, 91);
   
 }
 .btn-default:hover,
@@ -4160,8 +4160,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #ce2125;
-  border-color: #ce2125;
+  background-color: rgb(63, 55, 61);
+  border-color: rgb(63, 55, 61);
 }
 .navbar-default .navbar-brand {
   color: #ffffff;
@@ -4186,7 +4186,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: rgb(191, 18, 22);
+  background-color: rgb(116, 114, 91);
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
@@ -6357,7 +6357,7 @@ button.close {
   line-height: 26px;
 }
 .btn-default:hover {
-  background-color: rgb(176, 3, 7);
+  background-color: rgb(106, 104, 81);
 }
 input,
 .form-control {
