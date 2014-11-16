@@ -17,6 +17,8 @@ ExportedObj/
 *.suo
 #*.user
 #*.booproj
+*.mdf
+*.ldf
  
 # ============ #
 # OS generated #
