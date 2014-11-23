@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.IO;
 using System.Net;
-namespace serverhouse_web.Code
+namespace serverhouse_web.Auth
 {
     public class VKontakteAuthenticationClient : IAuthenticationClient
     {
