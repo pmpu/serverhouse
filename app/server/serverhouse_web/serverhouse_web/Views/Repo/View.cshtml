@@ -1,0 +1,21 @@
+﻿@model serverhouse_web.Models.SHObject.SHObject
+
+@{var obj = Model;}
+
+@{
+    ViewBag.Title = "object"+obj.id.ToString();
+}
+
+@foreach (var prop in obj.properties) { 
+    <text>
+    @prop.Key: @prop.Value <br>
+    </text>
+}
+
+
+
+
+
+
+
+

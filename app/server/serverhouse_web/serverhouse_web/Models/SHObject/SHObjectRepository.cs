@@ -89,6 +89,14 @@ namespace serverhouse_web.Models.SHObject
             return obj;
         }
 
+        public List<SHObject> getObjects(int page = 1, int pageSize = 10) {
+            page = Math.Abs(page);
+            return
+                (from obj in objectsCollection.AsQueryable<SHObject>() 
+                 where obj.ver_active == true
+                    select obj).Skip((page-1)*pageSize).Take(pageSize).ToList();
+        }
+
         public SHObject getObjectById(long id) {
             return getCurrentVersion(id);
         }
@@ -177,14 +185,6 @@ namespace serverhouse_web.Models.SHObject
                 Query.And(Query.EQ("id", version.id), Query.NE("_id", version.databaseId)),
                 updateOtherVersions, UpdateFlags.Multi);
         }
-
-
-
-
-        public SHObject GetObjectById(long id)
-        {
-            var obj = (SHObject)objectsCollection.FindOneAs(typeof(SHObject), Query.EQ("id", id));
-            return obj;
-        }
+        
     }
 }

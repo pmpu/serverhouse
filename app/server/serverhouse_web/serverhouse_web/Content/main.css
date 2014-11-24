@@ -1,3 +1,5 @@
+/* FONTS */
+@import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic);
 .float-left {
     float: left;
 }
@@ -14,5 +16,75 @@
     visibility: hidden;
 }
 
+/* PAGE */
 
-.nav
+.page_title {
+    margin-bottom: 50px;
+}
+
+
+/* ASYNC LIST */
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.list { 
+    margin: auto;
+    width: 700px;
+    box-shadow: rgba(0, 0, 0, .2) 0px 2px 7px;
+    padding-bottom: 20px;
+}
+
+.list_container {
+    margin-bottom: 20px;
+}
+
+.list a:hover {
+    text-decoration: none;
+}
+
+.list_row {
+    padding: 10px;
+    cursor: pointer;
+}
+
+    .list_row:hover {
+        background: rgb(106, 104, 81);
+        color: white;
+    }
+
+.list_row_title {
+    font-weight: 300;
+    font-size: 25px;
+
+}
+
+.list_navigation {
+    display: block;
+    text-align: center;
+}
+
+.list_load_prev, .list_load_next {
+    display: inline-block;
+    
+    font-size: 20px;
+    background: rgb(106, 104, 81);
+    border: none;
+    color: white;
+    box-shadow: rgba(0, 0, 0, .2) 1px 1px 3px;
+    -webkit-transition: 0.3s linear 0s;
+    -moz-transition: 0.3s linear 0s;
+    -o-transition: 0.3s linear 0s;
+    transition: 0.3s linear 0s;
+}
+
+    .list_load_prev:hover, .list_load_next:hover {
+        box-shadow: rgba(0, 0, 0, .5) 1px 1px 15px;        
+    }
+
+.list_page_delimeter {
+    padding-left: 10px;
+    background: rgba(106, 104, 81, .5);
+    color: white;
+}

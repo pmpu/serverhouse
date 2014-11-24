@@ -42,6 +42,11 @@ namespace serverhouse_web
                    "~/Content/bootstrap/css/themes/sandstone/bootstrap.css"));
             bundles.Add(new ScriptBundle("~/bootstrap/js").Include(
                    "~/Content/bootstrap/js/bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/main/css").Include(
+                   "~/Content/main.css"));
+
+
         }
            
     }
