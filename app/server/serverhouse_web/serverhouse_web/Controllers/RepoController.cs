@@ -21,9 +21,17 @@ namespace serverhouse_web.Controllers
             repo = new SHObjectRepository();
         }
 
-        public ActionResult Index()
-        {            
-            return View();
+        public ActionResult Index(int page = 1)
+        {
+            ViewBag.page = page;
+            ViewBag.nextPageAvailable = repo.getObjects(page + 1, OBJECTS_PER_PAGE).Count() > 0;
+            List<SHObject> objects = repo.getObjects(page, OBJECTS_PER_PAGE);
+            if (objects.Count() > 0) {
+                return View(objects);
+            }
+
+            return HttpNotFound();
+            
         }
 
         public string asyncObjectList(int page = 1) {

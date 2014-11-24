@@ -1,124 +1,36 @@
-﻿@{
+﻿@using serverhouse_web.Models.SHObject
+@model List<SHObject>
+
+@{var objects = Model;}
+
+@{
     ViewBag.Title = "All objects";
 }
-
-
 
 <h1 class="page_title">All objects</h1>
 
 <div id="all_objects_container" class="container">
     <div class="list">
-        <div class="list_container"></div>
+        <div class="list_container">
+        <div class="list_page_delimeter">Page @ViewBag.page</div>
+        @foreach (var obj in objects) { 
+             <a href="repo/view/@obj.id">
+                 <div class="list_row">
+                   <div class="list_row_title">Object(@obj.id)</div>
+                </div>
+             </a>
+        }
+        </div>
         <div class="list_navigation">
-            <button class="list_load_prev">Prev</button>
-            <button class="list_load_next">Next</button>
+            @if(ViewBag.page > 1){
+                @Html.ActionLink("Prev", "Index", new { page = ViewBag.page - 1 });
+            }
+
+            @if(ViewBag.nextPageAvailable){
+                @Html.ActionLink("Next", "Index", new { page = ViewBag.page + 1 });
+            }
+            
+            
         </div>
     </div>
 </div>
-
-
-
-<script>
-    var page;
-    $(document).ready(function () {
-        params = parse_params(window.location.hash);
-        console.log(params);
-        var url_page = params["page"] != undefined ? parseInt(params["page"]) : 1;
-        page = url_page <= 0 ? 1 : url_page;
-        loadObjects(page, appendObjects);        
-        updateUrl();
-        updateNavigationButtons();
-    });
-
-    $('.list_load_next').click(function () {
-        loadObjects(++page, replaceObjects);        
-        updateUrl();
-        updateNavigationButtons();        
-    });
-
-    $('.list_load_prev').click(function () {
-        loadObjects(--page, replaceObjects);
-        updateUrl();
-        updateNavigationButtons();
-    });
-
-
-
-    function loadObjects(p, callback) {
-        $.get("repo/asyncObjectList", { page: p }, function (data) {            
-            var objects = JSON.parse(data);
-            if (callback != undefined)
-                callback(objects);
-        }).fail(function () {
-            console.error("failed to get objects");
-        });
-    }
-
-    function updateNavigationButtons() {
-        if (page < 2) {
-            $(".list_load_prev").hide();
-        } else {
-            $(".list_load_prev").show();
-        }
-
-        canLoadPage(page + 1, function (able) {
-            if (!able) {
-                $(".list_load_next").hide();
-            } else {
-                $(".list_load_next").show();
-            }
-        });
-    }
-
-    function canLoadPage(page, callback) {
-        loadObjects(page, function (objects) {
-            callback(objects.length > 0);
-        });
-    }
-
-        function appendObjects(objects) {
-            $('.list_container').append("<div class='list_page_delimeter'>Page "+page+"</div>");
-            for(var i = 0; i < objects.length; i++){
-                var obj = objects[i];            
-                $('.list_container').append(renderObjectRow(obj));
-            }
-        }
-
-        function replaceObjects(objects) {
-            $('.list_container').html('');
-            $('.list_container').append("<div class='list_page_delimeter'>Page " + page + "</div>");
-            for (var i = 0; i < objects.length; i++) {
-                var obj = objects[i];
-                $('.list_container').append(renderObjectRow(obj));
-            }
-        }
-
-        function renderObjectRow(obj){
-            return "<a href = '/repo/view/"+obj.id+"'>"
-                        +"<div class = 'list_row'>"
-                            + "<div class = 'list_row_title'>"
-                                + "Object"+obj.id
-                            + "</div>"
-                        + "</div>"
-                    + "</a>";
-        }
-
-        function updateUrl() {
-            window.location.hash = "page="+page;
-        }
-
-
-        function parse_params(querystring) {
-            // remove any preceding url and split
-            querystring = querystring.substring(querystring.indexOf('#') + 1).split('&');
-            var params = {}, pair, d = decodeURIComponent;
-            // march and parse
-            for (var i = querystring.length - 1; i >= 0; i--) {
-                pair = querystring[i].split('=');
-                params[d(pair[0])] = d(pair[1]);
-            }
-
-            return params;
-        };
-    
-</script>
