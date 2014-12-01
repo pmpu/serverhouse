@@ -29,7 +29,20 @@ namespace serverhouse_web.Models.SHObject
             }else {
                 properties.Add(key, value);
             }
-            
         }
+
+
+        public string getName() {
+            string[] possibleKeys = new string[] { "name", "имя", "название" };
+
+            foreach(var nameKey in possibleKeys){
+                if (properties.ContainsKey(nameKey)){
+                    return properties[nameKey];
+                }
+            }
+
+            return "Object"+id.ToString();
+        }
+
     }
 }

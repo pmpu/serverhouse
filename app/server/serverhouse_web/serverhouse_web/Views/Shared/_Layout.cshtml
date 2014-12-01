@@ -13,38 +13,7 @@
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-default" role="navigation">
-              <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  @Html.ActionLink("serverhouse", "Index", "Home", null, new { @class = "navbar-brand" })
-                </div>
-                
-                  <ul class="nav navbar-nav">
-                    <li class="active">@Html.ActionLink("repo", "", "Repo")</li>
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>                   
-                  </ul>
-
-                  <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                  </form>
-
-                  <ul class="nav navbar-nav navbar-right">                    
-                    @Html.Partial("_LoginPartial")                    
-                  </ul>                
-              </div><!-- /.container-fluid -->
-            </nav>
-
-           
+            @Html.Partial("_TopBarPartial")
         </header>
 
         <div id="body">

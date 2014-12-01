@@ -26,29 +26,75 @@ namespace serverhouse_web.Controllers
             ViewBag.page = page;
             ViewBag.nextPageAvailable = repo.getObjects(page + 1, OBJECTS_PER_PAGE).Count() > 0;
             List<SHObject> objects = repo.getObjects(page, OBJECTS_PER_PAGE);
-            if (objects.Count() > 0) {
-                return View(objects);
-            }
-
-            return HttpNotFound();
             
-        }
-
-        public string asyncObjectList(int page = 1) {
-            List<SHObject> all = repo.getObjects(page, OBJECTS_PER_PAGE);
-            return all.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { 
-                OutputMode = MongoDB.Bson.IO.JsonOutputMode.Strict 
-            });
+            return View(objects);
         }
 
         public ActionResult View(long id) {
             SHObject obj = repo.getObjectById(id);
-            if (obj != null)
-            {
+            if (obj != null){
                 return View(obj);
-            }else {
-                return HttpNotFound();
             }
+
+            return HttpNotFound();            
+        }
+
+        public ActionResult Add() {            
+            SHObject obj = new SHObject();                        
+            obj = repo.AddVersion(obj);
+            return View("Edit", obj);
+        }
+        
+
+        public ActionResult Edit(long id = -1)
+        {
+            if(id != -1){
+                SHObject obj = repo.getObjectById(id);
+                if (obj != null) {
+                    return View("Edit", obj);
+                }
+            }
+
+            return HttpNotFound();            
+        }
+
+        [HttpPost]
+        public ActionResult Edit()
+        {
+
+            try
+            {
+                long id = long.Parse(RouteData.Values["id"].ToString());
+
+                SHObject obj;
+                if ((obj = repo.getObjectById(id)) != null)
+                {
+                    foreach (string key in Request.Form)
+                    {
+                        string value = Request.Form[key];
+                        obj.setProperty(key, value);
+                    }
+
+
+                    repo.AddVersion(obj);
+
+                    return RedirectToAction("view", "repo", new { id = id });
+                }
+            }
+            catch (Exception ex) { }
+
+            return HttpNotFound();
+        }
+
+        [HttpGet]
+        public ActionResult Delete(long id) { 
+            SHObject obj;
+            if ((obj = repo.getObjectById(id)) != null)
+            {
+                repo.Delete(obj);
+            }
+
+            return RedirectToAction("index", "repo");
         }
 
     }

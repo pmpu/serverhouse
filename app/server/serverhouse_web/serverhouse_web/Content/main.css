@@ -19,18 +19,18 @@
 /* PAGE */
 
 .page_title {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 
-/* ASYNC LIST */
+/* LIST */
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
 .list { 
-    margin: auto;
+    
     width: 700px;
     box-shadow: rgba(0, 0, 0, .2) 0px 2px 7px;
     padding-bottom: 20px;
@@ -50,13 +50,13 @@ body {
 }
 
     .list_row:hover {
-        background: rgb(106, 104, 81);
-        color: white;
+        background: rgba(0, 0, 0, 0.05);
+     
     }
 
 .list_row_title {
     font-weight: 300;
-    font-size: 25px;
+    font-size: 20px;
 
 }
 

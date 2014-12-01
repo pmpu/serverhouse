@@ -39,7 +39,7 @@ namespace serverhouse_web
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));*/
             bundles.Add(new StyleBundle("~/bootstrap/css").Include(
-                   "~/Content/bootstrap/css/themes/sandstone/bootstrap.css"));
+                   "~/Content/bootstrap/css/bootstrap.css"));
             bundles.Add(new ScriptBundle("~/bootstrap/js").Include(
                    "~/Content/bootstrap/js/bootstrap.js"));
 
