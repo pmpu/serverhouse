@@ -185,6 +185,10 @@ namespace serverhouse_web.Models.SHObject
                 Query.And(Query.EQ("id", version.id), Query.NE("_id", version.databaseId)),
                 updateOtherVersions, UpdateFlags.Multi);
         }
+
+        public void Delete(SHObject obj){
+            objectsCollection.Remove(Query.EQ("id", obj.id));
+        }
         
     }
 }

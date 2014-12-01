@@ -1,5 +1,8 @@
 ﻿<h1 align="right">serverhouse</h1>
 <a align="left" href="https://github.com/pmpu/serverhouse/wiki/FAQ">FAQ и полезная информация</a>
+<br />
+<a align="left" href="http://cctasks.cloudapp.net/issues"> YouTrack - Все задания подробно </a>
+
 
 ## новые задачи
  - сайт

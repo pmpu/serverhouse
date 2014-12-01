@@ -4,21 +4,25 @@
 @{var objects = Model;}
 
 @{
-    ViewBag.Title = "All objects";
+    ViewBag.Title = "All";
 }
 
-<h1 class="page_title">All objects</h1>
-
+<h1 class="page_title">All</h1>
+<a href="/repo/add">add</a><br><br>
 <div id="all_objects_container" class="container">
     <div class="list">
         <div class="list_container">
         <div class="list_page_delimeter">Page @ViewBag.page</div>
-        @foreach (var obj in objects) { 
-             <a href="repo/view/@obj.id">
+        @foreach (SHObject obj in objects) { 
+             
                  <div class="list_row">
-                   <div class="list_row_title">Object(@obj.id)</div>
+                   <div class="list_row_title"><a href="repo/view/@obj.id">@obj.getName()</a></div>
+                   <div class="list_row_actions">
+                       <a href="/repo/edit/@obj.id">edit</a>  
+                       <a href="/repo/delete/@obj.id">delete</a><br>
+                   </div>
                 </div>
-             </a>
+             
         }
         </div>
         <div class="list_navigation">

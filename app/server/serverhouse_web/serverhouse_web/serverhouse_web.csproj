@@ -329,9 +329,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Repo\Index.cshtml" />
-    <Content Include="Views\Repo\Add.cshtml" />
     <Content Include="Views\Repo\Edit.cshtml" />
     <Content Include="Views\Repo\View.cshtml" />
+    <Content Include="Views\Shared\_TopBarPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
