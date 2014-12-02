@@ -86,7 +86,6 @@ namespace serverhouse_web.Controllers
             return HttpNotFound();
         }
 
-        [HttpGet]
         public ActionResult Delete(long id) { 
             SHObject obj;
             if ((obj = repo.getObjectById(id)) != null)
