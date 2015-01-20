@@ -1,13 +1,11 @@
-﻿@if (Request.IsAuthenticated) {
-    <li>
-        @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new {  title = "Управление" })
-    </li>
-    <li>
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-            @Html.AntiForgeryToken()           
-        }
-        <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
-    </li>
+﻿@if (Request.IsAuthenticated) {    
+    @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new {  title = "Управление" })    
+    <a href="javascript:document.getElementById('logoutForm').submit()" class="noasync">выйти</a>    
+    
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+        @Html.AntiForgeryToken()           
+    }
+    
 } else {
-    <li>@Html.ActionLink("Вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    @Html.ActionLink("вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
 }

@@ -1,49 +1,16 @@
-﻿@{
-    var tbLinks = new Dictionary<string, string>[]{
-        new Dictionary<string, string>{{"title", "Repo"}, {"controller", "repo"}},
-        new Dictionary<string, string>{{"title", "Contact"}, {"controller", "home"}, {"action", "contact"}},
-    };
+﻿
 
-    var currentController = @ViewContext.RouteData.Values["controller"].ToString();
-    var currentAction = @ViewContext.RouteData.Values["action"].ToString();
-    
-}
-
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">          
-        <div class="navbar-header">            
-            @Html.ActionLink("serverhouse", "Index", "Home", null, new { @class = "navbar-brand" })
+<div class="header">    
+        <div class="header_logo">            
+            @Html.ActionLink("SERVERHOUSE", "Index", "Home", null, new { @class = "header_logo_link" })
         </div>
-                
-        <ul class="nav navbar-nav">
-            
+    
+        <div class="header_searchbox">
+            <input class="header_searchbox_input" type="text">
+        </div>        
 
-            @foreach (var link in tbLinks) {
-
-                var active = false;
-                string title, controller, action, classActive;                
-                
-                controller = link["controller"];
-                title = link["title"];
-                
-                string tr;
-                if (link.TryGetValue("action", out tr)) {
-                    action = link["action"];
-                    active = link["controller"] == currentController.ToLower() && link["action"] == currentAction.ToLower();                                           
-                }else{
-                    action = "";
-                    active = link["controller"] ==  currentController.ToLower();
-                }
-                
-                classActive = active?"class=active":"";                
-                
-                <li @classActive>@Html.ActionLink(title, action, controller)</li>
-            }
-                            
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">                    
+        <div class="header_login">
             @Html.Partial("_LoginPartial")                    
-        </ul>                
+        </div>                
     </div>
-</nav>
+</div>

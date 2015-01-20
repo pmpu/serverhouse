@@ -43,8 +43,11 @@ namespace serverhouse_web
             bundles.Add(new ScriptBundle("~/bootstrap/js").Include(
                    "~/Content/bootstrap/js/bootstrap.js"));
 
-            bundles.Add(new ScriptBundle("~/main/css").Include(
+            bundles.Add(new StyleBundle("~/main/css").Include(
                    "~/Content/main.css"));
+            bundles.Add(new StyleBundle("~/main/js").Include(
+                   "~/Content/js/async_navigation.js"));
+
 
 
         }

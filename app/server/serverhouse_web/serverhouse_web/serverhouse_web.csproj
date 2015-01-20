@@ -209,9 +209,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SimpleJson.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\main.css" />
+    <Content Include="Content\js\async_navigation.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -332,9 +334,11 @@
     <Content Include="Views\Repo\Edit.cshtml" />
     <Content Include="Views\Repo\View.cshtml" />
     <Content Include="Views\Shared\_TopBarPartial.cshtml" />
+    <Content Include="Views\Shared\_LeftBarPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ObjectRepresentation\Edit\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

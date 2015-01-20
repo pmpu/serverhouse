@@ -1,0 +1,34 @@
+﻿@{
+    var LeftBarLinks = new Dictionary<string, string>[]{
+        new Dictionary<string, string>{{"title", "home"}, {"controller", "home"}, {"action", "index"}},
+        new Dictionary<string, string>{{"title", "repository"}, {"controller", "repo"}},
+        new Dictionary<string, string>{{"title", "contact"}, {"controller", "home"}, {"action", "contact"}},
+    };
+
+    var currentController = @ViewContext.RouteData.Values["controller"].ToString();
+    var currentAction = @ViewContext.RouteData.Values["action"].ToString();
+    
+}
+
+
+<ul class="leftbar_menu">
+    @foreach (var link in LeftBarLinks) {
+        var active = false;
+        string title, controller, action, classActive;                
+                
+        controller = link["controller"];
+        title = link["title"];
+                                
+        if (link.ContainsKey("action")) {
+            action = link["action"];
+            active = link["controller"] == currentController.ToLower() && link["action"] == currentAction.ToLower();                                           
+        }else{
+            action = "";
+            active = link["controller"] ==  currentController.ToLower();
+        }                
+        classActive = active?"class=active":"";      
+               
+        <a @classActive href="/@controller/@action"><li>@title</li></a>
+            
+    }                            
+</ul>
