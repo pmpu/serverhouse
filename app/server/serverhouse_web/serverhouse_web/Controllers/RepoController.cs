@@ -5,8 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 
 using serverhouse_web.Models.SHObject;
+using serverhouse_web.Models.PropertyValue;
+
+using SimpleJson;
 
 namespace serverhouse_web.Controllers
 {
@@ -26,6 +30,10 @@ namespace serverhouse_web.Controllers
             ViewBag.page = page;
             ViewBag.nextPageAvailable = repo.getObjects(page + 1, OBJECTS_PER_PAGE).Count() > 0;
             List<SHObject> objects = repo.getObjects(page, OBJECTS_PER_PAGE);
+
+            /*SHObject obj = objects[0];
+            obj.set("text", new TextPropertyValue("hello"));
+            repo.AddVersion(obj);*/
             
             return View(objects);
         }
@@ -59,7 +67,7 @@ namespace serverhouse_web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit()
+        public string Edit()
         {
 
             try
@@ -69,21 +77,21 @@ namespace serverhouse_web.Controllers
                 SHObject obj;
                 if ((obj = repo.getObjectById(id)) != null)
                 {
-                    foreach (string key in Request.Form)
+                    string jsonProperties = Request.Form["properties"];
+                    JsonObject properties = (JsonObject)SimpleJson.SimpleJson.DeserializeObject(jsonProperties);
+                    
+                    foreach (var prop in properties)
                     {
-                        string value = Request.Form[key];
-                        obj.setProperty(key, value);
+                        obj.set(prop.Key, PropertyValue.constructPropertyValue((JsonObject)prop.Value)); 
                     }
-
-
                     repo.AddVersion(obj);
 
-                    return RedirectToAction("view", "repo", new { id = id });
+                    return "success";
                 }
             }
             catch (Exception ex) { }
 
-            return HttpNotFound();
+            return "error";
         }
 
         public ActionResult Delete(long id) { 
@@ -94,6 +102,10 @@ namespace serverhouse_web.Controllers
             }
 
             return RedirectToAction("index", "repo");
+        }
+
+        public string getAllPossibleNames(string q = "") {
+            return repo.getPropertyNames(q).ToJson();
         }
 
     }

@@ -179,6 +179,33 @@ a {
 }
 
 
+/* EDITING */
+
+#object_edit_container {
+}
+
+.edit_props {
+}
+
+.edit_prop {
+
+}
+
+.edit_prop_name {
+    width: 300px;
+}
+
+.edit_prop_type {
+}
+
+.edit_prop_valuerep {
+}
+
+.valuerep {
+}
+
+
+
 /* PAGE */
 
 .page_title {

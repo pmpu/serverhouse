@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Globalization;
+using System.Web;
 using System.Web.Optimization;
 
 namespace serverhouse_web
@@ -44,9 +45,22 @@ namespace serverhouse_web
                    "~/Content/bootstrap/js/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/main/css").Include(
-                   "~/Content/main.css"));
-            bundles.Add(new StyleBundle("~/main/js").Include(
-                   "~/Content/js/async_navigation.js"));
+                   "~/Content/main.css",
+                   "~/Content/libs/sweet_alert/sweet-alert.css",
+                   "~/Content/libs/select2/css/select2.css"
+                   ));
+
+            bundles.Add(new ScriptBundle("~/main/js").Include(
+                   "~/Content/js/async_navigation.js",
+                   "~/Content/libs/sweet_alert/sweet-alert.js",
+                   "~/Content/libs/select2/js/select2.js",
+                   "~/Content/libs/select2/js/i18n/"+Helpers.getCurrentLanguage()+".js"
+                   ));
+
+            bundles.Add(new StyleBundle("~/objectEditing").Include(
+                   "~/Content/js/objectEditing/object_editing.js",
+                   "~/Content/js/objectEditing/types/text.js"
+                   ));
 
 
 

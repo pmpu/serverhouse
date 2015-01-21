@@ -8,6 +8,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using serverhouse_web.Properties;
 using MongoDB.Driver.Linq;
+using System.Text.RegularExpressions;
 
 namespace serverhouse_web.Models.SHObject
 {
@@ -27,6 +28,27 @@ namespace serverhouse_web.Models.SHObject
         }
 
 
+        public List<string> getPropertyNames(string q) {
+            var queryAllProps =
+                (from obj in objectsCollection.AsQueryable<SHObject>()
+                where obj.ver_active == true
+                select obj.properties).ToList();
+
+            var propNames = new List<String>();
+
+            foreach (var objProperties in queryAllProps) {
+                foreach (var prop in objProperties) {
+                    if (!propNames.Contains(prop.Key)) {
+                        if (Regex.IsMatch(prop.Key, q, System.Text.RegularExpressions.RegexOptions.IgnoreCase)) {
+                            propNames.Add(prop.Key);
+                        }
+                    }
+                }
+            }
+
+            return propNames;
+            
+        }
         
 
         public SHObject AddVersion(SHObject obj) {
@@ -49,7 +71,7 @@ namespace serverhouse_web.Models.SHObject
                 // set new databaseId
                 obj.databaseId = Guid.NewGuid().ToString();
 
-                // version
+                // new version
                 obj.ver_active = true;
                 obj.ver_timestamp = (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 

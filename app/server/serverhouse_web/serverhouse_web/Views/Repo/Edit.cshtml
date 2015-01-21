@@ -1,4 +1,7 @@
 ﻿@using serverhouse_web.Models.SHObject;
+@using serverhouse_web.PropertyValueRepresentation
+@using serverhouse_web
+
 @model SHObject
 
 @{
@@ -6,41 +9,33 @@
     var obj = Model;
 }
 
-<h2>Edit @obj.getName()</h2>
+<h2>Edit @Helpers.getCurrentLanguage()</h2>
 
-<div id="object_edit_container">
-    <form class="object_edit_form" method="post" action="/repo/edit/@obj.id">
-        <div class="edit_props">
-            @foreach (var prop in obj.properties) { 
-                <text>
-                <div class="edit_prop">
-                    <label>@prop.Key:</label> <input type="text" name="@prop.Key" value="@prop.Value"/><br>
+<div id="object_edit_container" object_id="@obj.id">    
+    <div class="edit_props">
+        @foreach (var prop in obj.properties) {                 
+            <div class="edit_prop" prop_name="@prop.Key" prop_type="@prop.Value.type">
+
+                <select class="edit_prop_name">
+                    <option>@prop.Key</option>
+                </select>
+                
+                <select class="edit_prop_type">
+                    @foreach(string type in PropertyValueRepresentation.getAvailablePropertyValueTypes()){
+                        <option value="@type">@type</option>
+                    }
+                </select>
+                
+
+                <div class="edit_prop_valuerep">
+                    @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName(prop), prop.Value);}
                 </div>
-                </text>
-            }
-        </div>
-        <div class="edit_controls">
-            <button class="edit_add_prop" type="button">Add prop</button>
-        </div>
-        <input type="submit" value="Сохранить">
-    </form>
+                    
+            </div>
+        }
+    </div>        
+    <button class="object_edit_save">Save</button>    
 </div>
 
 
-<script>
-    $(document).ready(function () {
-
-    });
-
-    function initForm() {
-
-    }
-
-    $("button.edit_add_prop").click(function () {        
-        $(".edit_props").append(propFieldFor(prompt("Enter new field name:")));
-    });
-
-    function propFieldFor(name) {
-        return '<label>'+name+':</label> <input type="text" name="'+name+'" value=""/><br>';
-    }
-</script>
+@Scripts.Render("~/objectEditing")
