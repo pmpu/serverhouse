@@ -188,15 +188,40 @@ a {
 }
 
 .edit_prop {
-
+    margin: 40px 0 0 0;
 }
 
-.edit_prop_name {
-    width: 300px;
+.edit_prop_header {
+    margin: 10px 0 10px 0;
 }
 
-.edit_prop_type {
-}
+    .edit_prop_name {        
+        font-size: 20px;
+    }
+        .edit_prop_name select {
+            min-width: 100px;
+            max-width: 500px;
+            word-wrap:hyphenate;
+        }
+
+        .edit_prop_name .select2-selection {
+            border: none!important;
+            border-bottom: 1px solid gray!important;
+            border-radius: 0 !important;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .edit_prop_name .select2-selection__arrow {
+            display: none !important;
+        }
+
+    .edit_prop_type {
+        min-width: 100px;
+    }
+        .edit_prop_type select {
+            min-width: 100px;
+        }
 
 .edit_prop_valuerep {
 }

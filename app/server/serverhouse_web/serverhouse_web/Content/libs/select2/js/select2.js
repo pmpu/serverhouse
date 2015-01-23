@@ -4321,6 +4321,8 @@ define('select2/core',[
 
     var $container = this.render();
 
+    this.$container = $container;
+
     this._placeContainer($container);
 
     var SelectionAdapter = this.options.get('selectionAdapter');
@@ -4408,7 +4410,7 @@ define('select2/core',[
 
   Select2.prototype._resolveWidth = function ($element, method) {
     var WIDTH = /^width:(([-+]?([0-9]*\.)?[0-9]+)(px|em|ex|%|in|cm|mm|pt|pc))/i;
-
+    
     if (method == 'resolve') {
       var styleWidth = this._resolveWidth($element, 'style');
 
@@ -4425,8 +4427,8 @@ define('select2/core',[
       if (elementWidth <= 0) {
         return 'auto';
       }
-
-      return elementWidth + 'px';
+      console.log("resolve width");
+      return elementWidth+10 + 'px';
     }
 
     if (method == 'style') {
@@ -4463,11 +4465,14 @@ define('select2/core',[
     var self = this;
 
     this.$element.on('change.select2', function () {
-      self.data.current(function (data) {
-        self.trigger('selection:update', {
-          data: data
-        });
-      });
+        if (self.data) {
+            self.data.current(function (data) {
+                self.trigger('selection:update', {
+                    data: data
+                });
+            });
+        }
+      
     });
 
     this._sync = Utils.bind(this._syncAttributes, this);
@@ -4541,7 +4546,7 @@ define('select2/core',[
     });
 
     this.on('close', function () {
-      self.$container.removeClass('select2-container--open');
+        self.$container.removeClass('select2-container--open');
     });
 
     this.on('enable', function () {

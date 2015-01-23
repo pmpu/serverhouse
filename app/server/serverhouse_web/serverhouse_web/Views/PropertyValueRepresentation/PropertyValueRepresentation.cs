@@ -31,14 +31,14 @@ namespace serverhouse_web.PropertyValueRepresentation
 
             return propertyValueTypes;
         }
-
-        public static string getEditPartialViewName(Property prop) {         
-            return "~/Views/PropertyValueRepresentation/Edit/_pvrepEdit_" + prop.Value.type + ".cshtml";            
+        
+        public static string getEditPartialViewName(string prop_value_type) {
+            return "~/Views/PropertyValueRepresentation/Edit/_pvrepEdit_" + prop_value_type + ".cshtml";            
         }
 
-        public static string getViewPartialViewName(Property prop)
-        {            
-            return "~/Views/PropertyValueRepresentation/View/_pvrepView_" + prop.Value.type + ".cshtml";
+        public static string getViewPartialViewName(string prop_value_type)
+        {
+            return "~/Views/PropertyValueRepresentation/View/_pvrepView_" + prop_value_type + ".cshtml";
         }
 
         

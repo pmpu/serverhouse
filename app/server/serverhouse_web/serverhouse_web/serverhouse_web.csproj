@@ -216,11 +216,26 @@
     <Compile Include="Views\PropertyValueRepresentation\PropertyValueRepresentation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\libs\animate.css" />
     <Content Include="Content\images\topbar_noise.png" />
     <Content Include="Content\images\topbar_noise1.png" />
     <Content Include="Content\images\topbar_noise_pink.png" />
     <Content Include="Content\js\objectEditing\object_editing.js" />
     <Content Include="Content\js\objectEditing\types\text.js" />
+    <Content Include="Content\libs\noty\jquery.noty.js" />
+    <Content Include="Content\libs\noty\jquery.noty.packaged.js" />
+    <Content Include="Content\libs\noty\layouts\bottom.js" />
+    <Content Include="Content\libs\noty\layouts\bottomCenter.js" />
+    <Content Include="Content\libs\noty\layouts\bottomLeft.js" />
+    <Content Include="Content\libs\noty\layouts\bottomRight.js" />
+    <Content Include="Content\libs\noty\layouts\center.js" />
+    <Content Include="Content\libs\noty\layouts\centerLeft.js" />
+    <Content Include="Content\libs\noty\layouts\centerRight.js" />
+    <Content Include="Content\libs\noty\layouts\inline.js" />
+    <Content Include="Content\libs\noty\layouts\top.js" />
+    <Content Include="Content\libs\noty\layouts\topCenter.js" />
+    <Content Include="Content\libs\noty\layouts\topLeft.js" />
+    <Content Include="Content\libs\noty\layouts\topRight.js" />
     <Content Include="Content\libs\select2\css\select2.css" />
     <Content Include="Content\libs\select2\css\select2.min.css" />
     <Content Include="Content\libs\select2\js\i18n\az.js" />

@@ -72,14 +72,16 @@ namespace serverhouse_web.Controllers
 
             try
             {
-                long id = long.Parse(RouteData.Values["id"].ToString());
+                long id = long.Parse(RouteData.Values["id"].ToString());                
 
                 SHObject obj;
                 if ((obj = repo.getObjectById(id)) != null)
                 {
                     string jsonProperties = Request.Form["properties"];
                     JsonObject properties = (JsonObject)SimpleJson.SimpleJson.DeserializeObject(jsonProperties);
-                    
+
+                    obj.properties.Clear();
+
                     foreach (var prop in properties)
                     {
                         obj.set(prop.Key, PropertyValue.constructPropertyValue((JsonObject)prop.Value)); 
@@ -87,6 +89,44 @@ namespace serverhouse_web.Controllers
                     repo.AddVersion(obj);
 
                     return "success";
+                }
+            }
+            catch (Exception ex) { }
+
+            return "error";
+        }
+
+        public string Undo(long id) {
+            try
+            {
+                SHObject obj;
+                if ((obj = repo.getObjectById(id)) != null)
+                {
+                    if (repo.versionBack(id)) {
+                        return "success";
+                    }
+
+                    return "no_versions_before";
+                }
+            }
+            catch (Exception ex) { }
+
+            return "error";
+        }
+
+        public string Redo(long id)
+        {
+            try
+            {
+                SHObject obj;
+                if ((obj = repo.getObjectById(id)) != null)
+                {
+                    if (repo.versionForward(id))
+                    {
+                        return "success";
+                    }
+
+                    return "no_versions_after";
                 }
             }
             catch (Exception ex) { }

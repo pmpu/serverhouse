@@ -1,5 +1,6 @@
 ﻿@using serverhouse_web.Models.SHObject;
 @using serverhouse_web.PropertyValueRepresentation
+@using serverhouse_web.Models.PropertyValue
 @using serverhouse_web
 
 @model SHObject
@@ -9,33 +10,98 @@
     var obj = Model;
 }
 
-<h2>Edit @Helpers.getCurrentLanguage()</h2>
+@if (Request.QueryString["part"] == null) {
 
-<div id="object_edit_container" object_id="@obj.id">    
-    <div class="edit_props">
-        @foreach (var prop in obj.properties) {                 
-            <div class="edit_prop" prop_name="@prop.Key" prop_type="@prop.Value.type">
+    <h2>Edit #@obj.id</h2>
 
-                <select class="edit_prop_name">
-                    <option>@prop.Key</option>
-                </select>
+    <div id="object_edit_container" object_id="@obj.id">    
+        <div class="object_edit_controls">
+            <span class="object_edit_add_prop">
+                <button>add property</button>
+            </span>
+            <span class="object_edit_undo">
+                <button>undo</button>
+            </span>
+            <span class="object_edit_redo">
+                <button>redo</button>
+            </span>
+            <span class="object_edit_status">                
+            </span>
+        </div>
+        <div class="edit_props">
+            @foreach (var prop in obj.properties) {                 
+                <div class="edit_prop" prop_name="@prop.Key" prop_type="@prop.Value.type">
+
+                    <span class="edit_prop_header">
+                        <span class="edit_prop_name">
+                            <select >
+                                <option>@prop.Key</option>
+                            </select>
+                        </span>
+                        of type
+                        <span class="edit_prop_type">
+                            <select >
+                                @foreach(string type in PropertyValueRepresentation.getAvailablePropertyValueTypes()){
+                                    <option value="@type">@type</option>
+                                }
+                            </select>
+                        </span>
+
+                        <span class="edit_prop_delete">
+                            <button>remove</button>
+                        </span>
+                    
+                    </span>
                 
-                <select class="edit_prop_type">
-                    @foreach(string type in PropertyValueRepresentation.getAvailablePropertyValueTypes()){
-                        <option value="@type">@type</option>
-                    }
-                </select>
-                
+
+                    <div class="edit_prop_valuerep">
+                        @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName(prop.Value.type), prop.Value);}
+                    </div>
+                    
+                </div>
+            }
+        </div>    
+        <div class="object_edit_save">
+            <button>Save</button>    
+        </div>    
+        
+    </div>
+
+
+    @Scripts.Render("~/objectEditing")
+}else{
+    
+    switch (Request.QueryString["part"].ToString()) { 
+        case "new_prop":
+            
+            <div class="edit_prop" prop_name="" prop_type="text">
+                <span class="edit_prop_header">
+                    <span class="edit_prop_name">
+                        <select >
+                            <option></option>
+                        </select>
+                    </span>
+                    of type
+                    <span class="edit_prop_type">
+                        <select >
+                            @foreach(string type in PropertyValueRepresentation.getAvailablePropertyValueTypes()){
+                                <option value="@type">@type</option>
+                            }
+                        </select>
+                    </span>
+
+                    <span class="edit_prop_delete">
+                        <button>remove</button>
+                    </span>
+                    
+                </span>
 
                 <div class="edit_prop_valuerep">
-                    @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName(prop), prop.Value);}
-                </div>
-                    
+                    @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName("text"),
+                          new TextPropertyValue(""));}
+                </div>                    
             </div>
-        }
-    </div>        
-    <button class="object_edit_save">Save</button>    
-</div>
 
-
-@Scripts.Render("~/objectEditing")
+            break;
+    }
+}

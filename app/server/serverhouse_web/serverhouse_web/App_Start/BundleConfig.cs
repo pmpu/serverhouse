@@ -47,14 +47,16 @@ namespace serverhouse_web
             bundles.Add(new StyleBundle("~/main/css").Include(
                    "~/Content/main.css",
                    "~/Content/libs/sweet_alert/sweet-alert.css",
-                   "~/Content/libs/select2/css/select2.css"
+                   "~/Content/libs/select2/css/select2.css",
+                   "~/Content/libs/animate.css"
                    ));
 
             bundles.Add(new ScriptBundle("~/main/js").Include(
                    "~/Content/js/async_navigation.js",
                    "~/Content/libs/sweet_alert/sweet-alert.js",
                    "~/Content/libs/select2/js/select2.js",
-                   "~/Content/libs/select2/js/i18n/"+Helpers.getCurrentLanguage()+".js"
+                   "~/Content/libs/select2/js/i18n/"+Helpers.getCurrentLanguage()+".js",
+                   "~/Content/libs/noty/jquery.noty.js"                   
                    ));
 
             bundles.Add(new StyleBundle("~/objectEditing").Include(
