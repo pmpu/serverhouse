@@ -67,7 +67,8 @@ namespace serverhouse_web
                     "~/Content/libs/sweet_alert/sweet-alert.js",
 
                    "~/Content/libs/select2/js/select2.js",
-                   "~/Content/libs/select2/js/i18n/"+Helpers.getCurrentLanguage()+".js",
+                   "~/Content/libs/select2/js/i18n/en.js",
+                   "~/Content/libs/select2/js/i18n/ru.js",
 
                    "~/Content/libs/noty/jquery.noty.js",
 
