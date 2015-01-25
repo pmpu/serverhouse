@@ -201,6 +201,7 @@
     </Compile>
     <Compile Include="Helpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\PropertyValue\ImagePropertyValue.cs" />
     <Compile Include="Models\PropertyValue\PropertyValue.cs" />
     <Compile Include="Models\PropertyValue\TextPropertyValue.cs" />
     <Compile Include="Models\SHObject\SHObject.cs" />
@@ -216,12 +217,31 @@
     <Compile Include="Views\PropertyValueRepresentation\PropertyValueRepresentation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\main_noise.png" />
+    <Content Include="Content\images\main_noise_2.png" />
+    <Content Include="Content\images\main_noise_graphy.png" />
+    <Content Include="Content\js\helpers.js" />
+    <Content Include="Content\js\objectEditing\types\image.js" />
+    <Content Include="Content\js\ui_helpers.js" />
     <Content Include="Content\libs\animate.css" />
     <Content Include="Content\images\topbar_noise.png" />
     <Content Include="Content\images\topbar_noise1.png" />
     <Content Include="Content\images\topbar_noise_pink.png" />
     <Content Include="Content\js\objectEditing\object_editing.js" />
     <Content Include="Content\js\objectEditing\types\text.js" />
+    <Content Include="Content\libs\gridster\jquery.gridster.css" />
+    <Content Include="Content\libs\gridster\jquery.gridster.js" />
+    <Content Include="Content\libs\gridster\jquery.gridster.with-extras.js" />
+    <Content Include="Content\libs\jquery.ba-resize.js" />
+    <Content Include="Content\libs\lightbox\css\lightbox.css" />
+    <Content Include="Content\libs\lightbox\css\screen.css" />
+    <Content Include="Content\libs\lightbox\img\close.png" />
+    <Content Include="Content\libs\lightbox\img\loading.gif" />
+    <Content Include="Content\libs\lightbox\img\next.png" />
+    <Content Include="Content\libs\lightbox\img\prev.png" />
+    <Content Include="Content\libs\lightbox\js\jquery-1.11.0.min.js" />
+    <Content Include="Content\libs\lightbox\js\lightbox.js" />
+    <Content Include="Content\libs\lightbox\js\lightbox.min.js" />
     <Content Include="Content\libs\noty\jquery.noty.js" />
     <Content Include="Content\libs\noty\jquery.noty.packaged.js" />
     <Content Include="Content\libs\noty\layouts\bottom.js" />
@@ -337,6 +357,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Content\libs\lightbox\js\.DS_Store" />
+    <Content Include="Content\libs\lightbox\js\jquery-1.11.0.min.map" />
+    <Content Include="Content\libs\lightbox\js\lightbox.min.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <None Include="Scripts\jquery-2.1.0-vsdoc.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -398,6 +421,7 @@
     <Content Include="Views\Shared\_TopBarPartial.cshtml" />
     <Content Include="Views\Shared\_LeftBarPartial.cshtml" />
     <Content Include="Views\PropertyValueRepresentation\Edit\_pvrepEdit_text.cshtml" />
+    <Content Include="Views\PropertyValueRepresentation\Edit\_pvrepEdit_image.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,7 +10,8 @@
     var obj = Model;
 }
 
-@if (Request.QueryString["part"] == null) {
+@if (Request.QueryString["part"] == null)
+{
 
     <h2>Edit #@obj.id</h2>
 
@@ -28,9 +29,12 @@
             <span class="object_edit_status">                
             </span>
         </div>
-        <div class="edit_props">
-            @foreach (var prop in obj.properties) {                 
-                <div class="edit_prop" prop_name="@prop.Key" prop_type="@prop.Value.type">
+        <ul class="edit_props gridster">            
+            @foreach (var prop in obj.properties) {                                 
+                <li class="edit_prop gs-w" prop_name="@prop.Key" prop_type="@prop.Value.type" 
+                    data-row="@prop.Value.order_data["row"]" data-col="1"  
+                    data-sizex="@prop.Value.order_data["sizex"]" data-sizey="@prop.Value.order_data["sizey"]"
+                    data-min-sizex="7" data-min-sizey="2">
 
                     <span class="edit_prop_header">
                         <span class="edit_prop_name">
@@ -42,7 +46,7 @@
                         <span class="edit_prop_type">
                             <select >
                                 @foreach(string type in PropertyValueRepresentation.getAvailablePropertyValueTypes()){
-                                    <option value="@type">@type</option>
+                                    <option value="@type" @(type==prop.Value.type?"selected='selected'":"")>@type</option>
                                 }
                             </select>
                         </span>
@@ -58,12 +62,10 @@
                         @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName(prop.Value.type), prop.Value);}
                     </div>
                     
-                </div>
+                </li>                
             }
-        </div>    
-        <div class="object_edit_save">
-            <button>Save</button>    
-        </div>    
+        </ul>    
+        
         
     </div>
 
@@ -74,34 +76,57 @@
     switch (Request.QueryString["part"].ToString()) { 
         case "new_prop":
             
-            <div class="edit_prop" prop_name="" prop_type="text">
-                <span class="edit_prop_header">
-                    <span class="edit_prop_name">
-                        <select >
-                            <option></option>
-                        </select>
-                    </span>
-                    of type
-                    <span class="edit_prop_type">
-                        <select >
-                            @foreach(string type in PropertyValueRepresentation.getAvailablePropertyValueTypes()){
-                                <option value="@type">@type</option>
-                            }
-                        </select>
-                    </span>
+            <li class="edit_prop gs-w" prop_name="" prop_type="text"  
+                    data-sizex="7" data-sizey="2"
+                    data-min-sizex="7" data-min-sizey="2">
 
-                    <span class="edit_prop_delete">
-                        <button>remove</button>
-                    </span>
+                    <span class="edit_prop_header">
+                        <span class="edit_prop_name">
+                            <select >
+                                <option></option>
+                            </select>
+                        </span>
+                        of type
+                        <span class="edit_prop_type">
+                            <select >
+                                @foreach(string type in PropertyValueRepresentation.getAvailablePropertyValueTypes()){
+                                    <option value="@type" @(type=="text"?"selected='selected'":"")>@type</option>
+                                }
+                            </select>
+                        </span>
+
+                        <span class="edit_prop_delete">
+                            <button>remove</button>
+                        </span>
                     
-                </span>
+                    </span>
+                
 
-                <div class="edit_prop_valuerep">
-                    @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName("text"),
+                    <div class="edit_prop_valuerep">
+                        @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName("text"),
                           new TextPropertyValue(""));}
-                </div>                    
-            </div>
+                    </div>
+                    
+                </li>           
+           
 
+            break;
+        case "e_valuerep":
+                switch (Request.QueryString["type"].ToString()) { 
+                    case "text":
+                        <text>
+                            @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName("text"),
+                              new TextPropertyValue(""));}
+                        </text>
+                        break;
+                        
+                    case "image":
+                        <text>
+                            @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName("image"),
+                              new ImagePropertyValue(""));}
+                        </text>
+                        break;
+                }
             break;
     }
 }

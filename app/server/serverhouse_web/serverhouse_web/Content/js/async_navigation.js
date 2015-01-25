@@ -20,6 +20,9 @@ var ASYNC_NAV = {
             async_url += "?async=1";
         }
 
+        // add overlay
+        UI_HELPERS.addOverlay($(".wrapper"));
+
         $.get(async_url, function (data) {
             var page = JSON.parse(data);
 
@@ -29,9 +32,9 @@ var ASYNC_NAV = {
             // update main content
             var newMain = $('<div class="main">').html(page.html);
             newMain.animate({ opacity: 0 }, 0);
-            $(".main").animate({ opacity: 0 }, 100, "swing", function () {
+            $(".main").animate({ opacity: 0 }, 0, "swing", function () {
                 $(".main")[0].remove();
-                newMain.animate({ opacity: 1 }, 100);
+                newMain.animate({ opacity: 1 }, 0);
             });
             $('.wrapper').append(newMain);
 
@@ -45,6 +48,9 @@ var ASYNC_NAV = {
             if (callback) {
                 callback();
             }
+
+            // remove overlay
+            UI_HELPERS.removeOverlay($(".wrapper"));
         });
     },
 

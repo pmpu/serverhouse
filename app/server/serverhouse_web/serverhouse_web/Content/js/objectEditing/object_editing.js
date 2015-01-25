@@ -27,35 +27,76 @@
                 },
                 cache: true
             },
-            maximumSelectionLength: 2,
-            inimumInputLength: 1,
+            placeholder: "prop_name",
             width: 'element',
             tags: true
         }).on("change", function (e) {
             var $select = $(this);
-            var $obj = $select.closest(".edit_prop");
-            var old_name = $obj.attr("prop_name");
-            var new_name = $select.val();
+            var $prop = $select.closest(".edit_prop");
+            OE.onPropNameChange($prop);            
+        });
+    },    
 
-            if (old_name != new_name) {
-                if (OE.objectHasKey(new_name)) {
-                    swal({
-                        title: "Duplicate key!",
-                        text: "You already have property with key '" + new_name + "'",
-                        type: "warning",
-                        allowOutsideClick: true
-                    });
-                    $select.val(old_name).trigger("change");
-                } else {
-                    $obj.attr("prop_name", new_name);
-                    $select.html($("<option>").html(new_name).val(new_name));
-                    $select.select2("destroy");
-                    OE.initPropertyNameFor($select);
-                    OE.onChange();
-                }
+    onPropNameChange: function ($prop) {
+        var $select = $prop.find(".edit_prop_name select");
+        var old_name = $prop.attr("prop_name");
+        var new_name = $select.val();
+
+        if (old_name != new_name) {
+            if (OE.objectHasKey(new_name)) {
+                swal({
+                    title: "Duplicate key!",
+                    text: "You already have property with key '" + new_name + "'",
+                    type: "warning",
+                    allowOutsideClick: true
+                });
+                $select.val(old_name).trigger("change");
+            } else {
+                $prop.removeClass("not_saving");
+                $prop.attr("prop_name", new_name);
+                $select.html($("<option>").html(new_name).val(new_name));
+                $select.select2("destroy");
+                OE.initPropertyNameFor($select);
+                OE.onChange();
             }
+        }
+    },
+
+    initPropertyTypeFor: function ($el) {
+        $el.select2({
+            width: 'element'
+        }).on("change", function (e) {
+            var $select = $(this);
+            var $prop = $select.closest(".edit_prop");
+            OE.onPropTypeChange($prop);
         });
     },
+
+    onPropTypeChange: function ($prop) {
+        var $select = $prop.find(".edit_prop_type select");
+        var old_type = $prop.attr("prop_type");
+        var new_type = $select.val();
+
+        OE.loadValueRep($prop, new_type, function () {
+            $prop.attr("prop_type", new_type);
+            window[new_type]["onObjectChange"] = OE.onChange;
+            window[new_type]["init"]($prop);
+            window[new_type]["onResize"]($prop);
+            OE.onChange();
+        });
+    },
+
+    loadValueRep: function ($prop, type, callback) {
+        ASYNC_NAV.load("/repo/edit/" + OE.getObjectId()
+            + "?async=1&part=e_valuerep&type=" + type,
+            function (data) {
+                $prop.find(".e_valuerep").html(data.html);
+                if (callback)
+                    callback();
+            });
+    },
+
+    gridster: null,
 
     initEvents: function () {
         $(".object_edit_add_prop button").unbind("click");
@@ -76,20 +117,47 @@
             OE.removeProperty($prop);
         });
 
+
+        // init gridster
+        OE.gridster = $("ul.gridster").gridster({
+            widget_margins: [10, 10],
+            widget_base_dimensions: [50, 50],
+            max_cols: 10,
+            draggable: {
+                stop: OE.onChange
+            },
+            resize: {
+                enabled: true,                
+                resize: function (e, ui, el) {
+                    var type = $(el).attr("prop_type");
+                    window[type]["onResize"](el);
+                },
+                stop: function (e, ui, el) {
+                    var type = $(el).attr("prop_type");
+                    window[type]["onResize"](el);
+                    OE.onChange();
+                }
+            }
+
+        }).data("gridster");
+
         // init events for properties
         $.each($(".edit_prop"), function (i, el) {
             var type = $(el).attr("prop_type");
-            window[type]["onChange"] = OE.onChange;
-            window[type]["initEvents"](el);
+            window[type]["onObjectChange"] = OE.onChange;
+            window[type]["init"](el);            
+            window[type]["onResize"](el);
         });
     },
+
+    
 
     onChange: function () {
         if (OE.onChange.saveTimeout != null) {
             clearTimeout(OE.onChange.saveTimeout);
             OE.onChange.saveTimeout = null;
         }
-        OE.onChange.saveTimeout = setTimeout(OE.saveObject, 1000);
+        OE.onChange.saveTimeout = setTimeout(OE.saveObject, 400);
         window.onbeforeunload = function () {
             return "Data is being saved. Please stay here for a while.";
         };
@@ -125,14 +193,16 @@
         ASYNC_NAV.load(
             "/repo/edit/" + OE.getObjectId() + "?async=1&part=new_prop",
             function (data) {
-                $(".edit_props").prepend(data.html);
-                OE.initPropertyNameFor($(".edit_prop_name select"));
+                $prop = OE.gridster.add_widget(data.html, 7, 2, 1, 1);
+                $prop.addClass("not_saving");                
+                OE.initPropertyNameFor($prop.find(".edit_prop_name select"));
+                OE.initPropertyTypeFor($prop.find(".edit_prop_type select"));
                 OE.initEvents();
             });
     },
 
     removeProperty: function ($prop) {
-        $prop.remove();
+        OE.gridster.remove_widget($prop);               
         this.onChange();
     },
 
@@ -140,8 +210,7 @@
         return $(".edit_prop[prop_name='" + key + "']").length > 0;
     },
 
-    saveObject: function () {
-        console.log("save obj");
+    saveObject: function () {                
         OE.updateState(OE.OESTATE.SAVING);
         var serializedProperties = JSON.stringify(OE.getObjectProperties());
         $.post("/repo/edit/" + OE.getObjectId(), { properties: serializedProperties }, function (data) {
@@ -194,9 +263,17 @@
             var name = $(el).attr("prop_name");
             if (name != "") {
                 var property = window[type]["serialize"](el);
-                properties[name] = property;
+                // add order position
+                property.order_data = { 
+                    row: parseInt($(el).attr("data-row")),
+                    sizex: parseInt($(el).attr("data-sizex")),
+                    sizey: parseInt($(el).attr("data-sizey"))
+                };
+
+                properties[name] = property;                
             }            
         });
+        console.log(properties);
         return properties;
     }
 
@@ -206,16 +283,20 @@ $(document).ready(function () {
     //swal({ title: "Error!", text: "Here's my error message!", type: "error", confirmButtonText: "Cool" });
     //swal({ title: "Are you sure?", text: "You will not be able to recover this imaginary file!", type: "warning", showCancelButton: true, confirmButtonColor: "#DD6B55", confirmButtonText: "Yes, delete it!", cancelButtonText: "No, cancel plx!", closeOnConfirm: false, closeOnCancel: false }, function (isConfirm) { if (isConfirm) { swal("Deleted!", "Your imaginary file has been deleted.", "success"); } else { swal("Cancelled", "Your imaginary file is safe :)", "error"); } });
     
-    OE.initEvents();
-    OE.updateState(OE.OESTATE.SAVED);
+        OE.initEvents();
+        OE.updateState(OE.OESTATE.SAVED);
 
-    OE.initPropertyNameFor($(".edit_prop_name select"));
+        OE.initPropertyNameFor($(".edit_prop_name select"));
 
+        OE.initPropertyTypeFor($('.edit_prop_type select'));
     
-    $('.edit_prop_type select').select2({
-        minimumResultsForSearch: 0,
-        width: 'element'
-    });
+    
+        
+        
+
+        
+    
+    
 
 });
 

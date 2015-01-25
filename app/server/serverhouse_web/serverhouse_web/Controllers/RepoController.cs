@@ -80,13 +80,18 @@ namespace serverhouse_web.Controllers
                     string jsonProperties = Request.Form["properties"];
                     JsonObject properties = (JsonObject)SimpleJson.SimpleJson.DeserializeObject(jsonProperties);
 
+                    var oldPropsJson = obj.properties.ToJson();
                     obj.properties.Clear();
 
                     foreach (var prop in properties)
                     {
                         obj.set(prop.Key, PropertyValue.constructPropertyValue((JsonObject)prop.Value)); 
                     }
-                    repo.AddVersion(obj);
+
+                    if (oldPropsJson != obj.properties.ToJson()) {
+                        repo.AddVersion(obj);
+                    }
+                    
 
                     return "success";
                 }

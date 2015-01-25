@@ -1,0 +1,15 @@
+﻿@using serverhouse_web.Models.PropertyValue
+@model PropertyValue
+
+@{
+    var m = (ImagePropertyValue)Model;
+}
+
+<div class="e_valuerep e_valuerep_image">
+    <div class="e_valuerep_image_url">
+        <input type="url" placeholder="image url here" value="@m.url"/>
+    </div>
+
+    <div class="e_valuerep_image_preview"></div>
+
+</div>
