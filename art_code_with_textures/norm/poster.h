@@ -8,4 +8,16 @@
 using namespace cv;
 using namespace std;
 
+class Colorof{  // don't forget delete this class
+private:
+	string colorName;
+	int colorNumber;
+public:
+	string getColorName(int colorNumber);
+	int getColorNumber(string colorName);
+	void setColorName(string NewcolorName);
+	void setColorNumber(int NewcolorNumber);
+
+};
+
 void img_posterization();

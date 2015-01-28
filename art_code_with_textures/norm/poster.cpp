@@ -1,4 +1,43 @@
 #include "poster.h"
+#include <fstream>
+#include <ctime>
+
+string Colorof::getColorName(int colorNumber)
+{
+	return colorName;
+}
+
+int Colorof::getColorNumber(string colorName)
+{
+	return colorNumber;
+}
+
+void Colorof::setColorName(string NewcolorName)
+{
+	colorName = NewcolorName;
+}
+void Colorof::setColorNumber(int NewcolorNumber)
+{
+	colorNumber = NewcolorNumber;
+}
+
+string getName(int k)
+{
+	switch (k)
+	{
+	case 0: return "Black";
+	case 1: return "Blue";
+	case 2: return "Green";
+	case 3: return "Red";
+	case 4: return "Yellow";
+	case 5: return "Margenta";
+	case 6: return "Cian";
+	case 7: return "White";
+
+	default:
+		return "I don't know";
+	}
+}
 
 void img_posterization()
 {
@@ -13,6 +52,38 @@ void img_posterization()
 	int cols = img.cols;
 	int colors_after_poster[8][2][3] = {0};
 		// black, blue, green, red,  yellow, margenta, cian, white - min and max
+/*	Colorof black;
+	black.setColorName("Black");
+	black.setColorNumber(0);
+
+	Colorof blue;
+	black.setColorName("Blue");
+	black.setColorNumber(1);
+
+	Colorof green;
+	black.setColorName("Creen");
+	black.setColorNumber(2);
+
+	Colorof red;
+	black.setColorName("Red");
+	black.setColorNumber(3);
+
+	Colorof yellow;
+	black.setColorName("Yellow");
+	black.setColorNumber(4);
+
+	Colorof margenta;
+	black.setColorName("Margenta");
+	black.setColorNumber(5);
+
+	Colorof cian;
+	black.setColorName("Cian");
+	black.setColorNumber(6);
+
+	Colorof white;
+	black.setColorName("White");
+	black.setColorNumber(7);
+*/
 	for (int i = 0; i < 8; i++)
 	{
 		colors_after_poster[i][0][0] = 255;
@@ -25,7 +96,7 @@ void img_posterization()
 	rows = s.height;
 	cols = s.width;
 
-	cout << img.channels();
+	//cout << img.channels();
 	if (rows == 0 || cols == 0)
 	{
 		cout << "Image is not found" << endl; 
@@ -161,18 +232,37 @@ void img_posterization()
 	}
 	
 	cout << endl;
-	cout << "black, blue, green, red,  yellow, margenta, cian, white - min and max" << endl;
+	//cout << "black, blue, green, red,  yellow, margenta, cian, white - min and max" << endl;
 	for (int i = 0; i < 8; i++)
 	{
-		//if ( colors_after_poster[i][0][0] <=  colors_after_poster[i][1][0] && colors_after_poster[i][0][1] <=  colors_after_poster[i][1][1] && colors_after_poster[i][0][2] <=  colors_after_poster[i][1][2])
-		//{
-			cout << colors_after_poster[i][0][0] << " - "  << colors_after_poster[i][1][0] << " " << colors_after_poster[i][0][1] << " - " << colors_after_poster[i][1][1] << " " << colors_after_poster[i][0][2] << " - " <<  colors_after_poster[i][1][2] << endl;
-		//}
+		if ( colors_after_poster[i][0][0] <=  colors_after_poster[i][1][0] && colors_after_poster[i][0][1] <=  colors_after_poster[i][1][1] && colors_after_poster[i][0][2] <=  colors_after_poster[i][1][2])
+		{
+			cout << getName(i) << " " << colors_after_poster[i][0][0] << " - "  << colors_after_poster[i][1][0] << " " << colors_after_poster[i][0][1] << " - " << colors_after_poster[i][1][1] << " " << colors_after_poster[i][0][2] << " - " <<  colors_after_poster[i][1][2] << endl;
+		}
 		
 	}
 	imshow("posterizated", img);
 	imwrite("posterizated_" + imageName, img);
-
+	fstream output;
+	output.open("history.txt", fstream::app);
+	output << imageName << endl;
+	time_t t = time(0);   // get time now
+    struct tm * now = localtime( & t );
+	output << (now->tm_year + 1900) << '-' 
+         << (now->tm_mon + 1) << '-'
+         <<  now->tm_mday
+         << endl;
+	output << (now->tm_hour) << ":" << (now->tm_min) << ":" << (now->tm_sec) << endl << endl;
+	for (int i = 0; i < 8; i++)
+	{
+		if ( colors_after_poster[i][0][0] <=  colors_after_poster[i][1][0] && colors_after_poster[i][0][1] <=  colors_after_poster[i][1][1] && colors_after_poster[i][0][2] <=  colors_after_poster[i][1][2])
+		{
+			output << getName(i) << " " << colors_after_poster[i][0][0] << " - "  << colors_after_poster[i][1][0] << " " << colors_after_poster[i][0][1] << " - " << colors_after_poster[i][1][1] << " " << colors_after_poster[i][0][2] << " - " <<  colors_after_poster[i][1][2] << endl;
+		}
+		
+	}
+	output << endl << "---" << endl;
+	output.close();
 	
 }
 
