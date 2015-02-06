@@ -40,16 +40,18 @@
     onPropNameChange: function ($prop) {
         var $select = $prop.find(".edit_prop_name select");
         var old_name = $prop.attr("prop_name");
-        var new_name = $select.val();
+        var new_name = $select.val().toLowerCase();
 
         if (old_name != new_name) {
             if (OE.objectHasKey(new_name)) {
-                swal({
-                    title: "Duplicate key!",
-                    text: "You already have property with key '" + new_name + "'",
-                    type: "warning",
-                    allowOutsideClick: true
-                });
+                setTimeout(function () {
+                    swal({
+                        title: "Duplicate key!",
+                        text: "You already have property with key '" + new_name + "'",
+                        type: "warning",
+                        allowOutsideClick: true
+                    });
+                }, 100);                
                 $select.val(old_name).trigger("change");
             } else {
                 $prop.removeClass("not_saving");
@@ -59,6 +61,10 @@
                 OE.initPropertyNameFor($select);
                 OE.onChange();
             }
+        } else {
+            $select.html($("<option>").html(new_name).val(new_name));
+            $select.select2("destroy");
+            OE.initPropertyNameFor($select);
         }
     },
 
@@ -148,11 +154,17 @@
             window[type]["init"](el);            
             window[type]["onResize"](el);
         });
+
+        // update object name
+        OE.updateObjectName();
     },
 
     
 
     onChange: function () {
+        // update object name
+        OE.updateObjectName();
+
         if (OE.onChange.saveTimeout != null) {
             clearTimeout(OE.onChange.saveTimeout);
             OE.onChange.saveTimeout = null;
@@ -217,11 +229,24 @@
 
             if (data == "success") {                
                 OE.updateState(OE.OESTATE.SAVED);
+                OE.updateObjectName();
             } else {
                 swal({ title: "Error saving!", type: "error" });
                 OE.updateState(OE.OESTATE.ERROR);
             }
         });
+    },
+
+    updateObjectName: function () {
+        var properties = OE.getObjectProperties();
+        var name = "#"+OE.getObjectId();
+        if (properties["name"]) {
+            if (properties["name"].text != "") {
+                name = properties["name"].toString
+            }            
+        }
+
+        $(".edit_title").html("Edit "+name);
     },
 
     undo: function () {        
@@ -288,15 +313,7 @@ $(document).ready(function () {
 
         OE.initPropertyNameFor($(".edit_prop_name select"));
 
-        OE.initPropertyTypeFor($('.edit_prop_type select'));
-    
-    
-        
-        
-
-        
-    
-    
+        OE.initPropertyTypeFor($('.edit_prop_type select'));    
 
 });
 

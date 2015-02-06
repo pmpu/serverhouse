@@ -41,6 +41,16 @@ namespace serverhouse_web.Models.SHObject
 
             return null;
         }
+
+        public string getName() {
+            if (properties.ContainsKey("name")) {
+                if (properties["name"].ToString() != ""){
+                    return properties["name"].ToString();
+                }
+            }
+
+            return "#"+id.ToString();
+        }
        
 
     }

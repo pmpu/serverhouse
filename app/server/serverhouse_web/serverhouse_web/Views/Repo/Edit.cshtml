@@ -13,7 +13,7 @@
 @if (Request.QueryString["part"] == null)
 {
 
-    <h2>Edit #@obj.id</h2>
+    <h2 class="edit_title">Edit @obj.getName()</h2>
 
     <div id="object_edit_container" object_id="@obj.id">    
         <div class="object_edit_controls">

@@ -50,7 +50,7 @@ namespace serverhouse_web.Controllers
         public ActionResult Add() {            
             SHObject obj = new SHObject();                        
             obj = repo.AddVersion(obj);
-            return View("Edit", obj);
+            return RedirectToAction("edit", new { id = obj.id});            
         }
         
 

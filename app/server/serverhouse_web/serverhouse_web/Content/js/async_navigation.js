@@ -1,4 +1,10 @@
 var ASYNC_NAV = {
+
+    initLinks: function () {
+        $('a').unbind("click", ASYNC_NAV.onLinkClickHandler);
+        $('a:not([href^=http],[href^=mailto])').click(ASYNC_NAV.onLinkClickHandler);
+    },
+
     onLinkClickHandler: function (e) {
         if (history.pushState && !$(this).hasClass("noasync")) {
             e.preventDefault();
@@ -42,8 +48,8 @@ var ASYNC_NAV = {
             $('.leftbar').html(page.leftbar);
 
             // update events
-            $('a').unbind("click", ASYNC_NAV.onLinkClickHandler);
-            $('a').click(ASYNC_NAV.onLinkClickHandler);
+            ASYNC_NAV.initLinks();
+            
 
             if (callback) {
                 callback();
@@ -67,11 +73,12 @@ var ASYNC_NAV = {
 
 
 $(document).ready(function () {    
-    $('a').click(ASYNC_NAV.onLinkClickHandler);
+    ASYNC_NAV.initLinks();
 });
 
 $(window).bind('popstate', function (event) {
-    ASYNC_NAV.loadPage(location.pathname);
+    console.log("load back " + location.href);
+    ASYNC_NAV.loadPage(location.href);
 });
 
 

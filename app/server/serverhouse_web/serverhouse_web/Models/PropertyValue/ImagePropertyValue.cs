@@ -13,5 +13,10 @@ namespace serverhouse_web.Models.PropertyValue
             type = "image";
             url = _url;
         }
+
+        public override string ToString()
+        {
+            return "Image(\""+url+"\")";
+        }
     }
 }

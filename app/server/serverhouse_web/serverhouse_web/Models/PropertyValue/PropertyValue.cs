@@ -23,6 +23,11 @@ namespace serverhouse_web.Models.PropertyValue
             type = "unknown_property_value_type";
         }
 
+        public override string ToString()
+        {
+            return "UnknownPropertyValue";
+        }
+
         public static PropertyValue constructPropertyValue(JsonObject propertyValue) {
             PropertyValue newPropVal;
             switch (propertyValue["type"].ToString()) {

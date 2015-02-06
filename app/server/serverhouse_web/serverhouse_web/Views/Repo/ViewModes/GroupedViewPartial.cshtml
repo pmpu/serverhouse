@@ -1,0 +1,35 @@
+﻿@model serverhouse_web.Models.SHObject.SHObject
+
+@using serverhouse_web.Models.PropertyValue;
+
+@{var obj = Model;}
+
+
+
+<h3>Images</h3><hr>
+<div class="obj_view_imagegallery">
+    
+    @foreach (var prop in obj.properties.OrderBy(o => o.Value.order_data["row"])) {
+        if (prop.Value.type == "image") { 
+            ImagePropertyValue img = (ImagePropertyValue)prop.Value;
+            <div class="obj_view_imgprop">                
+                <a href="@img.url" data-lightbox='preview'>
+                    <img class="obj_view_imgprop_img" src="@img.url" height="50" title="@prop.Key" />
+                </a>
+            </div>
+        }    
+    }
+</div>
+
+<h3>Text properties</h3><hr>
+<div class="obj_view_textprops">
+    @foreach (var prop in obj.properties.OrderBy(o => o.Value.order_data["row"])) { 
+        if (prop.Value.type == "text") { 
+            <div class="obj_view_textprop">
+                <div class="obj_view_textprop_name">@prop.Key</div>
+                <div class="obj_view_textprop_value"> @prop.Value</div>
+            </div>
+        }
+    }
+</div>
+

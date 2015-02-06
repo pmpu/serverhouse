@@ -1,15 +1,17 @@
 ﻿var image = {
     serialize: function ($el) {
-        return { type: "image", "url": $($el).find(".e_valuerep input").val() };
+        return {
+            type: "image",
+            url: $($el).find(".e_valuerep input").val(),
+            toString: "Image(\"" + $($el).find(".e_valuerep input").val() + "\")"
+        };
     },
+    
 
     onObjectChange: null,
 
-    onChange: function (e) {        
-        console.log("chnage");
-        console.log(e);
-        var url = $(e.target).val();
-        var $prop = $(e.target).closest(".edit_prop");
+    onChange: function ($prop) {                 
+        var url = $prop.find("input").val();        
 
         $("<img/>")
             .load(function () {
@@ -19,15 +21,20 @@
                 $prop.find(".e_valuerep_image_preview").html("error loading image");
             })
             .attr("src", url);
-        
+
+        this.onResize($prop);
     },
 
     init: function (el) {
-        $(el).find("input").bind('input propertychange', this.onChange);
-        $(el).find("input").bind('input propertychange', this.onObjectChange);
+        var self = this;
+        $(el).find("input").bind('input propertychange', function (e) {            
+            self.onChange($(el))
+        });
+
+        $(el).find("input").bind('input propertychange', function (e) { self.onObjectChange() });
         $(el).attr("data-min-sizey", 3);
 
-        this.onChange({ target: $(el).find("input") });
+        this.onChange($(el));
         this.onResize($(el));   
     },
 

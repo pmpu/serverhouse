@@ -7,22 +7,20 @@
     ViewBag.Title = "All";
 }
 
-<h1 class="page_title">All</h1>
-<a href="/repo/add">add</a><br><br>
+<a href="/repo/add" class="noasync">add</a><br><br>
 <div id="all_objects_container" >
     <div class="list">
         <div class="list_container">
-        <div class="list_page_delimeter">Page @ViewBag.page</div>
-        @foreach (SHObject obj in objects) { 
-             
+        
+        @foreach (SHObject obj in objects.OrderByDescending(o => o.ver_timestamp)) {              
                  <div class="list_row">
-                   <div class="list_row_title"><a href="/repo/view/@obj.id">@obj.id</a></div>
+                   <a class="div_link" href="/repo/view/@obj.id"></a>
+                   <div class="list_row_title">@obj.getName()</div>
                    <div class="list_row_actions">
                        <a href="/repo/edit/@obj.id">edit</a>  
-                       <a href="/repo/delete/@obj.id" class="noasync">delete</a><br>
+                       <a href="/repo/delete/@obj.id" class="delete noasync">delete</a><br>
                    </div>
                 </div>
-             
         }
         </div>
         <div class="list_navigation">
@@ -38,3 +36,5 @@
         </div>
     </div>
 </div>
+
+@Scripts.Render("~/repoView")

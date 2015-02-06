@@ -17,6 +17,11 @@ namespace serverhouse_web.Models.PropertyValue
             text = _text;
         }
 
+        public override string ToString()
+        {
+            return text;
+        }
+
        
     }
 }

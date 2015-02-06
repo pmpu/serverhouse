@@ -217,11 +217,13 @@
     <Compile Include="Views\PropertyValueRepresentation\PropertyValueRepresentation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\fonts\SourceSansPro.png" />
     <Content Include="Content\images\main_noise.png" />
     <Content Include="Content\images\main_noise_2.png" />
     <Content Include="Content\images\main_noise_graphy.png" />
     <Content Include="Content\js\helpers.js" />
     <Content Include="Content\js\objectEditing\types\image.js" />
+    <Content Include="Content\js\repoView\repo_view.js" />
     <Content Include="Content\js\ui_helpers.js" />
     <Content Include="Content\libs\animate.css" />
     <Content Include="Content\images\topbar_noise.png" />
@@ -360,6 +362,15 @@
     <Content Include="Content\libs\lightbox\js\.DS_Store" />
     <Content Include="Content\libs\lightbox\js\jquery-1.11.0.min.map" />
     <Content Include="Content\libs\lightbox\js\lightbox.min.map" />
+    <Content Include="Content\fonts\SourceSansProBold\SourceSansProBold.eot" />
+    <Content Include="Content\fonts\SourceSansProBold\SourceSansProBold.ttf" />
+    <Content Include="Content\fonts\SourceSansProBold\SourceSansProBold.woff" />
+    <Content Include="Content\fonts\SourceSansProLight\SourceSansProLight.eot" />
+    <Content Include="Content\fonts\SourceSansProLight\SourceSansProLight.ttf" />
+    <Content Include="Content\fonts\SourceSansProLight\SourceSansProLight.woff" />
+    <Content Include="Content\fonts\SourceSansProRegular\SourceSansProRegular.eot" />
+    <Content Include="Content\fonts\SourceSansProRegular\SourceSansProRegular.ttf" />
+    <Content Include="Content\fonts\SourceSansProRegular\SourceSansProRegular.woff" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <None Include="Scripts\jquery-2.1.0-vsdoc.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -422,6 +433,7 @@
     <Content Include="Views\Shared\_LeftBarPartial.cshtml" />
     <Content Include="Views\PropertyValueRepresentation\Edit\_pvrepEdit_text.cshtml" />
     <Content Include="Views\PropertyValueRepresentation\Edit\_pvrepEdit_image.cshtml" />
+    <Content Include="Views\Repo\ViewModes\RawViewPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

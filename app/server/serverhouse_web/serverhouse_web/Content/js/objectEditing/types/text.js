@@ -1,19 +1,25 @@
 ﻿var text = {
     serialize: function ($el) {
-        return { type: "text", "text": $($el).find(".e_valuerep textarea").val() };
+        return {
+            type: "text",
+            text: $($el).find(".e_valuerep textarea").val(),
+            toString: $($el).find(".e_valuerep textarea").val()
+        };
     },
 
     onObjectChange: null,
 
-    onChange: function () {
-        console.log("change");
+    onChange: function ($prop) {
+        
     },
 
-    init: function ($el) {
-        $($el).find("textarea").bind('input propertychange', this.onChange);
-        $($el).find("textarea").bind('input propertychange', this.onObjectChange);
-        
-        this.onChange({ target: $el });
+    init: function (el) {
+        var self = this;
+        $(el).find("textarea").bind('input propertychange', function (e) {
+            self.onChange($(el));
+        });
+        $(el).find("textarea").bind('input propertychange', this.onObjectChange);        
+        this.onChange($(el));
     },
 
     onResize: function ($el) {
