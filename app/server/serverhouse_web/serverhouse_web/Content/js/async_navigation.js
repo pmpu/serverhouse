@@ -67,6 +67,14 @@ var ASYNC_NAV = {
                 callback(data);
             }
         });
+    },
+
+    loadHtml: function (url, callback) {
+        $.get(url, function (html) {            
+            if (callback) {
+                callback(html);
+            }
+        });
     }
 
 };

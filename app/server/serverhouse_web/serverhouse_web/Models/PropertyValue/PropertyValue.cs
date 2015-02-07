@@ -35,7 +35,10 @@ namespace serverhouse_web.Models.PropertyValue
                     newPropVal = new TextPropertyValue(propertyValue["text"].ToString());
                     break;
                 case "image":
-                    newPropVal = new ImagePropertyValue(propertyValue["url"].ToString());
+                    newPropVal = new ImagePropertyValue(
+                        (from o in (JsonArray)propertyValue["urls"]
+                         select o.ToString()).ToList()
+                        );
                     break;
                 default:
                     throw new Exception("Unknown property value type");                    

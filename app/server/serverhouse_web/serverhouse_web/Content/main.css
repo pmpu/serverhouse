@@ -328,16 +328,18 @@ a {
      width: 100%;
 }
 
-.e_valuerep_image_url input {
+.e_valuerep_image_url textarea {
     position: relative;
     width: 100%;
-    padding: 3px;
+    
+    resize: vertical;
 }
 
 .e_valuerep_image_preview {
     position: relative;
     width: 100%;
-    margin: 20px 0 20px 0;
+    height: 100%;
+    margin-top: 10px;
     text-align: center;    
 }
 
@@ -345,9 +347,24 @@ a {
     position: relative;
     max-width: 100%;
     max-height: 100%;
- 
     /*box-shadow: rgba(0, 0, 0, 0.43) 0 0 3px;*/
 }
+
+.e_valuerep_image_thumbs {
+    display: block;
+    margin: 15px;
+}
+
+    .e_valuerep_image_thumbs img {
+        position: relative;
+        opacity: .8;
+        height: 30px;                
+    }
+    
+    .e_valuerep_image_thumbs img:hover {
+        opacity: 1;
+    }
+
 
 
 

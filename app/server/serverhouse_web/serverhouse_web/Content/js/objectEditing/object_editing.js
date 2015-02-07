@@ -93,10 +93,9 @@
     },
 
     loadValueRep: function ($prop, type, callback) {
-        ASYNC_NAV.load("/repo/edit/" + OE.getObjectId()
-            + "?async=1&part=e_valuerep&type=" + type,
+        ASYNC_NAV.loadHtml("/AsyncPartial/edit/value_representation?type=" + type,
             function (data) {
-                $prop.find(".e_valuerep").html(data.html);
+                $prop.find(".e_valuerep").html(data);
                 if (callback)
                     callback();
             });
@@ -127,8 +126,8 @@
         // init gridster
         OE.gridster = $("ul.gridster").gridster({
             widget_margins: [10, 10],
-            widget_base_dimensions: [50, 50],
-            max_cols: 10,
+            widget_base_dimensions: [25, 25],
+            max_cols: 20,
             draggable: {
                 stop: OE.onChange
             },
@@ -202,10 +201,10 @@
     },
 
     addProperty: function () {
-        ASYNC_NAV.load(
-            "/repo/edit/" + OE.getObjectId() + "?async=1&part=new_prop",
+        ASYNC_NAV.loadHtml(
+            "/AsyncPartial/edit/new_property",
             function (data) {
-                $prop = OE.gridster.add_widget(data.html, 7, 2, 1, 1);
+                $prop = OE.gridster.add_widget(data, 14, 4, 1, 1);
                 $prop.addClass("not_saving");                
                 OE.initPropertyNameFor($prop.find(".edit_prop_name select"));
                 OE.initPropertyTypeFor($prop.find(".edit_prop_type select"));

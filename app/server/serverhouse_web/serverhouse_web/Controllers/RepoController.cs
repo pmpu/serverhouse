@@ -96,7 +96,9 @@ namespace serverhouse_web.Controllers
                     return "success";
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) {
+                return "error "+ex.ToString();
+            }
 
             return "error";
         }

@@ -7,16 +7,22 @@ namespace serverhouse_web.Models.PropertyValue
 {
     public class ImagePropertyValue: PropertyValue
     {
-        public string url { get; set; }
+        public List<string> urls { get; set; }
 
-        public ImagePropertyValue(string _url) {
+        public ImagePropertyValue(){
             type = "image";
-            url = _url;
+            urls = new List<string>();
+        }
+
+        public ImagePropertyValue(List<string> _urls)
+        {
+            type = "image";
+            urls = _urls;
         }
 
         public override string ToString()
         {
-            return "Image(\""+url+"\")";
+            return "Image(\""+urls+"\")";
         }
     }
 }

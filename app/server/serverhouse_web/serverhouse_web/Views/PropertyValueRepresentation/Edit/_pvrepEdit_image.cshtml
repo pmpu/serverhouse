@@ -7,9 +7,9 @@
 
 <div class="e_valuerep e_valuerep_image">
     <div class="e_valuerep_image_url">
-        <input type="url" placeholder="image url here" value="@m.url"/>
+        <textarea placeholder="image urls here; delimeter - \n">@String.Join("\n", m.urls)</textarea>
     </div>
 
-    <div class="e_valuerep_image_preview"></div>
-
+    <div class="e_valuerep_image_preview"></div>    
+    <div class="e_valuerep_image_thumbs"></div>
 </div>
