@@ -35,6 +35,7 @@
             if (p == 13) {
                 $el.typeahead("close");
                 OE.onPropNameChange($(e.target).closest(".edit_prop"));
+                $el.blur();
             }
         });
 
