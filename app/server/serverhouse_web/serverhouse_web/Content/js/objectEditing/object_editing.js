@@ -23,7 +23,7 @@
         $el.typeahead({
             hint: true,
             highlight: true,
-            minLength:0
+            minLength:1
         },
         {            
             displayKey: 'name',
@@ -34,47 +34,22 @@
             var p = e.which;
             if (p == 13) {
                 $el.typeahead("close");
+                OE.onPropNameChange($(e.target).closest(".edit_prop"));
             }
         });
 
-        
-        /*$el.select2({
-            ajax: {
-                url: "/repo/getAllPossibleNames",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        q: params.term, // search term
-                        page: params.page
-                    };
-                },
-                processResults: function (data, page) {
-                    var resultsArray = [];
-                    for (var i in data) {
-                        resultsArray.push({ id: data[i], text: data[i] });
-                    }
-                    return {
-                        results: resultsArray
-                    };
-                },
-                cache: true
-            },
-            placeholder: "prop_name",
-            width: 'element',
-            tags: true
-        }).on("change", function (e) {
-            var $select = $(this);
-            var $prop = $select.closest(".edit_prop");
-            OE.onPropNameChange($prop);            
-        });*/
+        $el.on("input propertychange, typeahead:selected", function (e) {
+            OE.onPropNameChange($(e.target).closest(".edit_prop"));
+        });
+      
     },    
 
-    onPropNameChange: function ($prop) {
-        var $select = $prop.find(".edit_prop_name select");
-        var old_name = $prop.attr("prop_name");
-        var new_name = $select.val().toLowerCase();
+    onPropNameChange: function (prop) {
+        var $input = $(prop).find(".edit_prop_name .tt-input");
+        var old_name = $(prop).attr("prop_name");
+        var new_name = $input.typeahead("val").toLowerCase();
 
+        
         if (old_name != new_name) {
             if (OE.objectHasKey(new_name)) {
                 setTimeout(function () {
@@ -84,21 +59,24 @@
                         type: "warning",
                         allowOutsideClick: true
                     });
-                }, 100);                
-                $select.val(old_name).trigger("change");
+                }, 100);
+                $input.typeahead('val', old_name);
             } else {
-                $prop.removeClass("not_saving");
-                $prop.attr("prop_name", new_name);
-                $select.html($("<option>").html(new_name).val(new_name));
-                $select.select2("destroy");
-                OE.initPropertyNameFor($select);
-                OE.onChange();
+                if (new_name == "") {
+                    $(prop).addClass("not_saving");
+                } else {
+                    $(prop).removeClass("not_saving");
+                }
+                
+                $(prop).attr("prop_name", new_name);
+                //$input.typeahead('val', new_name);
+                OE.onChange();                
             }
         } else {
-            $select.html($("<option>").html(new_name).val(new_name));
-            $select.select2("destroy");
-            OE.initPropertyNameFor($select);
+            //$input.typeahead('val', new_name);
         }
+        
+        
     },
 
     initPropertyTypeFor: function ($el) {
@@ -239,7 +217,7 @@
             function (data) {
                 $prop = OE.gridster.add_widget(data, 14, 4, 1, 1);
                 $prop.addClass("not_saving");                
-                OE.initPropertyNameFor($prop.find(".edit_prop_name select"));
+                OE.initPropertyNameFor($prop.find(".edit_prop_name input"));
                 OE.initPropertyTypeFor($prop.find(".edit_prop_type select"));
                 OE.initEvents();
             });
