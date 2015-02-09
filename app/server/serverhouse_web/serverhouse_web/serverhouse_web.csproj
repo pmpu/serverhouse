@@ -297,6 +297,7 @@
     <Content Include="Content\libs\select2\js\select2.min.js" />
     <Content Include="Content\libs\sweet_alert\sweet-alert.css" />
     <Content Include="Content\libs\sweet_alert\sweet-alert.js" />
+    <Content Include="Content\libs\typeahead\typeahead.jquery.js" />
     <Content Include="Content\main.css" />
     <Content Include="Content\js\async_navigation.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

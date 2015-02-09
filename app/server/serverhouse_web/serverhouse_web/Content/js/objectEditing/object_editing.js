@@ -5,7 +5,40 @@
     },
 
     initPropertyNameFor: function ($el) {
-        $el.select2({
+
+        var matchesSource = function () {
+            return function findMatches(q, cb) {
+
+                $.ajax({
+                    url: "/repo/getAllPossibleNames?q="+q,
+                    dataType: "json"
+                }).done(function (data) {
+                    console.log(data);
+                    cb($.map(data, function(item) { return { name: item }; }));
+                });
+
+            };
+        };
+
+        $el.typeahead({
+            hint: true,
+            highlight: true,
+            minLength:0
+        },
+        {            
+            displayKey: 'name',
+            source: matchesSource()
+        });
+
+        $el.on('keypress', function (e) {
+            var p = e.which;
+            if (p == 13) {
+                $el.typeahead("close");
+            }
+        });
+
+        
+        /*$el.select2({
             ajax: {
                 url: "/repo/getAllPossibleNames",
                 dataType: 'json',
@@ -34,7 +67,7 @@
             var $select = $(this);
             var $prop = $select.closest(".edit_prop");
             OE.onPropNameChange($prop);            
-        });
+        });*/
     },    
 
     onPropNameChange: function ($prop) {
@@ -310,7 +343,7 @@ $(document).ready(function () {
         OE.initEvents();
         OE.updateState(OE.OESTATE.SAVED);
 
-        OE.initPropertyNameFor($(".edit_prop_name select"));
+        OE.initPropertyNameFor($(".edit_prop_name input"));
 
         OE.initPropertyTypeFor($('.edit_prop_type select'));    
 
