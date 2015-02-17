@@ -1,6 +1,7 @@
 #include "poster.h"
 #include <fstream>
 #include <ctime>
+#include <math.h>
 
 string Colorof::getColorName(int colorNumber)
 {
@@ -39,13 +40,16 @@ string getName(int k)
 	}
 }
 
+
 void img_posterization()
 {
 	cout << "Write image name (with format), pls // for example, image.jpg" << endl;
 	string imageName;
 	string outputImageName;
 	cin >> imageName;
-	
+	cout << "Write k" << endl;
+	int kkk;
+	cin >> kkk;
 	Mat img = imread(imageName, 1);
 
 	int rows = img.rows;
@@ -95,7 +99,7 @@ void img_posterization()
 	Size s = img.size();
 	rows = s.height;
 	cols = s.width;
-
+	int def = 0;
 	//cout << img.channels();
 	if (rows == 0 || cols == 0)
 	{
@@ -111,7 +115,23 @@ void img_posterization()
 			pixtmp[1] = img.at<Vec3b>(y,x).val[1];
 			pixtmp[2] = img.at<Vec3b>(y,x).val[2];
 
-			if(img.at<Vec3b>(y,x).val[0] < 128)
+			for (int k = 0; k < kkk; k++)
+			{
+				if((img.at<Vec3b>(y,x).val[0] < (def + 256 / kkk)) && (img.at<Vec3b>(y,x).val[0] >= def))
+					img.at<Vec3b>(y,x).val[0] = def;
+				//else img.at<Vec3b>(y,x).val[0] = def + 256 / kkk -1;
+				if((img.at<Vec3b>(y,x).val[1] < (def + 256 / kkk)) && (img.at<Vec3b>(y,x).val[1] >= def))
+					img.at<Vec3b>(y,x).val[1] = def;
+				//else img.at<Vec3b>(y,x).val[1] = def + 256 / kkk-1;
+				if((img.at<Vec3b>(y,x).val[2] < (def + 256 / kkk)) && (img.at<Vec3b>(y,x).val[2] >= def))
+					img.at<Vec3b>(y,x).val[2] = def;
+				//else img.at<Vec3b>(y,x).val[2] = def + 256 / kkk -1;
+
+				def += 256 / kkk;
+			}
+			def = 0;
+			//it works
+			/*if(img.at<Vec3b>(y,x).val[0] < 128) 
 				img.at<Vec3b>(y,x).val[0] = 0;
 			else img.at<Vec3b>(y,x).val[0] = 255;
 
@@ -122,7 +142,7 @@ void img_posterization()
 			if(img.at<Vec3b>(y,x).val[2] < 128)
 				img.at<Vec3b>(y,x).val[2] = 0;
 			else img.at<Vec3b>(y,x).val[2] = 255;
-
+			*/
 			if (img.at<Vec3b>(y,x).val[0] == 0 && img.at<Vec3b>(y,x).val[1] ==  0 && img.at<Vec3b>(y,x).val[2] == 0) // black
 			{
 				for (int k = 0; k < 3; k++)

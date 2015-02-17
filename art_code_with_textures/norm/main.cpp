@@ -58,7 +58,8 @@ int main()
 {
 	img_posterization();
 	//posterizated_cat2 - grey
-
+	
+	
 	waitKey(0);
 	destroyAllWindows();
 	return 0;
