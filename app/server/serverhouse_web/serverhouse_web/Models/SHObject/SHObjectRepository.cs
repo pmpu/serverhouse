@@ -9,6 +9,7 @@ using MongoDB.Driver.Builders;
 using serverhouse_web.Properties;
 using MongoDB.Driver.Linq;
 using System.Text.RegularExpressions;
+using MongoDB.Bson.Serialization;
 
 namespace serverhouse_web.Models.SHObject
 {
@@ -70,44 +71,41 @@ namespace serverhouse_web.Models.SHObject
 
                 // set new databaseId
                 obj.databaseId = Guid.NewGuid().ToString();
+            } else {
+                // no versions
 
-                // new version
-                obj.ver_active = true;
-                obj.ver_timestamp = (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                // databaseId
+                if (string.IsNullOrEmpty(obj.databaseId))
+                {
+                    obj.databaseId = Guid.NewGuid().ToString();
+                }
 
-                objectsCollection.Save(obj);
+                // id
+                long maxId = 0;
+                var findMax = objectsCollection.AsQueryable<SHObject>()
+                                .Select(c => c.id);
+                if (findMax.Count() > 0)
+                {
+                    maxId = findMax.Max();
+                }
+                obj.id = maxId + 1;
             }
-            else {
-                obj = Add(obj);
-            }
-
-            return obj;
-        }
-
-        private SHObject Add(SHObject obj)
-        {
-
-            // databaseId
-            if (string.IsNullOrEmpty(obj.databaseId))
-            {
-                obj.databaseId = Guid.NewGuid().ToString();
-            }
-
-            // id
-            long maxId = 0;
-            var findMax = objectsCollection.AsQueryable<SHObject>()
-                            .Select(c => c.id);
-            if (findMax.Count() > 0)
-            {
-                maxId = findMax.Max();
-            }
-            obj.id = maxId + 1;
 
             // version
             obj.ver_active = true;
             obj.ver_timestamp = (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 
+            // set searchables
+            var new_searchables = "";
+            foreach (var prop_pair in obj.properties) {
+                new_searchables += prop_pair.Key + " ";
+                new_searchables += prop_pair.Value.ToString() + " ";
+            }
+
+            obj.searchables = new_searchables;
+
             objectsCollection.Save(obj);
+
             return obj;
         }
 
@@ -117,6 +115,23 @@ namespace serverhouse_web.Models.SHObject
                 (from obj in objectsCollection.AsQueryable<SHObject>() 
                  where obj.ver_active == true
                     select obj).Skip((page-1)*pageSize).Take(pageSize).ToList();
+        }
+
+        public List<SHObject> findObjects(string q, int page = 1, int pageSize = 10){
+            page = Math.Abs(page);
+
+            if (q == "") {
+                return new List<SHObject>();
+            }
+            
+            var results = (from obj in  
+                              objectsCollection.FindAs<SHObject>(
+                                Query.Matches("searchables", new BsonRegularExpression("/"+q+"/"))
+                                ).AsQueryable()
+                          where obj.ver_active == true
+                           select obj).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            return results;
         }
 
         public SHObject getObjectById(long id) {

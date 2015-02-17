@@ -14,10 +14,10 @@
             ImagePropertyValue img = (ImagePropertyValue)prop.Value;
             foreach (var url in img.urls) { 
                 <div class="obj_view_imgprop">                
-                <a href="@url" data-lightbox="@prop.Key" data-title="@prop.Key">
-                    <img class="obj_view_imgprop_img" src="@url" height="50" title="@prop.Key" />
-                </a>
-            </div>    
+                    <a href="@url" data-lightbox="@prop.Key" data-title="@prop.Key">
+                        <img class="obj_view_imgprop_img" src="@url" height="50" title="@prop.Key" />
+                    </a>
+                </div>    
             }
             
         }    

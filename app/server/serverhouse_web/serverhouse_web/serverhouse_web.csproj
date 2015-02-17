@@ -196,6 +196,7 @@
     <Compile Include="Controllers\AsyncPartialController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RepoController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -225,6 +226,7 @@
     <Content Include="Content\js\helpers.js" />
     <Content Include="Content\js\objectEditing\types\image.js" />
     <Content Include="Content\js\repoView\repo_view.js" />
+    <Content Include="Content\js\searchbox\searchbox.js" />
     <Content Include="Content\js\ui_helpers.js" />
     <Content Include="Content\libs\animate.css" />
     <Content Include="Content\images\topbar_noise.png" />
@@ -438,6 +440,8 @@
     <Content Include="Views\Repo\ViewModes\RawViewPartial.cshtml" />
     <Content Include="Views\Repo\ViewModes\GroupedViewPartial.cshtml" />
     <Content Include="Views\AsyncPartial\Edit.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Search\Suggestions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

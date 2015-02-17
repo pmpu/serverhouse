@@ -64,6 +64,11 @@ namespace serverhouse_web
 
                    ));
 
+            bundles.Add(new StyleBundle("~/searchbox").Include(
+                  "~/Content/js/searchbox/searchbox.js"
+
+                  ));
+
 
 
         }

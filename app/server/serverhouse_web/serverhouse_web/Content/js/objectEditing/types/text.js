@@ -24,6 +24,6 @@
 
     onResize: function ($el) {
         $($el).find("textarea").width($($el).width() - 20);
-        $($el).find("textarea").height($($el).height() - 50);
+        $($el).find("textarea").height($($el).height() - 60);
     }
 }

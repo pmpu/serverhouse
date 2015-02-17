@@ -6,7 +6,11 @@
         </div>
     
         <div class="header_searchbox">
-            <input class="header_searchbox_input" type="text">
+            <form action="/search/">
+                <input class="header_searchbox_input" autocomplete="off" name="q" type="text" value="@ViewBag.searchBoxQueryValue">
+                <div class="header_searchbox_suggestions"></div>
+            </form>
+            
         </div>        
 
         <div class="header_login">
