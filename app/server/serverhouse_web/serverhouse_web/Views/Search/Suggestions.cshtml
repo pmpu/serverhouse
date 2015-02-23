@@ -1,11 +1,13 @@
 ﻿@using serverhouse_web.Models.SHObject
 @using serverhouse_web.Models.PropertyValue;
+@using SimpleJson;
+
 @model List<SHObject>
 
 @{var objects = Model;}
 
-
-@foreach (var obj in objects) { 
+@if (objects.Count > 0) { 
+    foreach (var obj in objects) { 
     <div class="sugg_obj">
         <a href="/repo/view/@obj.id" class="div_link"></a>
         <div class="sugg_obj_name">@obj.getName()</div>
@@ -24,4 +26,5 @@
             }
         }
     </div>
+}
 }

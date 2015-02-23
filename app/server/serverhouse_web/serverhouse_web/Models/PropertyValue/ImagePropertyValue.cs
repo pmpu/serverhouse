@@ -22,7 +22,7 @@ namespace serverhouse_web.Models.PropertyValue
 
         public override string ToString()
         {
-            return "Image(\""+urls+"\")";
+            return "Images(" + string.Join(",", urls) + ")";
         }
     }
 }

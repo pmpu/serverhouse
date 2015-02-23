@@ -10,12 +10,15 @@ var ASYNC_NAV = {
             e.preventDefault();
             $(this).blur();
             var url = $(this).attr("href");
-
-            ASYNC_NAV.loadPage(url, function () {
-                // push to history api
-                history.pushState(null, null, url);
-            });
+            ASYNC_NAV.goTo(url);
         }
+    },
+
+    goTo: function (url) {
+        ASYNC_NAV.loadPage(url, function () {
+            // push to history api
+            history.pushState(null, null, url);
+        });
     },
 
     loadPage: function (url, callback) {

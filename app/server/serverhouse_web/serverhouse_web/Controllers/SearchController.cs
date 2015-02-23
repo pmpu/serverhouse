@@ -22,18 +22,18 @@ namespace serverhouse_web.Controllers
         }
 
         [ValidateInput(false)]
-        public ActionResult Index(string q = "", int page = 1){
-            var results = repo.findObjects(q, page, OBJECTS_PER_PAGE);
+        public ActionResult Index(string q = "", int page = 1, int per_page = OBJECTS_PER_PAGE){
+            var results = repo.findObjects(q, page, per_page);
             ViewBag.query = q;
             ViewBag.page = page;
-            ViewBag.nextPageAvailable = repo.getObjects(page + 1, OBJECTS_PER_PAGE).Count() > 0;
+            ViewBag.nextPageAvailable = repo.getObjects(page + 1, per_page).Count() > 0;
 
             return View(results);            
         }
 
         [ValidateInput(false)]
-        public ActionResult Suggestions(string q = "", int page = 1) { 
-            var results = repo.findObjects(q, page, OBJECTS_PER_PAGE);
+        public ActionResult Suggestions(string q = "", int page = 1, int per_page = OBJECTS_PER_PAGE) {
+            var results = repo.findObjects(q, page, per_page);
             return PartialView(results);
         }
 

@@ -1,0 +1,12 @@
+﻿@model MembershipUserCollection
+
+@{
+    ViewBag.Title = "Index";
+    var users = Model;
+}
+
+<h2>Admin controller</h2>
+
+@foreach (MembershipUser user in users) { 
+   @user.UserName<br>
+}

@@ -5,26 +5,28 @@
 @{var obj = Model;}
 
 
-
-<h3>Images</h3><hr>
-<div class="obj_view_imagegallery">
+@{ var image_props = obj.properties.Where(prop => prop.Value.type == "image");}
+@if(image_props.Count() > 0){
+    <h3>Images</h3><hr>
+    <div class="obj_view_imagegallery">
     
-    @foreach (var prop in obj.properties.OrderBy(o => o.Value.order_data["row"])) {
-        if (prop.Value.type == "image") { 
-            ImagePropertyValue img = (ImagePropertyValue)prop.Value;
-            foreach (var url in img.urls) { 
-                <div class="obj_view_imgprop">                
-                    <a href="@url" data-lightbox="@prop.Key" data-title="@prop.Key">
-                        <img class="obj_view_imgprop_img" src="@url" height="50" title="@prop.Key" />
-                    </a>
-                </div>    
-            }
+        @foreach (var prop in obj.properties.OrderBy(o => o.Value.order_data["row"])) {
+            if (prop.Value.type == "image") { 
+                ImagePropertyValue img = (ImagePropertyValue)prop.Value;
+                foreach (var url in img.urls) { 
+                    <div class="obj_view_imgprop">                
+                        <a href="@url" data-lightbox="@prop.Key" data-title="@prop.Key">
+                            <img class="obj_view_imgprop_img" src="@url" height="50" title="@prop.Key" />
+                        </a>
+                    </div>    
+                }
             
-        }    
-    }
-</div>
+            }    
+        }
+    </div>    
+}
 
-<h3>Text properties</h3><hr>
+<br />
 <div class="obj_view_textprops">
     @foreach (var prop in obj.properties.OrderBy(o => o.Value.order_data["row"])) { 
         if (prop.Value.type == "text") { 

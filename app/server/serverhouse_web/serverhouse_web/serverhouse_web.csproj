@@ -45,11 +45,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Bson.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="SolrNet">
+      <HintPath>..\packages\SolrNet.0.3.1\lib\SolrNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -193,6 +199,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AsyncPartialController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RepoController.cs" />
@@ -208,6 +215,7 @@
     <Compile Include="Models\PropertyValue\TextPropertyValue.cs" />
     <Compile Include="Models\SHObject\SHObject.cs" />
     <Compile Include="Models\SHObject\SHObjectRepository.cs" />
+    <Compile Include="Models\SolrObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Auth\VKontakteAuthenticationClient.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -225,6 +233,7 @@
     <Content Include="Content\images\main_noise_graphy.png" />
     <Content Include="Content\js\helpers.js" />
     <Content Include="Content\js\objectEditing\types\image.js" />
+    <Content Include="Content\js\objectView\object_view.js" />
     <Content Include="Content\js\repoView\repo_view.js" />
     <Content Include="Content\js\searchbox\searchbox.js" />
     <Content Include="Content\js\ui_helpers.js" />
@@ -237,6 +246,7 @@
     <Content Include="Content\libs\gridster\jquery.gridster.css" />
     <Content Include="Content\libs\gridster\jquery.gridster.js" />
     <Content Include="Content\libs\gridster\jquery.gridster.with-extras.js" />
+    <Content Include="Content\libs\jquery-ui.js" />
     <Content Include="Content\libs\jquery.ba-resize.js" />
     <Content Include="Content\libs\lightbox\css\lightbox.css" />
     <Content Include="Content\libs\lightbox\css\screen.css" />
@@ -442,6 +452,8 @@
     <Content Include="Views\AsyncPartial\Edit.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\Suggestions.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="SolrNet.chm" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -465,7 +477,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>51786</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:80/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

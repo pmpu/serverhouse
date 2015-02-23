@@ -11,6 +11,7 @@ using serverhouse_web.Models.SHObject;
 using serverhouse_web.Models.PropertyValue;
 
 using SimpleJson;
+using System.Web.Security;
 
 namespace serverhouse_web.Controllers
 {
@@ -34,6 +35,8 @@ namespace serverhouse_web.Controllers
             /*SHObject obj = objects[0];
             obj.set("text", new TextPropertyValue("hello"));
             repo.AddVersion(obj);*/
+
+            //MembershipUser user = Membership.GetUser(User.Identity.Name).
             
             return View(objects);
         }

@@ -20,7 +20,6 @@ namespace serverhouse_web.Models.SHObject
         public Dictionary<string, PropertyValue> properties { get; set; }        
         public bool ver_active { get; set; }
         public double ver_timestamp { get; set; }
-        public string searchables { get; set; }
 
         public SHObject() { 
             properties = new Dictionary<string, PropertyValue>();

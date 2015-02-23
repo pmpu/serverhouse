@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+using serverhouse_web.Models;
+using SolrNet;
+
 namespace serverhouse_web
 {
     // Примечание: Инструкции по включению классического режима IIS6 или IIS7 
@@ -23,6 +26,10 @@ namespace serverhouse_web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+
+            // init solr
+            Startup.Init<SolrObject>("http://localhost:8983/solr/main_core");
+
         }
     }
 }

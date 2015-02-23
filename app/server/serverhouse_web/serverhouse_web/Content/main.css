@@ -129,10 +129,12 @@ a {
 
 .header_searchbox_suggestions {
     position: relative;
-    background: white;
-    border: 1px solid brown;    
+    background: white;    
     margin-top: -20px;
     line-height: normal;
+    border-left: 3px solid rgba(114, 47, 18, .7);
+
+    box-shadow: rgba(0, 0, 0, 0.11) 5px 5px;
 }
 
 .sugg_obj {
@@ -140,9 +142,13 @@ a {
     padding: 10px;
 }
 
-    .sugg_obj:hover {
-        background: rgba(0, 169, 255, 0.25)
+    .sugg_obj.sugg_focused, .sugg_obj:hover {
+        background: rgba(114, 47, 18, .7)
     }
+
+        .sugg_obj.sugg_focused .sugg_obj_name, .sugg_obj:hover .sugg_obj_name {
+            color: white;
+        }
 
 .sugg_obj_name {
     font-size: 18px;

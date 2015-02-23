@@ -1,9 +1,6 @@
-﻿
-
-var RV = {
-
+﻿var OV = {
     init: function () {
-        RV.initEvents();
+        OV.initEvents();
     },
 
     initEvents: function () {
@@ -24,12 +21,10 @@ var RV = {
                 window.location = $(e.target).attr("href");
             });
         });
-
-
     }
+
 };
 
-
 $(document).ready(function () {
-    RV.init();
+    OV.init();
 });

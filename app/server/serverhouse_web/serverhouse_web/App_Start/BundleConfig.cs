@@ -33,6 +33,7 @@ namespace serverhouse_web
                    ));
 
             bundles.Add(new ScriptBundle("~/main/js").Include(
+                    "~/Content/libs/jquery-ui.js",
                     "~/Content/libs/gridster/jquery.gridster.js",
                     "~/Content/libs/sweet_alert/sweet-alert.js",
 
@@ -61,6 +62,12 @@ namespace serverhouse_web
             bundles.Add(new StyleBundle("~/repoView").Include(
 
                    "~/Content/js/repoView/repo_view.js"
+
+                   ));
+
+            bundles.Add(new StyleBundle("~/objectView").Include(
+
+                   "~/Content/js/objectView/object_view.js"
 
                    ));
 

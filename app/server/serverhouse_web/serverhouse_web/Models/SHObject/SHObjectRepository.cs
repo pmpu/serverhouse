@@ -10,6 +10,12 @@ using serverhouse_web.Properties;
 using MongoDB.Driver.Linq;
 using System.Text.RegularExpressions;
 using MongoDB.Bson.Serialization;
+using SolrNet;
+using Microsoft.Practices.ServiceLocation;
+using SolrNet.Commands;
+using SolrNet.Impl;
+using SolrNet.Commands.Parameters;
+using SolrNet.Exceptions;
 
 namespace serverhouse_web.Models.SHObject
 {
@@ -18,14 +24,32 @@ namespace serverhouse_web.Models.SHObject
         private MongoDatabase mongoDatabase;
         private MongoCollection objectsCollection;
 
-        public SHObjectRepository() {            
+        private ISolrOperations<SolrObject> solrWorker;
+        private SolrConnection solrConn;
+        private CommitCommand solrCommit;
+         
+
+        public SHObjectRepository() {         
+   
+            // init MongoDB for storing
             var mongoClient = new MongoClient(Settings.Default.MongoConnectionString);
             var server = mongoClient.GetServer();
             mongoDatabase = server.GetDatabase(Settings.Default.MongoDatabase);
-            objectsCollection = mongoDatabase.GetCollection("objects");   
-         
+            objectsCollection = mongoDatabase.GetCollection("objects");            
             // check if server is alive, if not - throw exception
             mongoDatabase.Server.Ping();            
+
+            // init Solr for search            
+            solrConn = new SolrConnection("http://localhost:8983/solr/main_core");
+
+            solrWorker = ServiceLocator.Current.GetInstance<ISolrOperations<SolrObject>>();
+
+            solrCommit = new CommitCommand();
+            solrCommit.WaitFlush = null;
+            solrCommit.WaitSearcher = true;
+
+
+           
         }
 
 
@@ -95,15 +119,20 @@ namespace serverhouse_web.Models.SHObject
             obj.ver_active = true;
             obj.ver_timestamp = (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 
-            // set searchables
-            var new_searchables = "";
-            foreach (var prop_pair in obj.properties) {
-                new_searchables += prop_pair.Key + " ";
-                new_searchables += prop_pair.Value.ToString() + " ";
+            // add to solr
+            SolrObject solr_obj = new SolrObject();
+            solr_obj.id = obj.id;
+
+            var solar_props = new Dictionary<string, string>();
+            foreach(var prop in obj.properties){
+                solar_props.Add(prop.Key, prop.Value.ToString());
             }
+            solr_obj.properties = solar_props;            
 
-            obj.searchables = new_searchables;
+            solrWorker.Add(solr_obj);
+            solrCommit.Execute(solrConn);
 
+            // save to mongo
             objectsCollection.Save(obj);
 
             return obj;
@@ -120,16 +149,29 @@ namespace serverhouse_web.Models.SHObject
         public List<SHObject> findObjects(string q, int page = 1, int pageSize = 10){
             page = Math.Abs(page);
 
-            if (q == "") {
-                return new List<SHObject>();
+            var results = new List<SHObject>();
+
+            ISolrQueryResults<SolrObject> solrResults;
+
+            try
+            {
+                solrResults = solrWorker.Query(new SolrQuery(q), new QueryOptions
+                {
+                    Fields = new[] { "id" },
+                    Start = (page-1)*pageSize,
+                    Rows = pageSize
+                });
             }
-            
-            var results = (from obj in  
-                              objectsCollection.FindAs<SHObject>(
-                                Query.Matches("searchables", new BsonRegularExpression("/"+q+"/"))
-                                ).AsQueryable()
-                          where obj.ver_active == true
-                           select obj).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            catch (InvalidFieldException e) {
+                return results;
+            }
+
+            foreach (var solr_obj in solrResults) {
+                var obj = getObjectById(solr_obj.id);
+                if (obj != null) {
+                    results.Add(obj);
+                }                
+            }            
 
             return results;
         }
@@ -225,6 +267,8 @@ namespace serverhouse_web.Models.SHObject
 
         public void Delete(SHObject obj){
             objectsCollection.Remove(Query.EQ("id", obj.id));
+            solrWorker.Delete(new SolrQueryByField("id", obj.id.ToString()));
+            solrCommit.Execute(solrConn);
         }
         
     }
