@@ -10,6 +10,9 @@
 
 <hr>
 
+## serverhouse search preview
+http://screencast.com/t/t3EpzqyWvsy
+
 ## new tasks - new screens
 <img width="500"  src="https://raw.githubusercontent.com/pmpu/serverhouse/36958f4164075133550040b4d12afc8fe57bcb36/other/images/screenshots/disk_animation_details.png"><br>
 <i>(Animation HDD components view)</i>
