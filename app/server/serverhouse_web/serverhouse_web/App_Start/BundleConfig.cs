@@ -60,7 +60,6 @@ namespace serverhouse_web
                    ));
 
             bundles.Add(new StyleBundle("~/repoView").Include(
-
                    "~/Content/js/repoView/repo_view.js"
 
                    ));

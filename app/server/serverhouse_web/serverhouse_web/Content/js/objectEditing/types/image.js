@@ -123,7 +123,7 @@
                         });
                     }
 
-                    $thumb.css({ cursor: "pointer"})
+                    ///$thumb.css({ cursor: "pointer"})
                     
                     $thumbs.append($thumb);
                     self.onResize(prop);

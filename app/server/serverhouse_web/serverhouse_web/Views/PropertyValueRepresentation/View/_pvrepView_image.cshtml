@@ -1,0 +1,26 @@
+﻿@using serverhouse_web.Models.PropertyValue
+@model PropertyValue
+
+@{
+    var gallery = (ImagePropertyValue)Model;
+}
+
+<div class="v_valuerep v_valuerep_gallery"> 
+    <div class="v_valuerep_gallery_slider">
+        <ul>
+            @foreach (var url in gallery.urls) { 
+                <li>
+                    <div class="v_valuerep_gallery_image">                                    
+                        <img src="@url" height="50" title="todo" />
+                    </div>    
+                </li>
+            }
+        </ul>         
+    </div>
+
+    <div class="controls">
+        <button class="controls_prev"><i class="fa fa-arrow-left fa-lg"></i></button>
+        <button class="controls_next"><i class="fa fa-arrow-right fa-lg"></i></button>        
+    </div>
+   
+</div>

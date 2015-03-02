@@ -310,6 +310,7 @@
     <Content Include="Content\libs\sweet_alert\sweet-alert.css" />
     <Content Include="Content\libs\sweet_alert\sweet-alert.js" />
     <Content Include="Content\libs\typeahead\typeahead.jquery.js" />
+    <Content Include="Content\libs\unslider\jquery.unslider.js" />
     <Content Include="Content\main.css" />
     <Content Include="Content\js\async_navigation.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -454,6 +455,9 @@
     <Content Include="Views\Search\Suggestions.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="SolrNet.chm" />
+    <Content Include="Views\PropertyValueRepresentation\View\_pvrepView_text.cshtml" />
+    <Content Include="Views\Repo\ViewModes\ArticleViewPartial.cshtml" />
+    <Content Include="Views\PropertyValueRepresentation\View\_pvrepView_image.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

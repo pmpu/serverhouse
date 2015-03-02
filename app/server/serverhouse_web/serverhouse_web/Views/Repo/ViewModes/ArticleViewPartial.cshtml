@@ -1,0 +1,17 @@
+﻿@model serverhouse_web.Models.SHObject.SHObject
+
+@using serverhouse_web.Models.PropertyValue;
+@using serverhouse_web.PropertyValueRepresentation;
+
+@{var obj = Model;}
+
+<div class="obj_view_article">
+    @foreach (var prop in obj.properties.Where(o => o.Key != "name")
+                                                .OrderBy(o => o.Value.order_data["row"]))
+    { 
+        <h3>@prop.Key</h3>
+        <hr />
+            @Html.Partial(PropertyValueRepresentation.getViewPartialViewName(prop.Value.type), prop.Value);
+    }
+</div>
+

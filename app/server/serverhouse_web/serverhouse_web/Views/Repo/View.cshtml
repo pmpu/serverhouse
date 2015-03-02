@@ -5,7 +5,7 @@
 @{
     ViewBag.Title = "object"+obj.id.ToString();
 
-    var viewMode = "grouped";
+    var viewMode = "article";
     if(Request.QueryString["mode"] != null){
         viewMode = Request.QueryString["mode"].ToLower();
     }
@@ -21,22 +21,19 @@
     </div>
 
     <div class="obj_view_mode">
-        @if(viewMode=="grouped"){
-            <text>
-            grouped    
-            <a href="/repo/view/@obj.id?mode=raw">raw</a>
-            </text>
-        }else{
-            <text>            
-            <a href="/repo/view/@obj.id">grouped</a>
-            raw
-            </text>
-        }
+        
+        <a href="/repo/view/@obj.id?mode=article" class="@(viewMode=="article"?"not-active":"")">article</a>
+        <a href="/repo/view/@obj.id?mode=grouped" class="@(viewMode=="grouped"?"not-active":"")">grouped</a>
+        <a href="/repo/view/@obj.id?mode=raw" class="@(viewMode=="raw"?"not-active":"")">raw</a>
+        
     </div>
     
 
 
     @switch (viewMode){
+        case "article":
+            Html.RenderPartial("~/Views/Repo/ViewModes/ArticleViewPartial.cshtml");
+            break;
         case "grouped":
             Html.RenderPartial("~/Views/Repo/ViewModes/GroupedViewPartial.cshtml");
             break;
