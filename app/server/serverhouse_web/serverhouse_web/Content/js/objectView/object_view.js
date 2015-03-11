@@ -4,26 +4,23 @@
         OV.initEvents();
 
         // init galleries
-        $(".v_valuerep_gallery_slider").unslider({
-                            speed: 500,               //  The speed to animate each slide (in milliseconds)
-                            delay: 100000000,              //  The delay between slide animations (in milliseconds)
-                            complete: function () { },  //  A function that gets called after every slide animation
-                            keys: true,               //  Enable keyboard (left, right) arrow shortcuts
-                            dots: true,               //  Display dot navigation
-                            fluid: false              //  Support responsive design. May break non-responsive designs
+        $(".v_valuerep_gallery").each(function (i, el) {
+            var $el = $(el);
+            $($el.find(".v_valuerep_gallery_image img").get(0)).show();
+            if ($el.find(".v_valuerep_gallery_image img").length < 2) {
+                $el.find(".v_valuerep_gallery_thumbs").hide();
+            }
         });
 
-        $(".v_valuerep_gallery_slider_controls_prev").click(function () {
-            var slider = $(this).closest(".v_valuerep v_valuerep_gallery")
-                .find(".v_valuerep_gallery_slider");
-            console.log(slider.__proto__.unslider.prev());
-            slider.prev();
-        });
 
-        $(".v_valuerep_gallery_slider_controls_next").click(function () {
-            var slider = $(this).closest(".v_valuerep v_valuerep_gallery")
-                .find(".v_valuerep_gallery_slider").data("unslider");
-            slider.next();
+        
+        $(".v_valuerep_gallery_thumb").click(function (e) {
+            var index = $(e.target).parent().index();
+            //alert(index)
+            $gallery = $(e.target).closest(".v_valuerep_gallery");
+            $gallery.find(".v_valuerep_gallery_image img").hide();
+            $($gallery.find(".v_valuerep_gallery_image img").get(index)).show();
+            
         });
     },
 

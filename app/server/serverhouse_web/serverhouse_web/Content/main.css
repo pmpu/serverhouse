@@ -308,65 +308,48 @@ a {
 }
 
 .v_valuerep_gallery{
-    text-align: center;    
-    max-width: 800px;
-    
+    max-width: 700px;    
 }
-    .v_valuerep_gallery_slider {
-        padding: 0;
+
+.v_valuerep_gallery_image {
+    
+
+}
+
+    .v_valuerep_gallery_image img {
+        display: none;
+        max-width: 700px;
     }
 
-    .v_valuerep_gallery_slider { position: relative; overflow: auto; }
-    .v_valuerep_gallery_slider ul { list-style: none; padding: 0; }
-    .v_valuerep_gallery_slider ol { list-style: none; padding: 0; }
-    .v_valuerep_gallery_slider li { list-style: none; }
-        .v_valuerep_gallery_slider ul li { float: left; padding: 0; }
-        .v_valuerep_gallery_slider .dot {
-		-webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-		-moz-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-		-ms-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-		-o-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-		filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-	}
-	
-	.v_valuerep_gallery_slider .dots {
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 20px;
-	}
-		.v_valuerep_gallery_slider .dots li {
-			display: inline-block;
-			width: 10px;
-			height: 10px;
-			margin: 0 4px;
-			
-			text-indent: -999em;
-			
-			border: 2px solid #fff;
-			border-radius: 6px;
-			
-			cursor: pointer;
-			opacity: .4;
-			
-			-webkit-transition: background .5s, opacity .5s;
-			-moz-transition: background .5s, opacity .5s;
-			transition: background .5s, opacity .5s;
-		}
-			.v_valuerep_gallery_slider .dots li.active {
-				background: #fff;
-				opacity: 1;
-			}
-
-.v_valuerep_gallery .controls {
+.v_valuerep_gallery_thumbs {
+    text-align: center;
     margin-top: 10px;
 }
 
-    .v_valuerep_gallery img {
-        height: 350px;
-        width: auto;
+.v_valuerep_gallery_thumb {
+    display: inline-block;
+    height: 50px;
+    opacity: .5;
+    cursor: pointer;
+}
+
+    .v_valuerep_gallery_thumb:hover {
+        opacity: .8;
     }
 
+    .v_valuerep_gallery_thumb:active {
+        opacity: 1;
+    }
+
+
+
+    .v_valuerep_gallery_thumb img {
+        height: inherit;
+    }
+
+
+
+    
     
 
 
@@ -377,13 +360,9 @@ a {
 }
 
     .obj_view_article h3 {
-        margin-bottom: 5px;
-    }
-
-    .obj_view_article hr {
-        margin: 0;
         margin-bottom: 10px;
     }
+    
 
 .obj_view_article {
 }

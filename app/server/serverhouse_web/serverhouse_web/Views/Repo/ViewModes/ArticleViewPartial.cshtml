@@ -10,7 +10,7 @@
                                                 .OrderBy(o => o.Value.order_data["row"]))
     { 
         <h3>@prop.Key</h3>
-        <hr />
+        
             @Html.Partial(PropertyValueRepresentation.getViewPartialViewName(prop.Value.type), prop.Value);
     }
 </div>
