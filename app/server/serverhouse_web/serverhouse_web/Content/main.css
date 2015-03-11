@@ -305,6 +305,7 @@ a {
 
 .v_valuerep_text {
     font-size: 13px;
+    white-space:pre;
 }
 
 .v_valuerep_gallery{
