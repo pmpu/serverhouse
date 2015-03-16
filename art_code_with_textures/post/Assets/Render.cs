@@ -1,43 +1,38 @@
-﻿using UnityEngine;
-using System.Collections;
-//using UnityEngine.Windows;
-using System.IO;
+﻿using System.IO;
+using UnityEngine;
 
+// ReSharper disable once UnusedMember.Global
 public class Render : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
+		GetComponent<Renderer>().material.shader = Shader.Find("Transparent/Diffuse");
+	    var substance = GetComponent<Renderer>().material as ProceduralMaterial;
 
-		renderer.material.shader = Shader.Find("Transparent/Diffuse");
-		Texture2D texture = new Texture2D(128, 128, TextureFormat.ARGB32, false);
-		renderer.material.mainTexture = texture;
-		ProceduralMaterial substance;
-		substance = renderer.material as ProceduralMaterial;
-		//substance.GetGeneratedTextures ();
+	    if (substance != null) {
+	        var bufferTexture = new Texture2D( substance.mainTexture.width, substance.mainTexture.height, TextureFormat.RGBA32, false );
+	        substance.isReadable = true;
+            substance.RebuildTexturesImmediately();
 
-		//var textures = substance.GetGeneratedTextures ();
-		var textures = substance.GetGeneratedTextures ();
-		substance.isReadable = true;
-		substance.RebuildTexturesImmediately ();
+            var proceduralTextures = substance.GetGeneratedTextures();
 
-		//Texture2D textures2 = textures.Clone() as Texture2D;
-		//Color[] pix = textures.GetPixels32 ();
-		int k = 0;
-		Texture2D[] tt = textures.Clone() as Texture2D[];
-		Texture2D[] tmptexture;
-		//Texture2D[] tmptexture = new Texture2D(128, 128, TextureFormat.ARGB32, false);
-		foreach(var t in tt) {
-			t.GetPixels32 ();
-			texture.SetPixels32(t.GetPixels32 (), 0);
-			var bytes = texture.EncodeToPNG();
-			File.WriteAllBytes(Application.dataPath+"imageppp.png", bytes);
-			k++;
-		}
+            var counter = 0;
+	        foreach(var texture in proceduralTextures) {
+	        
+                var proceduralTexture = texture as ProceduralTexture;
+                if (proceduralTexture != null) {
+	                bufferTexture.SetPixels32(proceduralTexture.GetPixels32(0, 0, texture.width, texture.height), 0);
+                    var bytes = bufferTexture.EncodeToPNG();
+                    var fileName = string.Format( "{0}{1}_imageppp.png", Application.dataPath, counter );
+                    File.WriteAllBytes( fileName, bytes );
+	            }
+	            else {
+                    Debug.LogError( string.Format("not a ProceduralTexture! #{0}", counter) );
+	            }
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+                counter++;
+	        }
+        } else {
+            Debug.LogError( "There is no Procedural Material", gameObject );
+        }
 	}
 }
