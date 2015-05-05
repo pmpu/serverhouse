@@ -1,10 +1,9 @@
-﻿using System.IO;
-using System;
+﻿using System;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = System.Object;
-
+using UnityEditor;
 //using System.Windows.UIElement;
 
 // ReSharper disable once UnusedMember.Global
@@ -20,7 +19,7 @@ public class Render : MonoBehaviour {
     public float SliderValue;
     public Rect WindowRect0 = new Rect(20, 20, 120, 50);
     public Rect WindowRect1 = new Rect(20, 100, 120, 50);
-
+    public GameObject Sphere;
 
 
     private void Awake() {
@@ -30,6 +29,10 @@ public class Render : MonoBehaviour {
         //Materials = (ProceduralMaterial[])Resources.FindObjectsOfTypeAll(typeof(ProceduralMaterial));
         if (Materials == null) {
             Debug.Log("Materials is null");
+        }
+        Sphere = GameObject.Find("Sphere");
+        if (Sphere == null) {
+            throw new ArgumentNullException("Sp" + "here");
         }
     }
 
@@ -70,7 +73,21 @@ public class Render : MonoBehaviour {
             // Добавим в скролл рект
             
             //расставляй кнопки=)
+            result.onClick.AddListener(() => {
+                Sphere.GetComponent<Renderer>().material = m;
+                var SVL = GameObject.Find("L_ScrollView");
+                var pm = m as ProceduralMaterial;
+                var inputs = pm.GetProceduralPropertyDescriptions();
+                foreach (var v in inputs) {
+                    Debug.Log(v.name);
+                    if (v.type == ProceduralPropertyType.Float) {
+                        var ans = Instantiate(GameObject.Find("S_Slider"));
+                        ans.transform.SetParent(GameObject.FindGameObjectWithTag("SView2").transform);
+                        ans.transform.localPosition = new Vector3(0, 20);
+                    }
+                }
 
+            });
             // Это перфекционизм или просто скучно было?
 
             return result;
