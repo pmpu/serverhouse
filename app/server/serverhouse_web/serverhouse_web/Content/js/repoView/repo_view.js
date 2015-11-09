@@ -1,14 +1,13 @@
 ﻿
 
 var RV = {
-
-    init: function () {
+    init: function() {
         RV.initEvents();
     },
 
-    initEvents: function () {
+    initEvents: function() {
         $(".delete").unbind();
-        $(".delete").click(function (e) {
+        $(".delete").click(function(e) {
             e.preventDefault();
             swal({
                 title: "Are you sure?",
@@ -19,7 +18,7 @@ var RV = {
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false,
                 allowOutsideClick: true
-            }, function () {
+            }, function() {
                 //swal("Deleted!", "Your imaginary file has been deleted.", "success");
                 window.location = $(e.target).attr("href");
             });
@@ -30,6 +29,6 @@ var RV = {
 };
 
 
-$(document).ready(function () {
+$(document).ready(function() {
     RV.init();
 });

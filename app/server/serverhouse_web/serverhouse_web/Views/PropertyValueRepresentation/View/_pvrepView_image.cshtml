@@ -1,22 +1,31 @@
 ﻿@using serverhouse_web.Models.PropertyValue
 @model PropertyValue
 
+
 @{
-    var gallery = (ImagePropertyValue)Model;
+    var gallery = (ImagePropertyValue) Model;
 }
 
-<div class="v_valuerep v_valuerep_gallery"> 
-    <div class="v_valuerep_gallery_image">        
-         @foreach (var url in gallery.urls) {                          
-            <img src="@url"/>            
-        }
-    </div>   
 
-    <div class="v_valuerep_gallery_thumbs">
-        @foreach (var url in gallery.urls) {              
-            <div class="v_valuerep_gallery_thumb">                                    
-                <img src="@url"/>
-            </div>                 
+<div class="v_valuerep v_valuerep_gallery">
+
+    <div class="v_valuerep_gallery_image">
+
+        @foreach (var url in gallery.urls) {
+            <img src="@url"/>
         }
     </div>
+
+
+    <div class="v_valuerep_gallery_thumbs">
+
+        @foreach (var url in gallery.urls) {
+            <div class="v_valuerep_gallery_thumb">
+
+                <img src="@url"/>
+
+            </div>
+        }
+    </div>
+
 </div>

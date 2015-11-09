@@ -1,36 +1,48 @@
 ﻿@model serverhouse_web.Models.SHObject.SHObject
 
-@{var obj = Model;}
+
+@{ var obj = Model; }
+
 
 @{
-    ViewBag.Title = "object"+obj.id.ToString();
+    ViewBag.Title = "object" + obj.id.ToString();
 
     var viewMode = "article";
-    if(Request.QueryString["mode"] != null){
+    if (Request.QueryString["mode"] != null) {
         viewMode = Request.QueryString["mode"].ToLower();
     }
 }
 
+
 <div class="obj_view">
+
 
     <h2>@obj.getName()</h2>
 
+
     <div class="obj_view_controls">
-        <a href="/repo/edit/@obj.id">edit</a>  
+
+        <a href="/repo/edit/@obj.id">edit</a>
+
         <a href="/repo/delete/@obj.id" class="noasync delete">delete</a><br>
+
     </div>
+
 
     <div class="obj_view_mode">
-        
-        <a href="/repo/view/@obj.id?mode=article" class="@(viewMode=="article"?"not-active":"")">article</a>
-        <a href="/repo/view/@obj.id?mode=grouped" class="@(viewMode=="grouped"?"not-active":"")">grouped</a>
-        <a href="/repo/view/@obj.id?mode=raw" class="@(viewMode=="raw"?"not-active":"")">raw</a>
-        
+
+
+        <a href="/repo/view/@obj.id?mode=article" class="@(viewMode == "article" ? "not-active" : "")">article</a>
+
+        <a href="/repo/view/@obj.id?mode=grouped" class="@(viewMode == "grouped" ? "not-active" : "")">grouped</a>
+
+        <a href="/repo/view/@obj.id?mode=raw" class="@(viewMode == "raw" ? "not-active" : "")">raw</a>
+
+
     </div>
-    
 
 
-    @switch (viewMode){
+    @switch (viewMode) {
         case "article":
             Html.RenderPartial("~/Views/Repo/ViewModes/ArticleViewPartial.cshtml");
             break;
@@ -45,14 +57,8 @@
             break;
     }
 
+
 </div>
 
+
 @Scripts.Render("~/objectView")
-
-
-
-
-
-
-
-

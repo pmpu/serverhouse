@@ -1,11 +1,10 @@
 ﻿
 
 var SB = {
-
     input: null,
     sugg_box: null,
 
-    init: function () {
+    init: function() {
         SB.input = $(".header_searchbox_input");
         SB.sugg_box = $(".header_searchbox_suggestions");
 
@@ -15,24 +14,24 @@ var SB = {
 
     },
 
-    initEvents: function () {
-        SB.input.bind("input propertychange, click", function (e) {
+    initEvents: function() {
+        SB.input.bind("input propertychange, click", function(e) {
             SB.onInputChange(e.target);
         });
 
-        $("html").click(function () {
+        $("html").click(function() {
             SB.hideSuggestions();
         });
 
-        SB.input.click(function (e) {
+        SB.input.click(function(e) {
             e.stopPropagation();
         });
 
-        SB.sugg_box.click(function (e) {
+        SB.sugg_box.click(function(e) {
             e.stopPropagation();
         });
 
-        SB.input.keydown(function (e) {
+        SB.input.keydown(function(e) {
             var key = e.which;
             if (key == 13) {
                 return SB.onEnter(e);
@@ -45,11 +44,11 @@ var SB = {
 
     },
 
-    hideSuggestions: function(){
+    hideSuggestions: function() {
         SB.sugg_box.hide();
     },
 
-    onInputChange: function (el) {
+    onInputChange: function(el) {
         if ($(el).val().length > 1) {
             SB.showSuggestions(el);
         } else {
@@ -58,16 +57,16 @@ var SB = {
     },
 
     currentPointerPosition: -1,
-    getResultsCount: function(){
+    getResultsCount: function() {
         return SB.sugg_box.find(".sugg_obj").length;
     },
 
-    initSelect: function () {
+    initSelect: function() {
         SB.currentPointerPosition = -1;
     },
 
-    onArrowDown: function () {
-        if (SB.currentPointerPosition < SB.getResultsCount()-1) {
+    onArrowDown: function() {
+        if (SB.currentPointerPosition < SB.getResultsCount() - 1) {
             SB.currentPointerPosition++;
             SB.sugg_box.find(".sugg_obj").removeClass("sugg_focused");
             $(SB.sugg_box.find(".sugg_obj").get(SB.currentPointerPosition)).addClass("sugg_focused");
@@ -76,22 +75,22 @@ var SB = {
         return false;
     },
 
-    onArrowUp: function () {
+    onArrowUp: function() {
         if (SB.currentPointerPosition > 0) {
             SB.currentPointerPosition--;
             SB.sugg_box.find(".sugg_obj").removeClass("sugg_focused");
             $(SB.sugg_box.find(".sugg_obj").get(SB.currentPointerPosition)).addClass("sugg_focused");
         } else if (SB.currentPointerPosition == 0) {
-            SB.sugg_box.find(".sugg_obj").removeClass("sugg_focused");            
+            SB.sugg_box.find(".sugg_obj").removeClass("sugg_focused");
             SB.currentPointerPosition--;
         }
 
         return false;
     },
 
-    onEnter: function (e) {
+    onEnter: function(e) {
         console.log("enter");
-        
+
         if (SB.currentPointerPosition != -1) {
             e.preventDefault();
             // go to particular object
@@ -105,17 +104,17 @@ var SB = {
         return true; // just go to search page
     },
 
-    showSuggestions: function (el) {
+    showSuggestions: function(el) {
         var q = $(el).val();
         $.ajax({
             url: "/search/suggestions?per_page=6&q=" + q,
             dataType: "html"
-        }).done(function (html) {
+        }).done(function(html) {
             console.log(html);
             if ($.trim(html) != "") {
                 SB.sugg_box.html(html);
                 SB.sugg_box.show();
-                
+
                 SB.initSelect();
             } else {
                 SB.sugg_box.hide();
@@ -127,7 +126,6 @@ var SB = {
 };
 
 
-
-$(document).ready(function () {
+$(document).ready(function() {
     SB.init();
 });

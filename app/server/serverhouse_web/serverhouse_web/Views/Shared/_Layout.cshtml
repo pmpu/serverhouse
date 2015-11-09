@@ -1,68 +1,112 @@
-﻿@using SimpleJson;
-
+﻿@using SimpleJson
 @if (Request.QueryString["async"] != null) {
-    
-        JsonObject resp = new JsonObject();
-        resp["title"] = @ViewBag.Title+" — serverhouse";
-        resp["html"] = @RenderBody().ToHtmlString();
-        resp["leftbar"] = @Html.Partial("_LeftBarPartial").ToHtmlString();
-    
-        if (@RenderSection("scripts", required: false) != null) 
-            resp["html"] +=@RenderSection("scripts", required: false).ToHtmlString();
-         
-        
-        <text>
-            @Html.Raw(@SimpleJson.SerializeObject(resp))
-        </text>     
-    
-    
-}else{
-    <!DOCTYPE html>
-    <html lang="ru">
-        <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-            <meta charset="utf-8" />
-            <title>@ViewBag.Title — serverhouse</title>
-            <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-            <meta name="viewport" content="width=device-width" />
-            @Styles.Render("~/bootstrap/css")     
-            @Styles.Render("~/main/css")     
-            @Scripts.Render("~/bundles/jquery")  
+    var resp = new JsonObject();
+    resp["title"] = @ViewBag.Title + " — serverhouse";
+    resp["html"] = @RenderBody().ToHtmlString();
+    resp["leftbar"] = @Html.Partial("_LeftBarPartial").ToHtmlString();
 
-            <script src="~/Content/libs/unslider/jquery.unslider.js"></script>
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    if (@RenderSection("scripts", false) != null) {
+        resp["html"] += @RenderSection("scripts", false).ToHtmlString();
+    }
 
-            <script src="//use.typekit.net/fjd1jke.js"></script>
-            <script>try { Typekit.load(); } catch (e) { }</script>
-         
-        </head>
-        <body>
-            
-            @Html.Partial("_TopBarPartial")      
-
-            <div class="wrapper">
-                <div class="leftbar">
-                    @Html.Partial("_LeftBarPartial")
-                </div>
-                <div class="main">
-                    @RenderBody()
-                </div>
-            </div>
-
-            <footer>
-                <!--<div class="content-wrapper">
-                    <div class="float-left">
-                        <p>&copy; @DateTime.Now.Year — serverhouse</p>
-                    </div>
-                </div>
-                    -->
-            </footer>
-
-        
-            @Scripts.Render("~/main/js")
-            @Scripts.Render("~/searchbox")
-            @RenderSection("scripts", required: false)
-        </body>
-    </html>
+    <text>
+        @Html.Raw(@SimpleJson.SerializeObject(resp))
+    </text>
 }
+else {
+<
+    !DOCTYPE
+    html >
+    <
+    html lang = "ru" >
+    <
+    head >
+    <
+    meta
+    http - equiv = "Content-Type"
+    content = "text/html; charset=utf-8"/ >
+    <
+    meta charset = "utf-8"/ >
+    <
+    title > @ViewBag.Title—
+    serverhouse </
+    title >
+    <
+    link href = "~/favicon.ico"
+    rel = "shortcut icon"
+    type = "image/x-icon"/ >
+    <
+    meta name = "viewport"
+    content = "width=device-width"/ >
+              @Styles.Render("~/bootstrap/css")
+    @Styles.Render("~/main/css")
+    @Scripts.Render("~/bundles/jquery")
+    < script
+    src = "~/Content/libs/unslider/jquery.unslider.js" ></
+    script >
+    <
+    link rel = "stylesheet"
+    href = "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" >
 
+    <
+    script src = "//use.typekit.net/fjd1jke.js" ></
+    script >
+    <
+    script >
+    try {
+        Typekit.load();
+    }
+    catch (e) {}</
+    script >
+         
+    </
+    head >
+    <
+    body >
+    @Html.Partial("_TopBarPartial")
+    < div class=
+    "wrapper" >
+    <
+    div class=
+    "leftbar" >
+    @Html.Partial("_LeftBarPartial")
+    </
+    div >
+    <
+    div class=
+    "main" >
+    @RenderBody()
+    </
+    div >
+    </
+    div >
+
+    <
+    footer >
+    <
+    !--<
+    div class=
+    "content-wrapper" >
+    <
+    div class=
+    "float-left" >
+    <
+    p > &copy;
+    @DateTime.Now.Year —
+    serverhouse </
+    p >
+    </
+    div >
+    </
+    div >
+    -->
+        </
+    footer >
+    @Scripts.Render("~/main/js")
+    @Scripts.Render("~/searchbox")
+    @RenderSection("scripts", false)
+    </
+    body >
+    </
+    html >
+}

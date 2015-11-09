@@ -1,19 +1,20 @@
-﻿@using serverhouse_web.Models.SHObject;
-@using serverhouse_web.PropertyValueRepresentation
-@using serverhouse_web.Models.PropertyValue
-@using serverhouse_web
-
+﻿@using serverhouse_web.PropertyValueRepresentation
 @model SHObject
+
 
 @{
     ViewBag.Title = "Edit";
     var obj = Model;
 }
 
+
 <h2 class="edit_title">Edit @obj.getName()</h2>
 
-<div id="object_edit_container" object_id="@obj.id">    
+
+<div id="object_edit_container" object_id="@obj.id">
+
     <div class="object_edit_controls">
+
         <span class="object_edit_add_prop">
             <button>add property</button>
         </span>
@@ -26,12 +27,17 @@
         <span class="object_edit_status">                
         </span>
     </div>
-    <ul class="edit_props gridster">            
-        @foreach (var prop in obj.properties) {                                 
-            <li class="edit_prop gs-w" prop_name="@prop.Key" prop_type="@prop.Value.type" 
-                data-row="@prop.Value.order_data["row"]" data-col="1"  
+
+    <ul class="edit_props gridster">
+
+        @foreach (var prop in obj.properties) {
+            <li class="edit_prop gs-w" prop_name="@prop.Key" prop_type="@prop.Value.type"
+
+                data-row="@prop.Value.order_data["row"]" data-col="1"
+
                 data-sizex="@prop.Value.order_data["sizex"]" data-sizey="@prop.Value.order_data["sizey"]"
                 data-min-sizex="12" data-min-sizey="3">
+
 
                 <span class="edit_prop_header">
                     <span class="edit_prop_name">
@@ -40,8 +46,8 @@
                     of type
                     <span class="edit_prop_type">
                         <select >
-                            @foreach(string type in PropertyValueRepresentation.getAvailablePropertyValueTypes()){
-                                <option value="@type" @(type==prop.Value.type?"selected='selected'":"")>@type</option>
+                            @foreach (var type in PropertyValueRepresentation.getAvailablePropertyValueTypes()) {
+                                <option value="@type" @(type == prop.Value.type ? "selected='selected'" : "")>@type</option>
                             }
                         </select>
                     </span>
@@ -54,14 +60,16 @@
                 
 
                 <div class="edit_prop_valuerep">
-                    @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName(prop.Value.type), prop.Value);}
+
+                    @{ Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName(prop.Value.type), prop.Value); }
                 </div>
-                    
-            </li>                
+
+
+            </li>
         }
-    </ul>    
-        
-        
+    </ul>
+
+
 </div>
 
 

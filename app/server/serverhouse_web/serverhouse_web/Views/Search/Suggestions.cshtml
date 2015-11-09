@@ -1,30 +1,32 @@
-﻿@using serverhouse_web.Models.SHObject
-@using serverhouse_web.Models.PropertyValue;
-@using SimpleJson;
-
+﻿@using serverhouse_web.Models.PropertyValue
 @model List<SHObject>
 
-@{var objects = Model;}
 
-@if (objects.Count > 0) { 
-    foreach (var obj in objects) { 
-    <div class="sugg_obj">
-        <a href="/repo/view/@obj.id" class="div_link"></a>
-        <div class="sugg_obj_name">@obj.getName()</div>
-        @{
-    var image_props = obj.properties.Where(prop => prop.Value.type == "image").OrderBy(o => o.Value.order_data["row"]);
-            if (image_props.Count() > 0) { 
-                <div class="sugg_obj_images">
-                    @foreach(var img_prop in image_props.Take(3)){
-                        ImagePropertyValue img = (ImagePropertyValue)img_prop.Value;
-                        foreach (var url in img.urls.Take(3))
-                        {                             
-                            <img src="@url" height="50"/>
+@{ var objects = Model; }
+
+
+@if (objects.Count > 0) {
+    foreach (var obj in objects) {
+        <div class="sugg_obj">
+
+            <a href="/repo/view/@obj.id" class="div_link"></a>
+
+            <div class="sugg_obj_name">@obj.getName()</div>
+
+            @{
+                var image_props = obj.properties.Where(prop => prop.Value.type == "image").OrderBy(o => o.Value.order_data["row"]);
+                if (image_props.Count() > 0) {
+                    <div class="sugg_obj_images">
+
+                        @foreach (var img_prop in image_props.Take(3)) {
+                            var img = (ImagePropertyValue) img_prop.Value;
+                            foreach (var url in img.urls.Take(3)) {
+                                <img src="@url" height="50"/>
+                            }
                         }
-                    }
-                </div>            
+                    </div>
+                }
             }
-        }
-    </div>
-}
+        </div>
+    }
 }

@@ -1,45 +1,68 @@
 ﻿@using serverhouse_web.Models.SHObject
 @model List<SHObject>
 
-@{var objects = Model;}
+
+@{ var objects = Model; }
+
 
 @{
     ViewBag.Title = ViewBag.query + " search";
     ViewBag.searchBoxQueryValue = ViewBag.query;
 }
 
+
 <h3>search results for "@ViewBag.query"</h3>
 
-<div id="all_objects_container" >
+
+<div id="all_objects_container">
+
     <div class="list">
+
         <div class="list_container">
-        @if(objects.Count > 0){
-            foreach (SHObject obj in objects.OrderByDescending(o => o.ver_timestamp)) {              
-                     <div class="list_row">
-                       <a class="div_link" href="/repo/view/@obj.id"></a>
-                       <div class="list_row_title">@obj.getName()</div>
-                       <div class="list_row_actions">
-                           <a href="/repo/edit/@obj.id">edit</a>  
-                           <a href="/repo/delete/@obj.id" class="delete noasync">delete</a><br>
-                       </div>
+
+            @if (objects.Count > 0) {
+                foreach (SHObject obj in objects.OrderByDescending(o => o.ver_timestamp)) {
+                    <div class="list_row">
+
+                        <a class="div_link" href="/repo/view/@obj.id"></a>
+
+                        <div class="list_row_title">@obj.getName()</div>
+
+                        <div class="list_row_actions">
+
+                            <a href="/repo/edit/@obj.id">edit</a>
+
+                            <a href="/repo/delete/@obj.id" class="delete noasync">delete</a><br>
+
+                        </div>
+
                     </div>
-            }    
-        }else{
-            <h4>no results</h4>
-        }
-        
+                }
+            }
+            else {
+                <h4>no results</h4>
+            }
+
+
         </div>
+
         <div class="list_navigation">
-            @if(ViewBag.page > 1){
-                @Html.ActionLink("Prev", "Index", new { page = ViewBag.page - 1 });
+
+            @if (ViewBag.page > 1) {
+                @Html.ActionLink("Prev", "Index", new {page = ViewBag.page - 1})
+                ;
             }
 
-            @if(ViewBag.nextPageAvailable){
-                @Html.ActionLink("Next", "Index", new { page = ViewBag.page + 1 });
+
+            @if (ViewBag.nextPageAvailable) {
+                @Html.ActionLink("Next", "Index", new {page = ViewBag.page + 1})
+                ;
             }
-            
-            
+
+
+
         </div>
-    </div>
-</div>
 
+    </div>
+
+</div>

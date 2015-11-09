@@ -1,15 +1,23 @@
 ﻿@using serverhouse_web.Models.PropertyValue
 @model PropertyValue
 
+
 @{
-    var m = (ImagePropertyValue)Model;
+    var m = (ImagePropertyValue) Model;
 }
 
+
 <div class="e_valuerep e_valuerep_image">
+
     <div class="e_valuerep_image_url">
-        <textarea placeholder="image urls here; delimeter - \n">@String.Join("\n", m.urls)</textarea>
+
+        <textarea placeholder="image urls here; delimeter - \n">@string.Join("\n", m.urls)</textarea>
+
     </div>
 
-    <div class="e_valuerep_image_preview"></div>    
+
+    <div class="e_valuerep_image_preview"></div>
+
     <div class="e_valuerep_image_thumbs"></div>
+
 </div>

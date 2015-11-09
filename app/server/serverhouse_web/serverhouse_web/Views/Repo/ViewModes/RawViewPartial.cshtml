@@ -1,14 +1,18 @@
 ﻿@model serverhouse_web.Models.SHObject.SHObject
 
-@{var obj = Model;}
+
+@{ var obj = Model; }
 
 
 <div class="obj_view_raw">
 
-@foreach (var prop in obj.properties) { 
-    <text>
-    @prop.Key: @prop.Value <br>
-    </text>
-}
+
+    @foreach (var prop in obj.properties) {
+        <text>
+            @prop.Key: @prop.Value <br>
+
+        </text>
+    }
+
 
 </div>

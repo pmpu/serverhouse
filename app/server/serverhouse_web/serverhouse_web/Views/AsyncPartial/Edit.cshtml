@@ -1,25 +1,29 @@
-﻿@model string
-@using serverhouse_web.Models.PropertyValue
+﻿@using serverhouse_web.Models.PropertyValue
 @using serverhouse_web.PropertyValueRepresentation
+@model string
+
 
 @{
-    var part = Model;   
+    var part = Model;
 }
 
-@switch (part) { 
-     case "new_property":            
-            <li class="edit_prop gs-w" prop_name="" prop_type="text"  
-                    data-sizex="12" data-sizey="3"
-                    data-min-sizex="12" data-min-sizey="3">
-                    <span class="edit_prop_header">
+
+@switch (part) {
+    case "new_property":
+        <li class="edit_prop gs-w" prop_name="" prop_type="text"
+
+            data-sizex="12" data-sizey="3"
+            data-min-sizex="12" data-min-sizey="3">
+
+            <span class="edit_prop_header">
                         <span class="edit_prop_name">
                             <input class="typeahead" placeholder="prop_name" type="text" value="" />
                         </span>
                         of type
                         <span class="edit_prop_type">
                             <select >
-                                @foreach(string type in PropertyValueRepresentation.getAvailablePropertyValueTypes()){
-                                    <option value="@type" @(type=="text"?"selected='selected'":"")>@type</option>
+                                @foreach (var type in PropertyValueRepresentation.getAvailablePropertyValueTypes()) {
+                                    <option value="@type" @(type == "text" ? "selected='selected'" : "")>@type</option>
                                 }
                             </select>
                         </span>
@@ -27,28 +31,30 @@
                             <button>remove</button>
                         </span>
                     </span>
-                    <div class="edit_prop_valuerep">
-                        @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName("text"),
-                          new TextPropertyValue(""));}
-                    </div>
-                </li>     
-            break;
-            
-        case "value_representation":
-                switch (Request.QueryString["type"].ToString()) { 
-                    case "text":
-                        <text>
-                            @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName("text"),
-                              new TextPropertyValue(""));}
-                        </text>
-                        break;
-                        
-                    case "image":
-                        <text>
-                            @{Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName("image"),
-                              new ImagePropertyValue());}
-                        </text>
-                        break;
-                }
-            break;
+            <div class="edit_prop_valuerep">
+
+                @{ Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName("text"),
+                       new TextPropertyValue("")); }
+            </div>
+
+        </li>
+        break;
+
+    case "value_representation":
+        switch (Request.QueryString["type"]) {
+            case "text":
+                <text>
+                    @{ Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName("text"),
+                           new TextPropertyValue("")); }
+                </text>
+                break;
+
+            case "image":
+                <text>
+                    @{ Html.RenderPartial(PropertyValueRepresentation.getEditPartialViewName("image"),
+                           new ImagePropertyValue()); }
+                </text>
+                break;
+        }
+        break;
 }

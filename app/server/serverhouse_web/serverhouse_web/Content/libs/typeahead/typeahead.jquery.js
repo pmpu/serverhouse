@@ -35,6 +35,7 @@
             bind: $.proxy,
             each: function(collection, cb) {
                 $.each(collection, reverseArgs);
+
                 function reverseArgs(index, value) {
                     return cb(value, index);
                 }
@@ -74,6 +75,7 @@
             }(),
             templatify: function templatify(obj) {
                 return $.isFunction(obj) ? obj : template;
+
                 function template() {
                     return String(obj);
                 }
@@ -128,11 +130,11 @@
     }();
     var html = function() {
         return {
-            wrapper: '<span class="twitter-typeahead"></span>',
-            dropdown: '<span class="tt-dropdown-menu"></span>',
-            dataset: '<div class="tt-dataset-%CLASS%"></div>',
-            suggestions: '<span class="tt-suggestions"></span>',
-            suggestion: '<div class="tt-suggestion"></div>'
+            wrapper: "<span class=\"twitter-typeahead\"></span>",
+            dropdown: "<span class=\"tt-dropdown-menu\"></span>",
+            dataset: "<div class=\"tt-dataset-%CLASS%\"></div>",
+            suggestions: "<span class=\"tt-suggestions\"></span>",
+            suggestion: "<div class=\"tt-suggestion\"></div>"
         };
     }();
     var css = function() {
@@ -200,12 +202,14 @@
     var EventBus = function() {
         "use strict";
         var namespace = "typeahead:";
+
         function EventBus(o) {
             if (!o || !o.el) {
                 $.error("EventBus initialized without el");
             }
             this.$el = $(o.el);
         }
+
         _.mixin(EventBus.prototype, {
             trigger: function(type) {
                 var args = [].slice.call(arguments, 1);
@@ -223,6 +227,7 @@
             off: off,
             trigger: trigger
         };
+
         function on(method, types, cb, context) {
             var type;
             if (!cb) {
@@ -240,12 +245,15 @@
             }
             return this;
         }
+
         function onAsync(types, cb, context) {
             return on.call(this, "async", types, cb, context);
         }
+
         function onSync(types, cb, context) {
             return on.call(this, "sync", types, cb, context);
         }
+
         function off(types) {
             var type;
             if (!this._callbacks) {
@@ -257,6 +265,7 @@
             }
             return this;
         }
+
         function trigger(types) {
             var type, callbacks, args, syncFlush, asyncFlush;
             if (!this._callbacks) {
@@ -265,14 +274,16 @@
             types = types.split(splitter);
             args = [].slice.call(arguments, 1);
             while ((type = types.shift()) && (callbacks = this._callbacks[type])) {
-                syncFlush = getFlush(callbacks.sync, this, [ type ].concat(args));
-                asyncFlush = getFlush(callbacks.async, this, [ type ].concat(args));
+                syncFlush = getFlush(callbacks.sync, this, [type].concat(args));
+                asyncFlush = getFlush(callbacks.async, this, [type].concat(args));
                 syncFlush() && nextTick(asyncFlush);
             }
             return this;
         }
+
         function getFlush(callbacks, context, args) {
             return flush;
+
             function flush() {
                 var cancelled;
                 for (var i = 0, len = callbacks.length; !cancelled && i < len; i += 1) {
@@ -281,6 +292,7 @@
                 return !cancelled;
             }
         }
+
         function getNextTick() {
             var nextTickFn;
             if (window.setImmediate) {
@@ -298,6 +310,7 @@
             }
             return nextTickFn;
         }
+
         function bindContext(fn, context) {
             return fn.bind ? fn.bind(context) : function() {
                 fn.apply(context, [].slice.call(arguments, 0));
@@ -320,9 +333,10 @@
             if (!o.node || !o.pattern) {
                 return;
             }
-            o.pattern = _.isArray(o.pattern) ? o.pattern : [ o.pattern ];
+            o.pattern = _.isArray(o.pattern) ? o.pattern : [o.pattern];
             regex = getRegex(o.pattern, o.caseSensitive, o.wordsOnly);
             traverse(o.node, hightlightTextNode);
+
             function hightlightTextNode(textNode) {
                 var match, patternNode, wrapperNode;
                 if (match = regex.exec(textNode.data)) {
@@ -335,6 +349,7 @@
                 }
                 return !!match;
             }
+
             function traverse(el, hightlightTextNode) {
                 var childNode, TEXT_NODE_TYPE = 3;
                 for (var i = 0; i < el.childNodes.length; i++) {
@@ -347,6 +362,7 @@
                 }
             }
         };
+
         function getRegex(patterns, caseSensitive, wordsOnly) {
             var escapedPatterns = [], regexStr;
             for (var i = 0, len = patterns.length; i < len; i++) {
@@ -368,6 +384,7 @@
             38: "up",
             40: "down"
         };
+
         function Input(o) {
             var that = this, onBlur, onFocus, onKeydown, onInput;
             o = o || {};
@@ -396,6 +413,7 @@
             this.query = this.$input.val();
             this.$overflowHelper = buildOverflowHelper(this.$input);
         }
+
         Input.normalizeQuery = function(str) {
             return (str || "").replace(/^\s*/g, "").replace(/\s{2,}/g, " ");
         };
@@ -420,18 +438,18 @@
             _managePreventDefault: function managePreventDefault(keyName, $e) {
                 var preventDefault, hintValue, inputValue;
                 switch (keyName) {
-                  case "tab":
+                case "tab":
                     hintValue = this.getHint();
                     inputValue = this.getInputValue();
                     preventDefault = hintValue && hintValue !== inputValue && !withModifier($e);
                     break;
 
-                  case "up":
-                  case "down":
+                case "up":
+                case "down":
                     preventDefault = !withModifier($e);
                     break;
 
-                  default:
+                default:
                     preventDefault = false;
                 }
                 preventDefault && $e.preventDefault();
@@ -439,11 +457,11 @@
             _shouldTrigger: function shouldTrigger(keyName, $e) {
                 var trigger;
                 switch (keyName) {
-                  case "tab":
+                case "tab":
                     trigger = !withModifier($e);
                     break;
 
-                  default:
+                default:
                     trigger = true;
                 }
                 return trigger;
@@ -527,8 +545,9 @@
             }
         });
         return Input;
+
         function buildOverflowHelper($input) {
-            return $('<pre aria-hidden="true"></pre>').css({
+            return $("<pre aria-hidden=\"true\"></pre>").css({
                 position: "absolute",
                 visibility: "hidden",
                 whiteSpace: "pre",
@@ -544,9 +563,11 @@
                 textTransform: $input.css("text-transform")
             }).insertAfter($input);
         }
+
         function areQueriesEquivalent(a, b) {
             return Input.normalizeQuery(a) === Input.normalizeQuery(b);
         }
+
         function withModifier($e) {
             return $e.altKey || $e.ctrlKey || $e.metaKey || $e.shiftKey;
         }
@@ -554,6 +575,7 @@
     var Dataset = function() {
         "use strict";
         var datasetKey = "ttDataset", valueKey = "ttValue", datumKey = "ttDatum";
+
         function Dataset(o) {
             o = o || {};
             o.templates = o.templates || {};
@@ -571,6 +593,7 @@
             this.templates = getTemplates(o.templates, this.displayFn);
             this.$el = $(html.dataset.replace("%CLASS%", this.name));
         }
+
         Dataset.extractDatasetName = function extractDatasetName(el) {
             return $(el).data(datasetKey);
         };
@@ -594,12 +617,14 @@
                     this.$el.html(getSuggestionsHtml()).prepend(that.templates.header ? getHeaderHtml() : null).append(that.templates.footer ? getFooterHtml() : null);
                 }
                 this.trigger("rendered");
+
                 function getEmptyHtml() {
                     return that.templates.empty({
                         query: query,
                         isEmpty: true
                     });
                 }
+
                 function getSuggestionsHtml() {
                     var $suggestions, nodes;
                     $suggestions = $(html.suggestions).css(css.suggestions);
@@ -611,6 +636,7 @@
                         pattern: query
                     });
                     return $suggestions;
+
                     function getSuggestionNode(suggestion) {
                         var $el;
                         $el = $(html.suggestion).append(that.templates.suggestion(suggestion)).data(datasetKey, that.name).data(valueKey, that.displayFn(suggestion)).data(datumKey, suggestion);
@@ -620,12 +646,14 @@
                         return $el;
                     }
                 }
+
                 function getHeaderHtml() {
                     return that.templates.header({
                         query: query,
                         isEmpty: !hasSuggestions
                     });
                 }
+
                 function getFooterHtml() {
                     return that.templates.footer({
                         query: query,
@@ -641,6 +669,7 @@
                 this.query = query;
                 this.canceled = false;
                 this.source(query, render);
+
                 function render(suggestions) {
                     if (!that.canceled && query === that.query) {
                         that._render(query, suggestions);
@@ -663,13 +692,16 @@
             }
         });
         return Dataset;
+
         function getDisplayFn(display) {
             display = display || "value";
             return _.isFunction(display) ? display : displayFn;
+
             function displayFn(obj) {
                 return obj[display];
             }
         }
+
         function getTemplates(templates, displayFn) {
             return {
                 empty: templates.empty && _.templatify(templates.empty),
@@ -677,16 +709,19 @@
                 footer: templates.footer && _.templatify(templates.footer),
                 suggestion: templates.suggestion || suggestionTemplate
             };
+
             function suggestionTemplate(context) {
                 return "<p>" + displayFn(context) + "</p>";
             }
         }
+
         function isValidName(str) {
             return /^[_a-zA-Z0-9-]+$/.test(str);
         }
     }();
     var Dropdown = function() {
         "use strict";
+
         function Dropdown(o) {
             var that = this, onSuggestionClick, onSuggestionMouseEnter, onSuggestionMouseLeave;
             o = o || {};
@@ -705,6 +740,7 @@
                 dataset.onSync("rendered", that._onRendered, that);
             });
         }
+
         _.mixin(Dropdown.prototype, EventEmitter, {
             _onSuggestionClick: function onSuggestionClick($e) {
                 this.trigger("suggestionClicked", $($e.currentTarget));
@@ -720,6 +756,7 @@
                 this.isEmpty = _.every(this.datasets, isDatasetEmpty);
                 this.isEmpty ? this._hide() : this.isOpen && this._show();
                 this.trigger("datasetRendered");
+
                 function isDatasetEmpty(dataset) {
                     return dataset.isEmpty();
                 }
@@ -817,6 +854,7 @@
             },
             update: function update(query) {
                 _.each(this.datasets, updateDataset);
+
                 function updateDataset(dataset) {
                     dataset.update(query);
                 }
@@ -824,6 +862,7 @@
             empty: function empty() {
                 _.each(this.datasets, clearDataset);
                 this.isEmpty = true;
+
                 function clearDataset(dataset) {
                     dataset.clear();
                 }
@@ -835,12 +874,14 @@
                 this.$menu.off(".tt");
                 this.$menu = null;
                 _.each(this.datasets, destroyDataset);
+
                 function destroyDataset(dataset) {
                     dataset.destroy();
                 }
             }
         });
         return Dropdown;
+
         function initializeDataset(oDataset) {
             return new Dataset(oDataset);
         }
@@ -848,6 +889,7 @@
     var Typeahead = function() {
         "use strict";
         var attrsKey = "ttAttrs";
+
         function Typeahead(o) {
             var $menu, $input, $hint;
             o = o || {};
@@ -890,6 +932,7 @@
             }).onSync("focused", this._onFocused, this).onSync("blurred", this._onBlurred, this).onSync("enterKeyed", this._onEnterKeyed, this).onSync("tabKeyed", this._onTabKeyed, this).onSync("escKeyed", this._onEscKeyed, this).onSync("upKeyed", this._onUpKeyed, this).onSync("downKeyed", this._onDownKeyed, this).onSync("leftKeyed", this._onLeftKeyed, this).onSync("rightKeyed", this._onRightKeyed, this).onSync("queryChanged", this._onQueryChanged, this).onSync("whitespaceChanged", this._onWhitespaceChanged, this);
             this._setLanguageDirection();
         }
+
         _.mixin(Typeahead.prototype, {
             _onSuggestionClicked: function onSuggestionClicked(type, $el) {
                 var datum;
@@ -1045,6 +1088,7 @@
             }
         });
         return Typeahead;
+
         function buildDom(input, withHint) {
             var $input, $wrapper, $dropdown, $hint;
             $input = $(input);
@@ -1068,9 +1112,11 @@
             }).css(withHint ? css.input : css.inputWithNoHint);
             try {
                 !$input.attr("dir") && $input.attr("dir", "auto");
-            } catch (e) {}
+            } catch (e) {
+            }
             return $input.wrap($wrapper).parent().prepend(withHint ? $hint : null).append($dropdown);
         }
+
         function getBackgroundStyles($el) {
             return {
                 backgroundAttachment: $el.css("background-attachment"),
@@ -1083,6 +1129,7 @@
                 backgroundSize: $el.css("background-size")
             };
         }
+
         function destroyDomStructure($node) {
             var $input = $node.find(".tt-input");
             _.each($input.data(attrsKey), function(val, key) {
@@ -1102,6 +1149,7 @@
                 datasets = _.isArray(datasets) ? datasets : [].slice.call(arguments, 1);
                 o = o || {};
                 return this.each(attach);
+
                 function attach() {
                     var $input = $(this), eventBus, typeahead;
                     _.each(datasets, function(d) {
@@ -1122,6 +1170,7 @@
             },
             open: function open() {
                 return this.each(openTypeahead);
+
                 function openTypeahead() {
                     var $input = $(this), typeahead;
                     if (typeahead = $input.data(typeaheadKey)) {
@@ -1131,6 +1180,7 @@
             },
             close: function close() {
                 return this.each(closeTypeahead);
+
                 function closeTypeahead() {
                     var $input = $(this), typeahead;
                     if (typeahead = $input.data(typeaheadKey)) {
@@ -1140,12 +1190,14 @@
             },
             val: function val(newVal) {
                 return !arguments.length ? getVal(this.first()) : this.each(setVal);
+
                 function setVal() {
                     var $input = $(this), typeahead;
                     if (typeahead = $input.data(typeaheadKey)) {
                         typeahead.setVal(newVal);
                     }
                 }
+
                 function getVal($input) {
                     var typeahead, query;
                     if (typeahead = $input.data(typeaheadKey)) {
@@ -1156,6 +1208,7 @@
             },
             destroy: function destroy() {
                 return this.each(unattach);
+
                 function unattach() {
                     var $input = $(this), typeahead;
                     if (typeahead = $input.data(typeaheadKey)) {

@@ -1,40 +1,51 @@
-﻿@model serverhouse_web.Models.SHObject.SHObject
-
-@using serverhouse_web.Models.PropertyValue;
-
-@{var obj = Model;}
+﻿@using serverhouse_web.Models.PropertyValue
+@model serverhouse_web.Models.SHObject.SHObject
 
 
-@{ var image_props = obj.properties.Where(prop => prop.Value.type == "image");}
-@if(image_props.Count() > 0){
-    <h3>Images</h3><hr>
+@{ var obj = Model; }
+
+
+
+@{ var image_props = obj.properties.Where(prop => prop.Value.type == "image"); }
+@if (image_props.Count() > 0) {
+    <h3>Images</h3>
+    <hr>
     <div class="obj_view_imagegallery">
-    
+
+
         @foreach (var prop in obj.properties.OrderBy(o => o.Value.order_data["row"])) {
-            if (prop.Value.type == "image") { 
-                ImagePropertyValue img = (ImagePropertyValue)prop.Value;
-                foreach (var url in img.urls) { 
-                    <div class="obj_view_imgprop">                
+            if (prop.Value.type == "image") {
+                var img = (ImagePropertyValue) prop.Value;
+                foreach (var url in img.urls) {
+                    <div class="obj_view_imgprop">
+
                         <a href="@url" data-lightbox="@prop.Key" data-title="@prop.Key">
-                            <img class="obj_view_imgprop_img" src="@url" height="50" title="@prop.Key" />
+
+                            <img class="obj_view_imgprop_img" src="@url" height="50" title="@prop.Key"/>
+
                         </a>
-                    </div>    
+
+                    </div>
                 }
-            
-            }    
+            }
         }
-    </div>    
+    </div>
 }
 
-<br />
+
+<br/>
+
 <div class="obj_view_textprops">
-    @foreach (var prop in obj.properties.OrderBy(o => o.Value.order_data["row"])) { 
-        if (prop.Value.type == "text") { 
+
+    @foreach (var prop in obj.properties.OrderBy(o => o.Value.order_data["row"])) {
+        if (prop.Value.type == "text") {
             <div class="obj_view_textprop">
+
                 <div class="obj_view_textprop_name">@prop.Key</div>
+
                 <div class="obj_view_textprop_value"> @prop.Value</div>
+
             </div>
         }
     }
 </div>
-

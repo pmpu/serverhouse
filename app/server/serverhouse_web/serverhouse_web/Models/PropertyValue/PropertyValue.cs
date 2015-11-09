@@ -1,20 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SimpleJson;
+using System.Web;
 
-namespace serverhouse_web.Models.PropertyValue {
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+using SimpleJson;
+using MongoDB.Bson.Serialization;
+
+namespace serverhouse_web.Models.PropertyValue
+{
     [BsonDiscriminator(RootClass = true)]
-    [BsonKnownTypes(typeof (TextPropertyValue), typeof (ImagePropertyValue))]
-    public class PropertyValue : object {
-        public PropertyValue() {
-            type = "unknown_property_value_type";
-        }
+    [BsonKnownTypes(typeof(TextPropertyValue), typeof(ImagePropertyValue))]
+    public class PropertyValue: object
+    {
 
         public string type { get; set; }
         public Dictionary<string, int> order_data { get; set; }
 
-        public override string ToString() {
+        public PropertyValue() {
+            type = "unknown_property_value_type";
+        }
+
+        public override string ToString()
+        {
             return "UnknownPropertyValue";
         }
 
@@ -26,16 +36,16 @@ namespace serverhouse_web.Models.PropertyValue {
                     break;
                 case "image":
                     newPropVal = new ImagePropertyValue(
-                        (from o in (JsonArray) propertyValue["urls"]
-                            select o.ToString()).ToList()
+                        (from o in (JsonArray)propertyValue["urls"]
+                         select o.ToString()).ToList()
                         );
                     break;
                 default:
-                    throw new Exception("Unknown property value type");
+                    throw new Exception("Unknown property value type");                    
             }
 
             // add order data
-            var order_data = (JsonObject) propertyValue["order_data"];
+            var order_data = (JsonObject)propertyValue["order_data"];
 
             newPropVal.order_data = new Dictionary<string, int>();
             newPropVal.order_data["row"] = int.Parse(order_data["row"].ToString());

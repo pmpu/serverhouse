@@ -1,31 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
-namespace serverhouse_web.Models.SHObject {
-    public class SHObject {
-        public SHObject() {
-            properties = new Dictionary<string, PropertyValue.PropertyValue>();
-            id = -1;
-        }
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
+
+
+namespace serverhouse_web.Models.SHObject
+{
+    using serverhouse_web.Models.PropertyValue;
+
+    public class SHObject
+    {
         [BsonId]
         public string databaseId { get; set; }
-
         public long id { get; set; }
-        public Dictionary<string, PropertyValue.PropertyValue> properties { get; set; }
+        public Dictionary<string, PropertyValue> properties { get; set; }        
         public bool ver_active { get; set; }
         public double ver_timestamp { get; set; }
 
-        public void set(string key, PropertyValue.PropertyValue value) {
-            if (properties.ContainsKey(key)) {
+        public SHObject() { 
+            properties = new Dictionary<string, PropertyValue>();
+            id = -1;
+        }
+
+        public void set(string key, PropertyValue value){
+            if (properties.ContainsKey(key)){
                 properties[key] = value;
-            }
-            else {
+            }else {
                 properties.Add(key, value);
             }
         }
 
-        public PropertyValue.PropertyValue get(string key) {
-            if (properties.ContainsKey(key)) {
+        public PropertyValue get(string key) { 
+            if (properties.ContainsKey(key)){
                 return properties[key];
             }
 
@@ -34,12 +44,14 @@ namespace serverhouse_web.Models.SHObject {
 
         public string getName() {
             if (properties.ContainsKey("name")) {
-                if (properties["name"].ToString() != "") {
+                if (properties["name"].ToString() != ""){
                     return properties["name"].ToString();
                 }
             }
 
-            return "#" + id;
+            return "#"+id.ToString();
         }
+       
+
     }
 }
