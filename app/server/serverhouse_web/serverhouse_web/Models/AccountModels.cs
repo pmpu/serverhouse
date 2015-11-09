@@ -1,41 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Globalization;
-using System.Web.Security;
 
-
-
-namespace serverhouse_web.Models
-{
-    public class UsersContext : DbContext
-    {
+namespace serverhouse_web.Models {
+    public class UsersContext : DbContext {
         public UsersContext()
-            : base("DefaultConnection")
-        {
-        }
+            : base("DefaultConnection") {}
 
         public DbSet<UserProfile> UserProfiles { get; set; }
     }
 
-
-    
-
     [Table("UserProfile")]
-    public class UserProfile
-    {
-        public enum USER_TYPE { USER_TYPE_ADMIN = 0, USER_TYPE_DEFAULT = 1 };
+    public class UserProfile {
+        public enum USER_TYPE {
+            USER_TYPE_ADMIN = 0,
+            USER_TYPE_DEFAULT = 1
+        };
+
         [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
+
         public string UserName { get; set; }
         public USER_TYPE userType { get; set; }
     }
 
-    public class RegisterExternalLoginModel
-    {
+    public class RegisterExternalLoginModel {
         [Required]
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
@@ -43,15 +32,15 @@ namespace serverhouse_web.Models
         public string ExternalLoginData { get; set; }
     }
 
-    public class LocalPasswordModel
-    {
+    public class LocalPasswordModel {
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Текущий пароль")]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "Значение \"{0}\" должно содержать не менее {2} символов.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Значение \"{0}\" должно содержать не менее {2} символов.", MinimumLength = 6)
+        ]
         [DataType(DataType.Password)]
         [Display(Name = "Новый пароль")]
         public string NewPassword { get; set; }
@@ -62,8 +51,7 @@ namespace serverhouse_web.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class LoginModel
-    {
+    public class LoginModel {
         [Required]
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
@@ -77,14 +65,14 @@ namespace serverhouse_web.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterModel
-    {
+    public class RegisterModel {
         [Required]
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "Значение \"{0}\" должно содержать не менее {2} символов.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Значение \"{0}\" должно содержать не менее {2} символов.", MinimumLength = 6)
+        ]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
@@ -95,8 +83,7 @@ namespace serverhouse_web.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ExternalLogin
-    {
+    public class ExternalLogin {
         public string Provider { get; set; }
         public string ProviderDisplayName { get; set; }
         public string ProviderUserId { get; set; }
